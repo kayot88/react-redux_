@@ -1,5 +1,5 @@
-
 import { ADD_POST, UPDATE_NEW_POST_TEXT } from './../constants/index';
+
 let initialState = {
     posts: [
         {
@@ -39,17 +39,6 @@ const profileReducer = (state = initialState, action) => {
     return state;
 }
 
-export const addPostCreator = () => {
-    return {
-        type: ADD_POST
-    }
-}
 
-export const updateNewPostTextCreator = (text) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        payload: text
-    }
-}
 
 export default profileReducer;
