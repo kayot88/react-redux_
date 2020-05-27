@@ -1,38 +1,41 @@
-import React from 'react';
-import s from './MyPosts.module.css';
-import Post from './Post/Post';
-// import { addPostCreator, updateNewPostTextCreator } from '../../../redux/profile-reducer';
-import { addPostCreator, updateNewPostTextCreator } from './../../../ac/index';
-
+import React from "react";
+import s from "./MyPosts.module.css";
+import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>);
+  const { addPost, updateNewPostText, posts, newPostText } = props;
+  //   debugger;
+  let postsElements = posts.map((p) => {
+    return <Post message={p.message} likesCount={p.likesCount} key={p.id} />;
+  });
 
-    let newPostElement = React.createRef();
+  let newPostElement = React.createRef();
 
-    let addPost = () => {
-        props.dispatch(addPostCreator());
-    }
- 
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.dispatch(updateNewPostTextCreator(text));
-    }
+  //   debugger
+  let onPostChange = () => {
+    let text = newPostElement.current.value;
+    //   debugger
+    updateNewPostText(text);
+  };
 
-    return (
-        <div className={s.postsBlock}>
-            <h3>My post</h3>
-            <div>
-                <div>
-                    <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText}/>
-                </div>
-                <div>
-                    <button onClick={ addPost }>Add post</button>
-                </div>
-            </div>
-            {postsElements}
+  return (
+    <div className={s.postsBlock}>
+      <h3>My post</h3>
+      <div>
+        <div>
+          <textarea
+            ref={newPostElement}
+            onChange={onPostChange}
+            value={newPostText}
+          />
         </div>
-    );
-}
+        <div>
+          <button onClick={addPost}>Add post</button>
+        </div>
+      </div>
+      {postsElements}
+    </div>
+  );
+};
 
 export default MyPosts;

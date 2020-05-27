@@ -44,17 +44,17 @@ const dialogsReducer = (state = initialState, action) => {
     return state;
 }
 
-export const updateMessageTextCreator = (text) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        payload: text
-    }
-}
+// export const updateMessageTextCreator = (text) => {
+//     return {
+//         type: UPDATE_NEW_MESSAGE_TEXT,
+//         payload: text
+//     }
+// }
 
-export const sendMessageCreator = () => {
-    return {
-        type: SEND_MESSAGE
-    }
-}
+// export const sendMessageCreator = () => {
+//     return {
+//         type: SEND_MESSAGE
+//     }
+// }
 
 export default dialogsReducer;
