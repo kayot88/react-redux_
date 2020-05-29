@@ -8,18 +8,21 @@ const Dialogs = (props) => {
     dialogsPage,
     onNewMessageText,
     onSendMessageClick,
+    newValueMessage,
   } = props;
+  const onChangeTextareaHandler = (e) => {
+    let testValue = e.target.value;
+    console.log(testValue);
+    onNewMessageText(testValue);
+  };
 
+  // console.log("newValueMessage: ", newValueMessage);
   let dialogsElements = dialogsPage.dialogs.map((d) => (
     <DialogItem name={d.name} key={d.id} />
   ));
   let messagesElements = dialogsPage.messages.map((m) => (
     <Message message={m.message} key={m.id} />
   ));
-  let newMessageTextUI = dialogsPage.newMessageText;
-
-  
-
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>{dialogsElements}</div>
@@ -28,8 +31,8 @@ const Dialogs = (props) => {
         <div>
           <div>
             <textarea
-              onChange={onNewMessageText}
-              value={newMessageTextUI}
+              onChange={onChangeTextareaHandler}
+              value={newValueMessage}
               placeholder="Enter your message"
             ></textarea>
           </div>
