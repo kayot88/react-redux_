@@ -1,14 +1,14 @@
-import { connect } from "react-redux";
 import React from "react";
-import Users from "./Users";
+import { connect } from "react-redux";
 import { follow, unFollow, setUsers } from "./../../../ac/usersPage";
+import Users from "./UsersC";
 
 const mapStateToProps = (state) => {
-  console.log("  debugger: ", state);
   return {
     users: state.usersPage.users,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowClick: (userId) => {
