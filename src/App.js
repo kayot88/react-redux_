@@ -12,6 +12,7 @@ function App(props) {
     <div className="app-wrapper">
       <Header />
       <Navbar />
+      {/* <UsersContainer/> */}
       <div className="app-wrapper-content">
         <Route path="/profile" render={() => <Profile />} />
         <Route path="/dialogs" render={() => <DialogsContainer />} />

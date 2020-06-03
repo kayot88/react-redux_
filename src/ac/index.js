@@ -34,6 +34,5 @@ export const updateMessageTextCreator_Process = (text) => {
 export const sendMessageCreator = () => {
   return {
     type: SEND_MESSAGE
-    // type: ,
   };
 };

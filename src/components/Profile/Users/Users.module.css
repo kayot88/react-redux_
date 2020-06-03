@@ -1,4 +1,18 @@
 .userAva {
-   width: 150px;
-   height: 100px;
+  width: 150px;
+  height: 100px;
+}
+
+.currentPage {
+  font-weight: bold;
+}
+.pages {
+  margin-left: 1px;
+
+}
+
+
+span:hover{
+  background-color: yellow;
+  transform: rotate(19deg);
 }
