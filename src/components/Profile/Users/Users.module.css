@@ -6,11 +6,11 @@
 .currentPage {
   font-weight: bold;
 }
+
 .pages {
   margin-left: 1px;
 
 }
-
 
 span:hover{
   background-color: yellow;
