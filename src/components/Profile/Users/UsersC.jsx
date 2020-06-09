@@ -10,8 +10,6 @@ const Users = ({
   onFollowClick,
   users,
 }) => {
-console.log("totalCount", totalCount);
-  // debugger
   const countPages = Math.ceil(totalCount / countByPage);
   const countPagesArr = [];
 

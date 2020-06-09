@@ -7,36 +7,43 @@ import {
   setUsers,
   setCurrentPage,
   setTotalCount,
+  isLoading,
 } from "./../../../ac/usersPage";
 import Users from "./UsersC";
+import spinner from "../../../img/Cube-1s-200px.svg";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
+    this.props.isLoadingAction(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countByPage}`
       )
       .then((res) => {
-        console.log(res);
         this.props.setUsers(res.data.items);
         this.props.setTotalCount(res.data.totalCount);
-        console.log(res.data.totalCount);
+        this.props.isLoadingAction(false);
       });
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
+      this.props.isLoadingAction(true);
       axios
         .get(
           `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countByPage}`
         )
         .then((res) => {
           this.props.setUsers(res.data.items);
+          this.props.isLoadingAction(false);
         });
     }
   }
 
   render() {
-    return (
+    console.log(this.props.isLoading);
+    return this.props.isLoading ? (
+      <img src={spinner} alt="spinner" />
+    ) : (
       <Users
         totalCount={this.props.totalCount}
         countByPage={this.props.countByPage}
@@ -56,6 +63,7 @@ const mapStateToProps = (state) => {
     totalCount: state.usersPage.totalCount,
     countByPage: state.usersPage.countByPage,
     currentPage: state.usersPage.currentPage,
+    isLoading: state.usersPage.isLoading,
   };
 };
 
@@ -75,6 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setTotalCount: (totalCount) => {
       dispatch(setTotalCount(totalCount));
+    },
+    isLoadingAction: (loading) => {
+      dispatch(isLoading(loading));
     },
   };
 };

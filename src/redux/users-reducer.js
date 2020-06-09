@@ -4,12 +4,14 @@ import {
   SET_USERS,
   SET_CURRENT_PAGE,
   SET_TOTAL_COUNT,
+  IS_LOADING,
 } from "./../constants/index";
 let initialState = {
   users: [],
   totalCount: 0,
   countByPage: 10,
   currentPage: 1,
+  isLoading: true
 };
 
 const userReducer = (state = initialState, action) => {
@@ -47,8 +49,12 @@ const userReducer = (state = initialState, action) => {
         ...state,
         currentPage: action.payload,
       };
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     case SET_TOTAL_COUNT:
-      console.log("reducer in progress");
       return {
         ...state,
         totalCount: action.payload,

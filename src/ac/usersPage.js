@@ -12,7 +12,6 @@ export const setCurrentPage = (pageId) => {
   };
 };
 export const setTotalCount = (totalCount) => {
-  console.log("ac in progress");
   return {
     type: "SET_TOTAL_COUNT",
     payload: totalCount,
@@ -30,5 +29,12 @@ export const setUsers = (users) => {
   return {
     type: "SET_USERS",
     payload: users,
+  };
+};
+
+export const isLoading = (loading) => {
+  return {
+    type: "IS_LOADING",
+    payload: loading,
   };
 };
