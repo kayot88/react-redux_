@@ -8,9 +8,9 @@ import {
   setCurrentPage,
   setTotalCount,
   isLoading,
-} from "./../../../ac/usersPage";
+} from "../../ac/usersPage";
 import Users from "./UsersC";
-import spinner from "../../../img/Cube-1s-200px.svg";
+import Spinner from "../Spinner";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
@@ -40,9 +40,8 @@ class UsersApiContainer extends Component {
   }
 
   render() {
-    console.log(this.props.isLoading);
     return this.props.isLoading ? (
-      <img src={spinner} alt="spinner" />
+      <Spinner />
     ) : (
       <Users
         totalCount={this.props.totalCount}

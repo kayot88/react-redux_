@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Users.module.css";
+import { NavLink } from "react-router-dom";
 
 const Users = ({
   totalCount,
@@ -16,8 +17,7 @@ const Users = ({
   for (let i = 1; i <= countPages; i++) {
     countPagesArr.push(i);
   }
-  // console.log(countPages);
-  
+
   const styleS = {
     transform: `transform: rotate(19deg)`,
   };
@@ -45,11 +45,13 @@ const Users = ({
         return (
           <div key={user.id}>
             <div>
-              <img
-                className={styles.userAva}
-                src={user.photos.small || "https://loremflickr.com/100/100"}
-                alt=""
-              />
+              <NavLink to={`/profile/${user.id}`}>
+                <img
+                  className={styles.userAva}
+                  src={user.photos.small || "https://loremflickr.com/100/100"}
+                  alt=""
+                />
+              </NavLink>
               <div>
                 {user.followed === true ? (
                   <button

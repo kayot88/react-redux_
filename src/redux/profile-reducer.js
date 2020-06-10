@@ -1,4 +1,8 @@
-import { ADD_POST, UPDATE_NEW_POST_TEXT } from "./../constants/index";
+import {
+  ADD_POST,
+  UPDATE_NEW_POST_TEXT,
+  SET_PROFILE_TO_STORE,
+} from "./../constants/index";
 
 let initialState = {
   posts: [
@@ -19,10 +23,14 @@ let initialState = {
     },
   ],
   newPostText: "",
+  profile: {},
 };
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_PROFILE_TO_STORE: {
+      return { ...state, profile: action.payload };
+    }
     case ADD_POST: {
       let newPost = {
         id: 5,

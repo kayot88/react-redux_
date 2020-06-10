@@ -5,16 +5,19 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import { Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Profile/Users/UsersContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 function App(props) {
   return (
     <div className="app-wrapper">
       <Header />
       <Navbar />
-      {/* <UsersContainer/> */}
       <div className="app-wrapper-content">
-        <Route path="/profile" render={() => <Profile />} />
+        <Route
+          path="/profile"
+          render={() => <ProfileContainer />}
+        />
         <Route path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/users" render={() => <UsersContainer />} />
       </div>
