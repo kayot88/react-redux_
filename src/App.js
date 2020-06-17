@@ -7,11 +7,12 @@ import { Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainerWithConnect from './components/Header/HeaderContainer';
 
 function App(props) {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainerWithConnect />
       <Navbar />
       <div className="app-wrapper-content">
         <Route
@@ -20,6 +21,7 @@ function App(props) {
         />
         <Route path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/users" render={() => <UsersContainer />} />
+        {/* <Route path="/login" render={() => <UsersContainer />} /> */}
       </div>
     </div>
   );

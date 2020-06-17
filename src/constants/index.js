@@ -13,3 +13,4 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
 export const IS_LOADING = "IS_LOADING";
 export const SET_PROFILE_TO_STORE = "SET_PROFILE_TO_STORE";
+export const SET_USER_AUTH = "SET_USER_AUTH";
