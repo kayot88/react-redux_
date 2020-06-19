@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as axios from "axios";
 import { connect } from "react-redux";
 import {
   follow,
@@ -11,14 +10,13 @@ import {
 } from "../../ac/usersPage";
 import Users from "./UsersC";
 import Spinner from "../Spinner";
+import { usersApi } from "./../../api/usersApi";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
     this.props.isLoadingAction(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countByPage}`
-      )
+    usersApi
+      .getUsers(this.props.currentPage, this.props.countByPage)
       .then((res) => {
         this.props.setUsers(res.data.items);
         this.props.setTotalCount(res.data.totalCount);
@@ -28,10 +26,8 @@ class UsersApiContainer extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
       this.props.isLoadingAction(true);
-      axios
-        .get(
-          `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countByPage}`
-        )
+      usersApi
+        .getUsers(this.props.currentPage, this.props.countByPage)
         .then((res) => {
           this.props.setUsers(res.data.items);
           this.props.isLoadingAction(false);
@@ -65,17 +61,10 @@ const mapStateToProps = (state) => {
     isLoading: state.usersPage.isLoading,
   };
 };
-// api follow/unfollow key : 27fbfa1d-3ee0-41a5-92e8-c87548fa77ec
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowClick: (userId) => {
-      axios({
-        method: "post",
-        url: `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-        withCredentials: true,
-        headers: { "API-KEY": "27fbfa1d-3ee0-41a5-92e8-c87548fa77ec" },
-      }).then((res) => {
-        debugger
+      usersApi.followApi(userId).then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(follow(userId));
         } else {
@@ -84,12 +73,7 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
     onUnFollowClick: (userId) => {
-      axios({
-        method: "delete",
-        url: `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-        withCredentials: true,
-        headers: { "API-KEY": "27fbfa1d-3ee0-41a5-92e8-c87548fa77ec" },
-      }).then((res) => {
+      usersApi.unFollowApi(userId).then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(unFollow(userId));
         } else {
