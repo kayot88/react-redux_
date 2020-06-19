@@ -65,14 +65,37 @@ const mapStateToProps = (state) => {
     isLoading: state.usersPage.isLoading,
   };
 };
-
+// api follow/unfollow key : 27fbfa1d-3ee0-41a5-92e8-c87548fa77ec
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowClick: (userId) => {
-      dispatch(follow(userId));
+      axios({
+        method: "post",
+        url: `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        withCredentials: true,
+        headers: { "API-KEY": "27fbfa1d-3ee0-41a5-92e8-c87548fa77ec" },
+      }).then((res) => {
+        debugger
+        if (res.data.resultCode === 0) {
+          dispatch(follow(userId));
+        } else {
+          alert(res.data.messages);
+        }
+      });
     },
     onUnFollowClick: (userId) => {
-      dispatch(unFollow(userId));
+      axios({
+        method: "delete",
+        url: `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        withCredentials: true,
+        headers: { "API-KEY": "27fbfa1d-3ee0-41a5-92e8-c87548fa77ec" },
+      }).then((res) => {
+        if (res.data.resultCode === 0) {
+          dispatch(unFollow(userId));
+        } else {
+          alert(res.data.messages);
+        }
+      });
     },
     setUsers: (users) => {
       dispatch(setUsers(users));
