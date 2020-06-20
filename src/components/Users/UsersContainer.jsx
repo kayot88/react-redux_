@@ -7,6 +7,7 @@ import {
   setCurrentPage,
   setTotalCount,
   isLoading,
+  followInProgres,
 } from "../../ac/usersPage";
 import Users from "./UsersC";
 import Spinner from "../Spinner";
@@ -47,6 +48,8 @@ class UsersApiContainer extends Component {
         onUnFollowClick={this.props.onUnFollowClick}
         onFollowClick={this.props.onFollowClick}
         users={this.props.users}
+        isFollowProgres={this.props.isFollowing}
+        isFollowingingAction={this.props.isFollowingingAction}
       />
     );
   }
@@ -59,6 +62,7 @@ const mapStateToProps = (state) => {
     countByPage: state.usersPage.countByPage,
     currentPage: state.usersPage.currentPage,
     isLoading: state.usersPage.isLoading,
+    isFollowing: state.usersPage.followInProgres,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -67,18 +71,16 @@ const mapDispatchToProps = (dispatch) => {
       usersApi.followApi(userId).then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(follow(userId));
-        } else {
-          alert(res.data.messages);
         }
+        dispatch(followInProgres(false, userId));
       });
     },
     onUnFollowClick: (userId) => {
       usersApi.unFollowApi(userId).then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(unFollow(userId));
-        } else {
-          alert(res.data.messages);
         }
+        dispatch(followInProgres(false, userId));
       });
     },
     setUsers: (users) => {
@@ -92,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     isLoadingAction: (loading) => {
       dispatch(isLoading(loading));
+    },
+    isFollowingingAction: (following, userId) => {
+      dispatch(followInProgres(following, userId));
     },
   };
 };

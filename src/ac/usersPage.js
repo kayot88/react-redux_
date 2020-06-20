@@ -38,3 +38,11 @@ export const isLoading = (loading) => {
     payload: loading,
   };
 };
+
+export const followInProgres = (following, userId) => {
+  return {
+    type: "FOLLOW_IN_PROGRES",
+    following,
+    userId,
+  };
+};

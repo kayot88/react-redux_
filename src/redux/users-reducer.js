@@ -5,13 +5,15 @@ import {
   SET_CURRENT_PAGE,
   SET_TOTAL_COUNT,
   IS_LOADING,
+  FOLLOW_IN_PROGRES,
 } from "./../constants/index";
 let initialState = {
   users: [],
   totalCount: 0,
   countByPage: 10,
   currentPage: 1,
-  isLoading: true
+  isLoading: true,
+  followInProgres: [2,3],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -25,6 +27,13 @@ const userReducer = (state = initialState, action) => {
           }
           return user;
         }),
+      };
+    case FOLLOW_IN_PROGRES:
+      return {
+        ...state,
+        followInProgres: action.following
+          ? [...state.followInProgres, action.userId]
+          : state.followInProgres.filter((id) => id !== action.userId),
       };
 
     case UNFOLLOW:

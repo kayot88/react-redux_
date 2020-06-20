@@ -8,7 +8,6 @@ const instance = axios.create({
 
 export const usersApi = {
   getUsers(currentPage = 1, countByPage = 10) {
-    console.log(process);
     return instance.get(`./users?page=${currentPage}&count=${countByPage}`);
   },
   followApi(userId) {

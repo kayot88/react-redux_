@@ -10,6 +10,8 @@ const Users = ({
   onUnFollowClick,
   onFollowClick,
   users,
+  isFollowingingAction,
+  isFollowProgres,
 }) => {
   const countPages = Math.ceil(totalCount / countByPage);
   const countPagesArr = [];
@@ -42,6 +44,7 @@ const Users = ({
         })}
       </div>
       {users.map((user) => {
+        // console.log(isFollowProgres, user.id);
         return (
           <div key={user.id}>
             <div>
@@ -55,7 +58,9 @@ const Users = ({
               <div>
                 {user.followed === true ? (
                   <button
+                    disabled={isFollowProgres.some((id) => id === user.id)}
                     onClick={() => {
+                      isFollowingingAction(true, user.id);
                       onUnFollowClick(user.id);
                     }}
                   >
@@ -63,7 +68,9 @@ const Users = ({
                   </button>
                 ) : (
                   <button
+                    disabled={isFollowProgres.some((id) => id === user.id)}
                     onClick={() => {
+                      isFollowingingAction(true, user.id);
                       onFollowClick(user.id);
                     }}
                   >
