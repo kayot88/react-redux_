@@ -1,38 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  follow,
-  unFollow,
   setUsers,
   setCurrentPage,
   setTotalCount,
   isLoading,
   followInProgres,
+  getUsers,
+  onFollowClick,
+  onUnFollowClick,
 } from "../../ac/usersPage";
 import Users from "./UsersC";
 import Spinner from "../Spinner";
-import { usersApi } from "./../../api/usersApi";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
-    this.props.isLoadingAction(true);
-    usersApi
-      .getUsers(this.props.currentPage, this.props.countByPage)
-      .then((res) => {
-        this.props.setUsers(res.data.items);
-        this.props.setTotalCount(res.data.totalCount);
-        this.props.isLoadingAction(false);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.countByPage);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.isLoadingAction(true);
-      usersApi
-        .getUsers(this.props.currentPage, this.props.countByPage)
-        .then((res) => {
-          this.props.setUsers(res.data.items);
-          this.props.isLoadingAction(false);
-        });
+      this.props.getUsers(this.props.currentPage, this.props.countByPage);
     }
   }
 
@@ -68,20 +55,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowClick: (userId) => {
-      usersApi.followApi(userId).then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(follow(userId));
-        }
-        dispatch(followInProgres(false, userId));
-      });
+      dispatch(onFollowClick(userId));
     },
     onUnFollowClick: (userId) => {
-      usersApi.unFollowApi(userId).then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(unFollow(userId));
-        }
-        dispatch(followInProgres(false, userId));
-      });
+      dispatch(onUnFollowClick(userId));
     },
     setUsers: (users) => {
       dispatch(setUsers(users));
@@ -97,6 +74,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     isFollowingingAction: (following, userId) => {
       dispatch(followInProgres(following, userId));
+    },
+    getUsers: (currentPage, countByPage) => {
+      dispatch(getUsers(currentPage, countByPage));
     },
   };
 };

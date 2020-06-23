@@ -13,7 +13,7 @@ let initialState = {
   countByPage: 10,
   currentPage: 1,
   isLoading: true,
-  followInProgres: [2,3],
+  followInProgres: [],
 };
 
 const userReducer = (state = initialState, action) => {

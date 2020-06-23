@@ -12,11 +12,9 @@ const Dialogs = (props) => {
   } = props;
   const onChangeTextareaHandler = (e) => {
     let testValue = e.target.value;
-    console.log(testValue);
     onNewMessageText(testValue);
   };
 
-  // console.log("newValueMessage: ", newValueMessage);
   let dialogsElements = dialogsPage.dialogs.map((d) => (
     <DialogItem name={d.name} key={d.id} />
   ));

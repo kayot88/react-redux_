@@ -4,7 +4,7 @@ import {
   SEND_MESSAGE,
   UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-} from "./../constants/index";
+} from "../constants/index";
 
 export const addPostCreator = () => {
   return {

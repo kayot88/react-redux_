@@ -1,19 +1,12 @@
 import React, { Component } from "react";
-import * as axios from "axios";
 import { connect } from "react-redux";
 import Header from "./Header";
 import { setUserAuth } from "../../ac/profilePageAc";
+import { getUserAuth } from "../../ac/usersPage";
 
 class HeaderContainer extends Component {
   componentDidMount() {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        let { id, email, login } = res.data.data;
-        this.props.setUserAuth(id, email, login);
-      });
+    getUserAuth()
   }
   componentDidUpdate(prevProps) {}
 

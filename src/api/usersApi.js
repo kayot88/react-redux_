@@ -1,13 +1,13 @@
 import * as axios from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   withCredentials: true,
   headers: { "API-KEY": process.env.REACT_APP_API_KEY },
 });
 
 export const usersApi = {
-  getUsers(currentPage = 1, countByPage = 10) {
+  getUsers(currentPage = 2, countByPage = 20) {
     return instance.get(`./users?page=${currentPage}&count=${countByPage}`);
   },
   followApi(userId) {
@@ -15,5 +15,16 @@ export const usersApi = {
   },
   unFollowApi(userId) {
     return instance.delete(`./follow/${userId}`);
+  },
+};
+
+export const getAuthUserApi = {
+  getAuthData() {
+    return instance.get(
+      `https://social-network.samuraijs.com/api/1.0/auth/me`,
+      {
+        withCredentials: true,
+      }
+    );
   },
 };

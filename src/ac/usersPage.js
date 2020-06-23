@@ -1,3 +1,7 @@
+import { usersApi, getAuthUserApi } from "./../api/usersApi";
+import { setUserAuth } from "./profilePageAc";
+
+// action creators
 export const follow = (userId) => {
   return {
     type: "FOLLOW",
@@ -44,5 +48,48 @@ export const followInProgres = (following, userId) => {
     type: "FOLLOW_IN_PROGRES",
     following,
     userId,
+  };
+};
+
+// thunk creators
+export const getUsers = (currentPage, countByPage) => {
+  return (dispatch) => {
+    dispatch(isLoading(true));
+    usersApi.getUsers(currentPage, countByPage).then((res) => {
+      dispatch(setUsers(res.data.items));
+      dispatch(setTotalCount(res.data.totalCount));
+      dispatch(isLoading(false));
+    });
+  };
+};
+
+export const onFollowClick = (userId) => {
+  return (dispatch) => {
+    usersApi.followApi(userId).then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(follow(userId));
+        dispatch(followInProgres(false, userId));
+      }
+    });
+  };
+};
+export const onUnFollowClick = (userId) => {
+  return (dispatch) => {
+    usersApi.unFollowApi(userId).then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(unFollow(userId));
+        dispatch(followInProgres(false, userId));
+      }
+    });
+  };
+};
+
+// auth thunk creators
+export const getUserAuth = () => {
+  return (dispatch) => {
+    getAuthUserApi.getAuthData().then((res) => {
+      let { id, email, login } = res.data.data;
+      dispatch(setUserAuth(id, email, login));
+    });
   };
 };
