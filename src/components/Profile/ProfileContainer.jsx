@@ -1,40 +1,44 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Profile from "./Profile";
 import {
   setProfileToStore,
-  getUserProfileById_tc,
+  getUserProfileById,
 } from "./../../ac/profilePageAc";
-import { isLoading } from "./../../ac/usersPage";
+import { isLoadingAC } from "./../../ac/usersPage";
+import {withAuth} from "./../hoc/withAuth";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    getUserProfileById_tc(this.props.match.params.userId);
+     this.props.getUserProfileById(this.props.match.params.userId);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      getUserProfileById_tc(this.props.match.params.userId);
+      this.props.getUserProfileById(this.props.match.params.userId);
     }
   }
 
   render() {
-    return (
-      <div>
-        <Profile {...this.props} />
-      </div>
-    );
+    // debugger
+    return <Profile {...this.props} />;
   }
 }
+let RedirectComponent = withAuth(ProfileContainer);
 
 const mstp = (state) => {
+  console.log(state.profilePage.profile);
   return {
     profile: state.profilePage.profile,
+    isLogin: state.auth.isLogin,
+    isLoading: state.usersPage.isLoading,
   };
 };
 
-const ComponentWithRouter = withRouter(ProfileContainer);
+const ComponentWithRouter = withRouter(RedirectComponent);
 
-export default connect(mstp, { setProfileToStore, isLoading })(
-  ComponentWithRouter
-);
+export default connect(mstp, {
+  setProfileToStore,
+  isLoadingAC,
+  getUserProfileById,
+})(ComponentWithRouter);

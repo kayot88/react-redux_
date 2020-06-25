@@ -21,7 +21,7 @@ export const usersApi = {
 export const getAuthUserApi = {
   getAuthData() {
     return instance.get(
-      `https://social-network.samuraijs.com/api/1.0/auth/me`,
+      `auth/me`,
       {
         withCredentials: true,
       }

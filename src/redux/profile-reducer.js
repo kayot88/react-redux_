@@ -2,6 +2,7 @@ import {
   ADD_POST,
   UPDATE_NEW_POST_TEXT,
   SET_PROFILE_TO_STORE,
+  CLEAR_PROFILE,
 } from "./../constants/index";
 
 let initialState = {
@@ -30,6 +31,9 @@ const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PROFILE_TO_STORE: {
       return { ...state, profile: action.payload };
+    }
+    case CLEAR_PROFILE: {
+      return { ...state, profile: {} };
     }
     case ADD_POST: {
       let newPost = {

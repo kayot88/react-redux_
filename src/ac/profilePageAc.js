@@ -1,5 +1,4 @@
-import { isLoading } from "./usersPage";
-import { instance } from "../api/usersApi";
+import { isLoadingAC } from "./usersPage";
 import { getProfileByUserAPI } from "../api/profileApi";
 
 export const setProfileToStore = (profile) => {
@@ -16,17 +15,25 @@ export const setUserAuth = (userId, email, login) => {
   };
 };
 
+export const clearUserProfileinStore = () => {
+  return {
+    type: "CLEAR_PROFILE",
+  };
+};
+
 // thunk creator
 
-export const getUserProfileById_tc = (userId) => {
+export const getUserProfileById = (userId=8512) => {
   return (dispatch) => {
-    dispatch(isLoading(true));
+    dispatch(isLoadingAC(true));
     if (!userId) {
-      userId = 2;
+      return (userId = 8512);
     }
     getProfileByUserAPI.getUserIdFromUrl(userId).then((res) => {
+      // debugger
+      // dispatch(clearUserProfileinStore());
       dispatch(setProfileToStore(res.data));
-      dispatch(isLoading(false));
+      dispatch(isLoadingAC(false));
     });
   };
 };

@@ -3,10 +3,11 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = (props) => {
-  console.log("Profile", props);
+  // debugger;
+
   return (
     <div>
-      <ProfileInfo profile={props.profile} />
+      <ProfileInfo profile={props.profile} isLoading={props.isLoading} />
       <MyPostsContainer store={props.store} />
     </div>
   );

@@ -21,6 +21,9 @@ const Dialogs = (props) => {
   let messagesElements = dialogsPage.messages.map((m) => (
     <Message message={m.message} key={m.id} />
   ));
+
+    
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>{dialogsElements}</div>

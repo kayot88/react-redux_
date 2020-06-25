@@ -27,7 +27,7 @@ const Users = ({
   return (
     <div>
       <div>
-        {countPagesArr.map((page) => {
+        {countPagesArr.reverse().map((page) => {
           return (
             <span
               key={page}

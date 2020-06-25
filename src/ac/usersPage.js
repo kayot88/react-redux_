@@ -1,5 +1,5 @@
 import { usersApi, getAuthUserApi } from "./../api/usersApi";
-import { setUserAuth } from "./profilePageAc";
+import { setUserAuth, clearUserProfileinStore } from "./profilePageAc";
 
 // action creators
 export const follow = (userId) => {
@@ -36,7 +36,7 @@ export const setUsers = (users) => {
   };
 };
 
-export const isLoading = (loading) => {
+export const isLoadingAC = (loading) => {
   return {
     type: "IS_LOADING",
     payload: loading,
@@ -54,11 +54,11 @@ export const followInProgres = (following, userId) => {
 // thunk creators
 export const getUsers = (currentPage, countByPage) => {
   return (dispatch) => {
-    dispatch(isLoading(true));
+    dispatch(isLoadingAC(true));
     usersApi.getUsers(currentPage, countByPage).then((res) => {
       dispatch(setUsers(res.data.items));
       dispatch(setTotalCount(res.data.totalCount));
-      dispatch(isLoading(false));
+      dispatch(isLoadingAC(false));
     });
   };
 };
@@ -88,8 +88,15 @@ export const onUnFollowClick = (userId) => {
 export const getUserAuth = () => {
   return (dispatch) => {
     getAuthUserApi.getAuthData().then((res) => {
+      // debugger
       let { id, email, login } = res.data.data;
-      dispatch(setUserAuth(id, email, login));
+      // console.log();
+      console.log(res.data.resultCode);
+      if (res.data.resultCode === 1) {
+        dispatch(clearUserProfileinStore());
+      } else {
+        dispatch(setUserAuth(id, email, login));
+      }
     });
   };
 };

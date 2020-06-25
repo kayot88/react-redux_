@@ -15,3 +15,4 @@ export const IS_LOADING = "IS_LOADING";
 export const SET_PROFILE_TO_STORE = "SET_PROFILE_TO_STORE";
 export const SET_USER_AUTH = "SET_USER_AUTH";
 export const FOLLOW_IN_PROGRES = "FOLLOW_IN_PROGRES";
+export const CLEAR_PROFILE = "CLEAR_PROFILE";

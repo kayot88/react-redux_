@@ -4,7 +4,7 @@ import {
   setUsers,
   setCurrentPage,
   setTotalCount,
-  isLoading,
+  isLoadingAC,
   followInProgres,
   getUsers,
   onFollowClick,
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setTotalCount(totalCount));
     },
     isLoadingAction: (loading) => {
-      dispatch(isLoading(loading));
+      dispatch(isLoadingAC(loading));
     },
     isFollowingingAction: (following, userId) => {
       dispatch(followInProgres(following, userId));

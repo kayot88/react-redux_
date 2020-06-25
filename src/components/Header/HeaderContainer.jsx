@@ -6,9 +6,12 @@ import { getUserAuth } from "../../ac/usersPage";
 
 class HeaderContainer extends Component {
   componentDidMount() {
-    getUserAuth()
+
+    this.props.getUserAuth()
   }
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps) {
+    //  this.props.getUserAuth();
+  }
 
   render() {
     return <Header {...this.props} />;
@@ -22,8 +25,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const HeaderContainerWithConnect = connect(mapStateToProps, { setUserAuth })(
-  HeaderContainer
-);
+const HeaderContainerWithConnect = connect(mapStateToProps, {
+  setUserAuth,
+  getUserAuth,
+})(HeaderContainer);
 
 export default HeaderContainerWithConnect;
