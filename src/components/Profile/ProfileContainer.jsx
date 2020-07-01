@@ -7,38 +7,38 @@ import {
   getUserProfileById,
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
-import {withAuth} from "./../hoc/withAuth";
+import { withAuth } from "./../hoc/withAuth";
+import { compose } from "redux";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-     this.props.getUserProfileById(this.props.match.params.userId);
+    this.props.getUserProfileById((this.props.match.params.userId = 2));
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.getUserProfileById(this.props.match.params.userId);
+      this.props.getUserProfileById((this.props.match.params.userId = 2));
     }
   }
 
   render() {
-    // debugger
+    console.log("ProfileCont_props", this.props);
     return <Profile {...this.props} />;
   }
 }
-let RedirectComponent = withAuth(ProfileContainer);
 
 const mstp = (state) => {
-  console.log(state.profilePage.profile);
   return {
     profile: state.profilePage.profile,
-    isLogin: state.auth.isLogin,
     isLoading: state.usersPage.isLoading,
   };
 };
 
-const ComponentWithRouter = withRouter(RedirectComponent);
-
-export default connect(mstp, {
-  setProfileToStore,
-  isLoadingAC,
-  getUserProfileById,
-})(ComponentWithRouter);
+export default compose(
+  connect(mstp, {
+    setProfileToStore,
+    isLoadingAC,
+    getUserProfileById,
+  }),
+  withRouter,
+  withAuth
+)(ProfileContainer);

@@ -29,9 +29,7 @@ export const getUserProfileById = (userId=8512) => {
     if (!userId) {
       return (userId = 8512);
     }
-    getProfileByUserAPI.getUserIdFromUrl(userId).then((res) => {
-      // debugger
-      // dispatch(clearUserProfileinStore());
+    getProfileByUserAPI.getUserIdFromUrl(userId=8512).then((res) => {
       dispatch(setProfileToStore(res.data));
       dispatch(isLoadingAC(false));
     });

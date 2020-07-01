@@ -12,6 +12,8 @@ import {
 } from "../../ac/usersPage";
 import Users from "./UsersC";
 import Spinner from "../Spinner";
+import { withAuth } from "./../hoc/withAuth";
+import { compose } from "redux";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
@@ -41,6 +43,7 @@ class UsersApiContainer extends Component {
     );
   }
 }
+
 
 const mapStateToProps = (state) => {
   return {
@@ -80,9 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuth
 )(UsersApiContainer);
 
-export default UsersContainer;
