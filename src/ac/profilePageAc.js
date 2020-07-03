@@ -1,10 +1,17 @@
 import { isLoadingAC } from "./usersPage";
-import { getProfileByUserAPI } from "../api/profileApi";
+import { getProfileByUserAPI, userStatusAPI } from "../api/profileApi";
 
 export const setProfileToStore = (profile) => {
   return {
     type: "SET_PROFILE_TO_STORE",
     payload: profile,
+  };
+};
+
+export const setNewStatus = (status = "no status") => {
+  return {
+    type: "SET_STATUS",
+    payload: status,
   };
 };
 
@@ -23,15 +30,36 @@ export const clearUserProfileinStore = () => {
 
 // thunk creator
 
-export const getUserProfileById = (userId=8512) => {
+export const getUserProfileById = (userId = 2) => {
   return (dispatch) => {
     dispatch(isLoadingAC(true));
     if (!userId) {
-      return (userId = 8512);
+      return (userId = 2);
     }
-    getProfileByUserAPI.getUserIdFromUrl(userId=8512).then((res) => {
+    getProfileByUserAPI.getUserIdFromUrl((userId = 2)).then((res) => {
       dispatch(setProfileToStore(res.data));
       dispatch(isLoadingAC(false));
+    });
+  };
+};
+
+export const setStatusTC = (status) => {
+  return (dispatch) => {
+    // debugger
+    userStatusAPI.setStatus(status).then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(setNewStatus(status));
+      }
+    });
+  };
+};
+
+export const getStatusTC = (userId) => {
+  return (dispatch) => {
+    
+    userStatusAPI.getStatus(userId).then((res) => {
+      console.log(res)
+      // dispatch(setNewStatus(res.data));
     });
   };
 };

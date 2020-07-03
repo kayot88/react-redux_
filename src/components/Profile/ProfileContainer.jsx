@@ -5,6 +5,8 @@ import Profile from "./Profile";
 import {
   setProfileToStore,
   getUserProfileById,
+  setStatusTC,
+  getStatusTC,
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
 import { withAuth } from "./../hoc/withAuth";
@@ -12,17 +14,24 @@ import { compose } from "redux";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    this.props.getUserProfileById((this.props.match.params.userId = 2));
+    this.props.getUserProfileById((this.props.match.params.userId));
+    this.props.getStatusTC(this.props.match.params.userId);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.getUserProfileById((this.props.match.params.userId = 2));
+      this.props.getUserProfileById((this.props.match.params.userId));
     }
+
+    // else if (prevProps.) {
+
+    // }
   }
 
   render() {
-    console.log("ProfileCont_props", this.props);
-    return <Profile {...this.props} />;
+    // console.log("ProfileCont_props", this.props);
+    return (
+      <Profile {...this.props} profile={this.props.profile} status={this.props.status}  setStatus={this.props.setStatusTC}/>
+    );
   }
 }
 
@@ -30,6 +39,7 @@ const mstp = (state) => {
   return {
     profile: state.profilePage.profile,
     isLoading: state.usersPage.isLoading,
+    status: state.profilePage.userStatus,
   };
 };
 
@@ -38,6 +48,8 @@ export default compose(
     setProfileToStore,
     isLoadingAC,
     getUserProfileById,
+    setStatusTC,
+    getStatusTC,
   }),
   withRouter,
   withAuth

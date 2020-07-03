@@ -3,6 +3,8 @@ import {
   UPDATE_NEW_POST_TEXT,
   SET_PROFILE_TO_STORE,
   CLEAR_PROFILE,
+  SET_STATUS,
+  GET_STATUS,
 } from "./../constants/index";
 
 let initialState = {
@@ -25,6 +27,7 @@ let initialState = {
   ],
   newPostText: "",
   profile: {},
+  userStatus: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -44,6 +47,12 @@ const profileReducer = (state = initialState, action) => {
 
       return { ...state, newPostText: "", posts: [...state.posts, newPost] };
     }
+
+    case SET_STATUS: {
+      return { ...state, userStatus: action.payload };
+    }
+
+
     case UPDATE_NEW_POST_TEXT: {
       return { ...state, newPostText: action.payload };
     }
