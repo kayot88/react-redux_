@@ -30,13 +30,13 @@ export const clearUserProfileinStore = () => {
 
 // thunk creator
 
-export const getUserProfileById = (userId = 2) => {
+export const getUserProfileById = (userId) => {
   return (dispatch) => {
     dispatch(isLoadingAC(true));
     if (!userId) {
-      return (userId = 2);
+      return (userId = 8512);
     }
-    getProfileByUserAPI.getUserIdFromUrl((userId = 2)).then((res) => {
+    getProfileByUserAPI.getUserIdFromUrl((userId)).then((res) => {
       dispatch(setProfileToStore(res.data));
       dispatch(isLoadingAC(false));
     });
@@ -56,10 +56,8 @@ export const setStatusTC = (status) => {
 
 export const getStatusTC = (userId) => {
   return (dispatch) => {
-    
     userStatusAPI.getStatus(userId).then((res) => {
-      console.log(res)
-      // dispatch(setNewStatus(res.data));
+      dispatch(setNewStatus(res.data));
     });
   };
 };

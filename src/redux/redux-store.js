@@ -5,6 +5,7 @@ import userReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
+import { reducer as formReducer } from "redux-form";
 
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
@@ -17,7 +18,8 @@ let rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   usersPage: userReducer,
-  auth: authReducer
+  auth: authReducer,
+  form: formReducer,
 });
 
 let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

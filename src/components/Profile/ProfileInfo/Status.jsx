@@ -3,8 +3,22 @@ import React, { Component } from "react";
 export default class UserStatus extends Component {
   state = {
     editMode: false,
-    localUserStatus: '',
+    localUserStatus: "",
   };
+
+  componentDidMount() {
+    this.setState({
+      localUserStatus: this.props.status,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.status !== prevProps.status) {
+      this.setState({
+        localUserStatus: this.props.status,
+      });
+    }
+  }
 
   handlerStatusChange = (e) => {
     this.setState({
@@ -15,7 +29,7 @@ export default class UserStatus extends Component {
   statusClickHandler = () => {
     this.setState({
       editMode: true,
-      localUserStatus: this.props.status
+      localUserStatus: this.props.status,
     });
   };
   deactivateStatus = () => {
@@ -25,13 +39,12 @@ export default class UserStatus extends Component {
     });
   };
 
-
   render() {
     return (
       <div>
         {!this.state.editMode && (
           <span onClick={this.statusClickHandler}>
-            {this.state.localUserStatus}
+            {this.state.localUserStatus || '----'}
           </span>
         )}
         {this.state.editMode && (
@@ -40,7 +53,7 @@ export default class UserStatus extends Component {
               autoFocus
               onChange={this.handlerStatusChange}
               onBlur={this.deactivateStatus}
-              value={this.props.status}
+              value={this.state.localUserStatus}
             />
           </div>
         )}
