@@ -1,6 +1,5 @@
 import {
   ADD_POST,
-  UPDATE_NEW_POST_TEXT,
   SET_PROFILE_TO_STORE,
   CLEAR_PROFILE,
   SET_STATUS,
@@ -41,7 +40,7 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST: {
       let newPost = {
         id: 5,
-        message: state.newPostText,
+        message: action.payload,
         likesCount: 0,
       };
 
@@ -52,10 +51,6 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, userStatus: action.payload };
     }
 
-
-    case UPDATE_NEW_POST_TEXT: {
-      return { ...state, newPostText: action.payload };
-    }
     default:
       return state;
   }

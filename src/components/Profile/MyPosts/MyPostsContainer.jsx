@@ -1,5 +1,5 @@
 // import React from "react";
-import { addPostCreator, updateNewPostTextCreator } from "./../../../ac/index";
+import { addPostCreator } from "./../../../ac/index";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
@@ -11,11 +11,8 @@ let mapStateToProps = (state) => {
 };
 let mapDispatchToProps = (dispatch) => {
   return {
-    addPost: () => {
-      dispatch(addPostCreator());
-    },
-    updateNewPostText: (text) => {
-      dispatch(updateNewPostTextCreator(text));
+    addPost: (newText) => {
+      dispatch(addPostCreator(newText));
     },
   };
 };

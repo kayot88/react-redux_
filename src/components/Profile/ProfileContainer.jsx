@@ -14,24 +14,24 @@ import { compose } from "redux";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    console.log(this.props.match.params.userId)
-    this.props.getUserProfileById((this.props.match.params.userId || 8512));
-    this.props.getStatusTC(this.props.match.params.userId);
+    console.log(this.props.match.params.userId);
+    this.props.getUserProfileById(this.props.match.params.userId || 8512);
+    this.props.getStatusTC(this.props.match.params.userId || 8512);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.getUserProfileById((this.props.match.params.userId));
+      this.props.getUserProfileById(this.props.match.params.userId);
     }
-
-    // else if (prevProps.) {
-
-    // }
   }
 
   render() {
-    // console.log("ProfileCont_props", this.props);
     return (
-      <Profile {...this.props} profile={this.props.profile} status={this.props.status}  setStatus={this.props.setStatusTC}/>
+      <Profile
+        {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        setStatus={this.props.setStatusTC}
+      />
     );
   }
 }
