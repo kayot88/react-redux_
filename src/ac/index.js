@@ -24,8 +24,9 @@ export const updateMessageTextCreator_Process = (text) => {
   };
 };
 
-export const sendMessageCreator = () => {
+export const sendMessageCreator = (newMessage) => {
   return {
-    type: SEND_MESSAGE
+    type: SEND_MESSAGE,
+    payload: newMessage,
   };
 };

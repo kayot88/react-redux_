@@ -14,17 +14,13 @@ const mstp_redirect = (state) => {
 const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    newValueMessage: state.dialogsPage.newMessageText,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSendMessageClick: () => {
-      dispatch(sendMessageCreator());
-    },
-    onNewMessageText: (text) => {
-      dispatch(updateMessageTextCreator_Process(text));
+    onSendMessageClick: (newMessage) => {
+      dispatch(sendMessageCreator(newMessage));
     },
   };
 };
