@@ -2,6 +2,11 @@ import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import { Field, reduxForm } from "redux-form";
+import {
+  validate,
+  // warn,
+  renderField,
+} from "./../../../assets/validation/formValidate";
 
 const MyPosts = (props) => {
   const { addPost, posts } = props;
@@ -28,8 +33,9 @@ let MyPostsForm = (props) => {
       <div>
         <Field
           name="newPostText"
-          component="textarea"
-          placeholder="enter text here"
+          component={renderField('input')}
+          label="Enter status"
+          type="text"
         />
       </div>
       <div>
@@ -41,6 +47,7 @@ let MyPostsForm = (props) => {
 
 MyPostsForm = reduxForm({
   form: "MyPostsForm",
+  validate,
 })(MyPostsForm);
 
 export default MyPosts;

@@ -8,5 +8,5 @@
 
 .app-wrapper-content {
   grid-area: c;
-  background-color: green;
+  /* background-color: green; */
 }
