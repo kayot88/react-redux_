@@ -14,9 +14,9 @@ import { compose } from "redux";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    console.log(this.props.match.params.userId);
-    this.props.getUserProfileById(this.props.match.params.userId || 8512);
-    this.props.getStatusTC(this.props.match.params.userId || 8512);
+    // console.log(this.props.match.params.userId);
+    this.props.getUserProfileById(this.props.match.params.userId);
+    this.props.getStatusTC(this.props.match.params.userId);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {

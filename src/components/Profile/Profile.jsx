@@ -1,15 +1,20 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import Spinner from "./../Spinner/index";
 
 const Profile = (props) => {
-  console.log("Profile_props", props);
+  const { isLoading, profile } = props;
+  // console.log("Profile_props", props);
+  if (isLoading) {
+    return <Spinner />;
+  } 
   return (
     <div>
       <ProfileInfo
         {...props}
-        profile={props.profile}
-        isLoading={props.isLoading}
+        profile={profile}
+        isLoading={isLoading}
         // setStatusTC={props.setStatusTC}
       />
       <MyPostsContainer store={props.store} />

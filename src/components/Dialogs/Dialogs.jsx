@@ -3,10 +3,12 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Field, reduxForm } from "redux-form";
+import { validate, renderField  } from "./../../assets/validation/formValidate";
+// import s from "./../../assets/validation/formValidate.module.css";
 
 const Dialogs = (props) => {
   const { dialogsPage, onSendMessageClick } = props;
-  const onSubmit = (formData) => {
+  let onSubmit = (formData) => {
     onSendMessageClick(formData.dialogsFormText);
   };
 
@@ -35,19 +37,21 @@ let DialogsForm = (props) => {
       <div>
         <Field
           name="dialogsFormText"
-          component="textarea"
-          placeholder="Enter your message"
+          component={renderField('input')}
+          label="Enter your message"
+          type="text"
         ></Field>
       </div>
       <div>
-        <button>Send</button>
+        <button disabled={props.pristine || props.submitting}>Send</button>
       </div>
     </form>
   );
 };
 
 DialogsForm = reduxForm({
-  form: "dialogs",
+  form: "DialogsForm",
+  validate,
 })(DialogsForm);
 
 export default Dialogs;

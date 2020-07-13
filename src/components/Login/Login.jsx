@@ -1,40 +1,63 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
+import { renderField } from "../../assets/validation/formValidate";
+import { validate } from "./../../assets/validation/formValidate";
+import { Redirect } from "react-router-dom";
+import Profile from "./../Profile/Profile";
+import Spinner from "./../Spinner/index";
 
-const Login = () => {
+const Login = (props) => {
+  // console.log(props);
+  const { isLoading } = props;
+
   let onSubmit = (formData) => {
-    console.log(formData);
+    props.setLoginTC(formData);
   };
-  
-  return (
-    <div>
-      <div>Login</div>
-      <LoginForm onSubmit={onSubmit}/>
-    </div>
-  );
+  if (!props.isLogin) {
+    return (
+      <div>
+        <div>Login</div>
+        <LoginForm onSubmit={onSubmit} />
+      </div>
+    );
+  } else if (isLoading) {
+    return <Spinner />;
+  } else {
+    return <Redirect to={"/profile"} />;
+  }
 };
 
 let LoginForm = (props) => {
-  // console.log();
   const { handleSubmit } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <Field name={"login"} placeholder={"Login"} component={"input"} />
+        <Field
+          name={"email"}
+          type="email"
+          label={"Email"}
+          component={renderField("input")}
+        />
       </div>
       <div>
-        <Field name={"password"} placeholder={"Password"} component={"input"} />
+        <Field
+          name={"password"}
+          label={"Password"}
+          type="password"
+          autocomplete="new-password"
+          component={renderField("input")}
+        />
       </div>
       <div>
         <Field
           name={"rememberMe"}
           type={"checkbox"}
-          placeholder={"remember me"}
-          component={"input"}
+          label={"remember me"}
+          component={renderField("input")}
         />
       </div>
       <div>
-        <button>Login</button>
+        <button disabled={props.pristine || props.submitting}>Login</button>
       </div>
     </form>
   );
@@ -42,6 +65,7 @@ let LoginForm = (props) => {
 
 LoginForm = reduxForm({
   form: "loginForm",
+  validate,
 })(LoginForm);
 
 export default Login;

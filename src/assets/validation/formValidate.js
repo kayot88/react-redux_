@@ -1,37 +1,40 @@
 import React from "react";
+import s from "./formValidate.module.css";
 
-export const validate = (values) => {
+export const validate = (values, props) => {
   const errors = {};
+  if (!values.dialogsFormText) {
+    errors.dialogsFormText = "Required";
+  } else if (values.dialogsFormText.length < 5) {
+    errors.dialogsFormText = "Status must be 5 symbols or more";
+  }
   if (!values.newPostText) {
-    errors.newPostText = "Reguired";
-  } else if (values.newPostText.length < 10) {
-    errors.newPostText = "Status must be 10 symbols or more";
+    errors.newPostText = "Required";
+  } else if (values.newPostText.length < 5) {
+    errors.newPostText = "Status must be 5 symbols or more";
+  }
+  if (!values.login) {
+    errors.login = "Required";
+  } else if (values.login.length < 5) {
+    errors.login = "Status must be 5 symbols or more";
+  }
+  if (!values.password) {
+    errors.password = "Required";
+  } else if (values.password.length < 5) {
+    errors.password = "Status must be 5 symbols or more";
   }
   return errors;
 };
 
-// export const warn = (values) => {
-//   const warnings = {};
-//   if (values.newPostText.length < 10) {
-//     warnings.newPostText = "Status must be 10 symbols or more";
-//   }
-//   return warnings;
-// };
-
-export const renderField = (El) => ({
-         input,
-         meta,
-         ...props
-       }) => {
-         return (
-           <div>
-             <label>{props.label}</label>
-             <div>
-               <El {...input} type={props.type} placeholder={props.label} />
-             </div>
-             {meta.touched &&
-               ((meta.error && <span>{meta.error}</span>) ||
-                 (meta.warning && <span>{meta.warning}</span>))}
-           </div>
-         );
-       };
+export const renderField = (El) => ({ input, meta, ...props }) => {
+  const hasError = meta.touched && meta.error;
+  return (
+    <div>
+      <div className={s.formControl + " " + (hasError ? s.err : "")}>
+        <El {...input} type={props.type} placeholder={props.label} />
+      </div>
+      {(hasError && <span className={s.errSpan}>{meta.error}</span>) ||
+        (hasError && <span>{meta.warning}</span>)}
+    </div>
+  );
+};

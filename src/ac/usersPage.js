@@ -89,7 +89,6 @@ export const getUserAuth = () => {
   return (dispatch) => {
     getAuthUserApi.getAuthData().then((res) => {
       let { id, email, login } = res.data.data;
-      console.log(res.data.resultCode);
       if (res.data.resultCode === 1) {
         dispatch(clearUserProfileinStore());
       } else {

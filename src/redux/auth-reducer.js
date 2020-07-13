@@ -1,4 +1,4 @@
-import {  SET_USER_AUTH } from "../constants/index";
+import { SET_USER_AUTH, LOGOUT } from "../constants/index";
 
 let initialState = {
   userId: null,
@@ -14,6 +14,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         isLogin: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        ...action.payload,
       };
 
     default:

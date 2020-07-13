@@ -1,0 +1,10 @@
+.formControl.err input {
+  border: 2px solid red;
+}
+.formControl.err textarea {
+  border: 2px solid red;
+}
+.errSpan {
+  color: red;
+  font-weight: bold;
+}

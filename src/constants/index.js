@@ -18,3 +18,5 @@ export const FOLLOW_IN_PROGRES = "FOLLOW_IN_PROGRES";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const SET_STATUS = "SET_STATUS";
 export const GET_STATUS = "GET_STATUS";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
