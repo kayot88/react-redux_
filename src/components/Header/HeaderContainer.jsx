@@ -7,13 +7,6 @@ import { logoutTC } from "../../ac/loginPageAC";
 import { getUserAuth } from "../../ac/usersPage";
 
 class HeaderContainer extends Component {
-  componentDidMount() {
-    this.props.getUserAuth();
-  }
-  componentDidUpdate(prevProps) {
-    //  this.props.getUserAuth();
-  }
-
   render() {
     return <Header {...this.props} />;
   }
@@ -23,13 +16,12 @@ const mapStateToProps = (state) => {
   return {
     userId: state.auth.userId,
     isLogin: state.auth.isLogin,
-    isLoding: state.usersPage.isLoading
+    isLoding: state.usersPage.isLoading,
+    isInit: state.auth.isInitialized,
   };
 };
 
 const HeaderContainerWithConnect = connect(mapStateToProps, {
-  setUserAuth,
-  getUserAuth,
   logoutTC,
 })(HeaderContainer);
 

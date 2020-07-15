@@ -6,6 +6,7 @@ import authReducer from "./auth-reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
+import appReducer from "./app-reducer";
 
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
@@ -19,6 +20,7 @@ let rootReducer = combineReducers({
   dialogsPage: dialogsReducer,
   usersPage: userReducer,
   auth: authReducer,
+  initApp: appReducer,
   form: formReducer,
 });
 

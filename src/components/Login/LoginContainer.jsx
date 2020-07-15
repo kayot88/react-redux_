@@ -20,6 +20,7 @@ const smtp = (state) => {
   return {
     isLogin: state.auth.isLogin,
     isLoding: state.usersPage.isLoading,
+    isAuth: state.initApp.isInitialized,
   };
 };
 

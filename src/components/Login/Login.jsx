@@ -3,33 +3,32 @@ import { reduxForm, Field } from "redux-form";
 import { renderField } from "../../assets/validation/formValidate";
 import { validate } from "./../../assets/validation/formValidate";
 import { Redirect } from "react-router-dom";
-import Profile from "./../Profile/Profile";
 import Spinner from "./../Spinner/index";
+import style from "./Login.module.css";
 
 const Login = (props) => {
-  // console.log(props);
   const { isLoading } = props;
 
   let onSubmit = (formData) => {
     props.setLoginTC(formData);
   };
-  if (!props.isLogin) {
-    return (
-      <div>
-        <div>Login</div>
-        <LoginForm onSubmit={onSubmit} />
-      </div>
-    );
-  } else if (isLoading) {
-    return <Spinner />;
-  } else {
-    return <Redirect to={"/profile"} />;
-  }
+  return !props.isLogin ? (
+    <div>
+      <div>Login</div>
+      <LoginForm onSubmit={onSubmit} />
+    </div>
+  ) : isLoading ? (
+    <Spinner />
+  ) : (
+    <Redirect to={"/profile"} />
+  );
 };
 
 let LoginForm = (props) => {
-  const { handleSubmit } = props;
+  console.log("props: ", props);
+  const { handleSubmit, error } = props;
   return (
+    
     <form onSubmit={handleSubmit}>
       <div>
         <Field
@@ -59,6 +58,9 @@ let LoginForm = (props) => {
       <div>
         <button disabled={props.pristine || props.submitting}>Login</button>
       </div>
+      <span className={error ? style.formError : style.default}>
+        {error && <strong>{error}</strong>}
+      </span>
     </form>
   );
 };

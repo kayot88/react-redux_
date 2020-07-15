@@ -8,7 +8,7 @@ export default class UserStatus extends Component {
 
   componentDidMount() {
     this.setState({
-      localUserStatus: this.props.status,
+      localUserStatus: this.props.status || '',
     });
   }
 

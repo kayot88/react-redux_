@@ -1,5 +1,6 @@
 import { usersApi, getAuthUserApi } from "./../api/usersApi";
 import { setUserAuth, clearUserProfileinStore } from "./profilePageAc";
+import { INIT_SUCCESS } from "./../constants/index";
 
 // action creators
 export const follow = (userId) => {
@@ -51,6 +52,12 @@ export const followInProgres = (following, userId) => {
   };
 };
 
+export const initAppAC = () => {
+  return {
+    type: INIT_SUCCESS,
+  };
+};
+
 // thunk creators
 export const getUsers = (currentPage, countByPage) => {
   return (dispatch) => {
@@ -89,11 +96,20 @@ export const getUserAuth = () => {
   return (dispatch) => {
     getAuthUserApi.getAuthData().then((res) => {
       let { id, email, login } = res.data.data;
-      if (res.data.resultCode === 1) {
+      if (!res.data.resultCode === 1) {
+        dispatch(setUserAuth(id, email, login, true));
         dispatch(clearUserProfileinStore());
-      } else {
-        dispatch(setUserAuth(id, email, login));
-      }
+        
+      } 
+      // else {
+      // }
     });
   };
+};
+
+export const initAPPTC = () => async (dispatch) => {
+  console.log("getUserAuth start");
+  await dispatch(getUserAuth());
+  console.log("getUserAuth end");
+  return dispatch(initAppAC());
 };

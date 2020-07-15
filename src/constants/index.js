@@ -20,3 +20,4 @@ export const SET_STATUS = "SET_STATUS";
 export const GET_STATUS = "GET_STATUS";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const INIT_SUCCESS = "INIT_SUCCESS";

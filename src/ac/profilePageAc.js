@@ -30,15 +30,16 @@ export const clearUserProfileinStore = () => {
 
 // thunk creator
 
-export const getUserProfileById = (userId) => {
+export const getUserProfileById = (userId, idFromProfile) => {
   return (dispatch) => {
     dispatch(isLoadingAC(true));
     if (!userId) {
-      return null;
+      return userId = idFromProfile;
     }
-    getProfileByUserAPI.getUserIdFromUrl((userId)).then((res) => {
+    getProfileByUserAPI.getUserIdFromUrl(userId).then((res) => {
       console.log(res.data);
       dispatch(setProfileToStore(res.data));
+      dispatch(setUserAuth());
       dispatch(isLoadingAC(false));
     });
   };
