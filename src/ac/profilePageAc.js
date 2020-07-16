@@ -33,15 +33,17 @@ export const clearUserProfileinStore = () => {
 export const getUserProfileById = (userId, idFromProfile) => {
   return (dispatch) => {
     dispatch(isLoadingAC(true));
-    if (!userId) {
-      return userId = idFromProfile;
-    }
-    getProfileByUserAPI.getUserIdFromUrl(userId).then((res) => {
-      console.log(res.data);
-      dispatch(setProfileToStore(res.data));
-      dispatch(setUserAuth());
-      dispatch(isLoadingAC(false));
-    });
+    // if (!userId) {
+    //   return userId = idFromProfile;
+    // }
+    getProfileByUserAPI
+      .getUserIdFromUrl(userId || idFromProfile)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(setProfileToStore(res.data));
+        dispatch(setUserAuth());
+        dispatch(isLoadingAC(false));
+      });
   };
 };
 

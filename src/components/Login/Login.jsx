@@ -7,6 +7,7 @@ import Spinner from "./../Spinner/index";
 import style from "./Login.module.css";
 
 const Login = (props) => {
+  
   const { isLoading } = props;
 
   let onSubmit = (formData) => {
@@ -25,7 +26,6 @@ const Login = (props) => {
 };
 
 let LoginForm = (props) => {
-  console.log("props: ", props);
   const { handleSubmit, error } = props;
   return (
     

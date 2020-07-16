@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import Profile from "./Profile";
 import {
   setProfileToStore,
@@ -10,7 +11,7 @@ import {
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
 import { withAuth } from "./../hoc/withAuth";
-import { compose } from "redux";
+import { getProfile, getLoading, getUserStatus } from "./../../selectors/index";
 
 class ProfileContainer extends Component {
   componentDidMount() {
@@ -19,8 +20,9 @@ class ProfileContainer extends Component {
       this.props.match.params.userId,
       this.props.profile.userId
     );
-    console.log();
-    this.props.getStatusTC(this.props.match.params.userId);
+    this.props.getStatusTC(
+      this.props.match.params.userId || this.props.profile.userId
+    );
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
@@ -42,9 +44,9 @@ class ProfileContainer extends Component {
 
 const mstp = (state) => {
   return {
-    profile: state.profilePage.profile,
-    isLoading: state.usersPage.isLoading,
-    status: state.profilePage.userStatus,
+    profile: getProfile(state),
+    isLoading: getLoading(state),
+    status: getUserStatus(state),
   };
 };
 
