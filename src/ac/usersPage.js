@@ -1,5 +1,5 @@
 import { usersApi, getAuthUserApi } from "./../api/usersApi";
-import { setUserAuth, clearUserProfileinStore } from "./profilePageAc";
+import { setUserAuth, getUserProfileById } from "./profilePageAc";
 import { INIT_SUCCESS } from "./../constants/index";
 
 // action creators
@@ -93,23 +93,26 @@ export const onUnFollowClick = (userId) => {
 
 // auth thunk creators
 export const getUserAuth = () => {
-  return (dispatch) => {
-    getAuthUserApi.getAuthData().then((res) => {
-      let { id, email, login } = res.data.data;
-      if (!res.data.resultCode === 1) {
-        dispatch(setUserAuth(id, email, login, true));
-        dispatch(clearUserProfileinStore());
-        
-      } 
-      // else {
-      // }
-    });
+  return async (dispatch) => {
+    try {
+      await getAuthUserApi.getAuthData().then((res) => {
+        let { id, email, login } = res.data.data;
+        if (res.data.resultCode !== 1) {
+          dispatch(getUserProfileById(id))
+          dispatch(setUserAuth(id, email, login));
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
 export const initAPPTC = () => async (dispatch) => {
-  console.log("getUserAuth start");
-  await dispatch(getUserAuth());
-  console.log("getUserAuth end");
-  return dispatch(initAppAC());
+  try {
+    await dispatch(getUserAuth());
+    await dispatch(initAppAC());
+  } catch (error) {
+    console.log(error);
+  }
 };

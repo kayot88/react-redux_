@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Header from "./Header";
-import { setUserAuth } from "../../ac/profilePageAc";
 import { logoutTC } from "../../ac/loginPageAC";
 
-import { getUserAuth } from "../../ac/usersPage";
 
 class HeaderContainer extends Component {
   render() {

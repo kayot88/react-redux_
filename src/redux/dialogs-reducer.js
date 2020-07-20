@@ -1,7 +1,6 @@
 import {
   SEND_MESSAGE,
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
 } from "./../constants/index";
 
 let initialState = {

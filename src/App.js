@@ -14,8 +14,10 @@ import Spinner from "./components/Spinner";
 
 class App extends Component {
   componentDidMount() {
+    const { id, email, login } = this.props;
     this.props.initAPPTC();
   }
+
   render() {
     return this.props.isInit ? (
       <div className="app-wrapper">
@@ -37,7 +39,10 @@ class App extends Component {
 const mstp = (state) => {
   return {
     isInit: state.initApp.isInitialized,
+    id: state.auth.userId,
+    email: state.auth.email,
+    login: state.auth.login,
   };
 };
 
-export default compose(withRouter,connect(mstp, { initAPPTC }))(App);
+export default compose(withRouter, connect(mstp, { initAPPTC }))(App);

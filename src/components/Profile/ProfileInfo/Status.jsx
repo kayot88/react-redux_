@@ -7,8 +7,9 @@ export default class UserStatus extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     this.setState({
-      localUserStatus: this.props.status || '',
+      localUserStatus: this.props.status,
     });
   }
 
@@ -21,12 +22,14 @@ export default class UserStatus extends Component {
   }
 
   handlerStatusChange = (e) => {
+    console.log(e.currentTarget.value);
     this.setState({
       localUserStatus: e.currentTarget.value,
     });
   };
 
   statusClickHandler = () => {
+    console.log("this.props.status.status", this.props.status);
     this.setState({
       editMode: true,
       localUserStatus: this.props.status,
@@ -44,14 +47,14 @@ export default class UserStatus extends Component {
       <div>
         {!this.state.editMode && (
           <span onClick={this.statusClickHandler}>
-            {this.state.localUserStatus || '----'}
+            {this.state.localUserStatus || "----"}
           </span>
         )}
         {this.state.editMode && (
           <div>
             <input
               autoFocus
-              onChange={this.handlerStatusChange}
+              onChange={(e) => this.setState({localUserStatus: e.currentTarget.value})}
               onBlur={this.deactivateStatus}
               value={this.state.localUserStatus}
             />

@@ -1,4 +1,4 @@
-import { sendMessageCreator, updateMessageTextCreator_Process } from "../../ac";
+import { sendMessageCreator } from "../../ac";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuth } from "./../hoc/withAuth";

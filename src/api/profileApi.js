@@ -1,8 +1,8 @@
 import { instance } from "./usersApi";
 
 export const getProfileByUserAPI = {
-  getUserIdFromUrl(userId) {
-    return instance.get(`profile/${userId}`);
+  getUserIdFromUrl(userId, idFromProfile) {
+    return instance.get(`profile/${userId || idFromProfile}`);
   },
 };
 

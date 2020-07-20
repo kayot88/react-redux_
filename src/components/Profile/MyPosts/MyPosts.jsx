@@ -9,7 +9,6 @@ import {
 } from "./../../../assets/validation/formValidate";
 
 const MyPosts = (props) => {
-  console.log("MyPosts", props);
   const { addPost, posts } = props;
   let onSubmit = (formData) => {
     addPost(formData.newPostText);
@@ -29,7 +28,6 @@ const MyPosts = (props) => {
 };
 
 let MyPostsForm = (props) => {
-  console.log("MyPostsForm", props);
   return (
     <form onSubmit={props.handleSubmit}>
       <div>

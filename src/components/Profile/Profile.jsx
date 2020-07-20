@@ -4,11 +4,11 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Spinner from "./../Spinner/index";
 
 const Profile = (props) => {
+  console.log(props);
   const { isLoading, profile } = props;
-  // console.log("Profile_props", props);
-  if (isLoading) {
-    return <Spinner />;
-  } 
+  // if (isLoading) {
+  //   return <Spinner />;
+  // } 
   return (
     <div>
       <ProfileInfo

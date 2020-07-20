@@ -3,7 +3,6 @@ import {
   SET_PROFILE_TO_STORE,
   CLEAR_PROFILE,
   SET_STATUS,
-  GET_STATUS,
 } from "./../constants/index";
 
 let initialState = {

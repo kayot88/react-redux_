@@ -5,6 +5,7 @@ import Spinner from "./../../Spinner";
 import UserStatus from "./Status";
 
 const ProfileInfo = (props) => {
+  // console.log("props.profil", props.profile);
   if (!props.profile) {
     return <Spinner />;
   } else {

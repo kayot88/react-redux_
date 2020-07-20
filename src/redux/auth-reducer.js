@@ -5,7 +5,6 @@ let initialState = {
   email: null,
   login: null,
   isLogin: false,
-  isInitialized: false,
 };
 
 const userReducer = (state = initialState, action) => {

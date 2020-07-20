@@ -1,5 +1,6 @@
 import { isLoadingAC } from "./usersPage";
 import { getProfileByUserAPI, userStatusAPI } from "../api/profileApi";
+import { FAKE } from "../constants";
 
 export const setProfileToStore = (profile) => {
   return {
@@ -31,23 +32,25 @@ export const clearUserProfileinStore = () => {
 // thunk creator
 
 export const getUserProfileById = (userId, idFromProfile) => {
-  return (dispatch) => {
+  return async (dispatch) => {
+    console.log('start');
     dispatch(isLoadingAC(true));
     // if (!userId) {
     //   return userId = idFromProfile;
     // }
-    getProfileByUserAPI
+    await getProfileByUserAPI
       .getUserIdFromUrl(userId || idFromProfile)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         dispatch(setProfileToStore(res.data));
-        dispatch(setUserAuth());
+        dispatch(setUserAuth(res.data.userId, 'sdsds', res.data.fullName));
         dispatch(isLoadingAC(false));
       });
   };
 };
 
 export const setStatusTC = (status) => {
+  console.log(status);
   return (dispatch) => {
     // debugger
     userStatusAPI.setStatus(status).then((res) => {
@@ -57,6 +60,7 @@ export const setStatusTC = (status) => {
     });
   };
 };
+
 
 export const getStatusTC = (userId) => {
   return (dispatch) => {

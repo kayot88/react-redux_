@@ -18,8 +18,6 @@ const Login = (props) => {
       <div>Login</div>
       <LoginForm onSubmit={onSubmit} />
     </div>
-  ) : isLoading ? (
-    <Spinner />
   ) : (
     <Redirect to={"/profile"} />
   );
@@ -28,7 +26,6 @@ const Login = (props) => {
 let LoginForm = (props) => {
   const { handleSubmit, error } = props;
   return (
-    
     <form onSubmit={handleSubmit}>
       <div>
         <Field
@@ -36,6 +33,7 @@ let LoginForm = (props) => {
           type="email"
           label={"Email"}
           component={renderField("input")}
+          autocomplete="off"
         />
       </div>
       <div>
@@ -43,7 +41,7 @@ let LoginForm = (props) => {
           name={"password"}
           label={"Password"}
           type="password"
-          autocomplete="new-password"
+          autocomplete="off"
           component={renderField("input")}
         />
       </div>
@@ -53,6 +51,7 @@ let LoginForm = (props) => {
           type={"checkbox"}
           label={"remember me"}
           component={renderField("input")}
+          autocomplete="off"
         />
       </div>
       <div>

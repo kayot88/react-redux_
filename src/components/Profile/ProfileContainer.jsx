@@ -1,21 +1,25 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import Profile from "./Profile";
 import {
-  setProfileToStore,
   getUserProfileById,
+  setProfileToStore,
   setStatusTC,
   getStatusTC,
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
 import { withAuth } from "./../hoc/withAuth";
-import { getProfile, getLoading, getUserStatus } from "./../../selectors/index";
+import {
+  getUserStatusReselect,
+  getLoadingReselect,
+  getProfileReselect,
+} from "./../../selectors/index";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    // console.log(this.props.match.params.userId);
+    console.log(this.props);
     this.props.getUserProfileById(
       this.props.match.params.userId,
       this.props.profile.userId
@@ -26,11 +30,14 @@ class ProfileContainer extends Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
-      this.props.getUserProfileById(this.props.match.params.userId);
+      this.props.getUserProfileById(
+        this.props.match.params.userId || this.props.profile.userId
+      );
     }
   }
 
   render() {
+    console.log("render");
     return (
       <Profile
         {...this.props}
@@ -43,10 +50,15 @@ class ProfileContainer extends Component {
 }
 
 const mstp = (state) => {
+  console.log("mstp");
   return {
-    profile: getProfile(state),
-    isLoading: getLoading(state),
-    status: getUserStatus(state),
+    // profile: getProfileReselect(state),
+    profile: state.profilePage.profile,
+
+    isLoading: getLoadingReselect(state),
+    // status: getUserStatusReselect(state),
+    status: state.profilePage.userStatus,
+    idUser: state.auth.id
   };
 };
 

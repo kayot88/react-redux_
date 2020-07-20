@@ -1,8 +1,8 @@
 import { setLoginApi } from "./../api/loginApi";
-import { clearUserProfileinStore, getUserProfileById } from "./profilePageAc";
+import {  getUserProfileById } from "./profilePageAc";
 import { getUserAuth } from "./usersPage";
 import { LOGOUT } from "../constants";
-import { SubmissionError, stopSubmit } from "redux-form";
+import {  stopSubmit } from "redux-form";
 
 const logoutAC = () => {
   return {
