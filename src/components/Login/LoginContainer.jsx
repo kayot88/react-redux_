@@ -7,7 +7,6 @@ import { setLoginTC } from "../../ac/loginPageAC";
 
 class LoginContainer extends Component {
   componentDidMount() {
-    // console.log(this.props.postLoginFormData);
   }
   render() {
     return (

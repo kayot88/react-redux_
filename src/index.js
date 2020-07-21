@@ -9,11 +9,11 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./redux/redux-store";
 
-// setInterval(() => {
-//   store.dispatch({
-//     type: FAKE
-//   })
-// }, 1000);
+  // setInterval(() => {
+  //   store.dispatch({
+  //     type: FAKE
+  //   })
+  // }, 1000);
 
 
 ReactDOM.render(

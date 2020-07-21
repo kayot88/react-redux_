@@ -56,7 +56,6 @@ let store = {
     },
   },
   _callSubscriber() {
-    console.log("Stated is changed");
   },
 
   getState() {

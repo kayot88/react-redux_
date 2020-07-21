@@ -7,7 +7,6 @@ export default class UserStatus extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       localUserStatus: this.props.status,
     });
@@ -22,14 +21,12 @@ export default class UserStatus extends Component {
   }
 
   handlerStatusChange = (e) => {
-    console.log(e.currentTarget.value);
     this.setState({
       localUserStatus: e.currentTarget.value,
     });
   };
 
   statusClickHandler = () => {
-    console.log("this.props.status.status", this.props.status);
     this.setState({
       editMode: true,
       localUserStatus: this.props.status,

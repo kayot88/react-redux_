@@ -33,24 +33,17 @@ export const clearUserProfileinStore = () => {
 
 export const getUserProfileById = (userId, idFromProfile) => {
   return async (dispatch) => {
-    console.log('start');
     dispatch(isLoadingAC(true));
-    // if (!userId) {
-    //   return userId = idFromProfile;
-    // }
     await getProfileByUserAPI
       .getUserIdFromUrl(userId || idFromProfile)
       .then((res) => {
-        // console.log(res.data);
         dispatch(setProfileToStore(res.data));
-        dispatch(setUserAuth(res.data.userId, 'sdsds', res.data.fullName));
         dispatch(isLoadingAC(false));
       });
   };
 };
 
 export const setStatusTC = (status) => {
-  console.log(status);
   return (dispatch) => {
     // debugger
     userStatusAPI.setStatus(status).then((res) => {
@@ -60,7 +53,6 @@ export const setStatusTC = (status) => {
     });
   };
 };
-
 
 export const getStatusTC = (userId) => {
   return (dispatch) => {

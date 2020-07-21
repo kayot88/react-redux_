@@ -4,7 +4,6 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import Spinner from "./../Spinner/index";
 
 const Profile = (props) => {
-  console.log(props);
   const { isLoading, profile } = props;
   // if (isLoading) {
   //   return <Spinner />;
@@ -14,7 +13,7 @@ const Profile = (props) => {
       <ProfileInfo
         {...props}
         profile={profile}
-        isLoading={isLoading}
+        isLoading={isLoading.isLoading}
         // setStatusTC={props.setStatusTC}
       />
       <MyPostsContainer store={props.store} />

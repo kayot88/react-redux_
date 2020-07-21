@@ -2,10 +2,9 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import owl from "../../../img/owl.jpg";
 import Spinner from "./../../Spinner";
-import UserStatus from "./Status";
+import UserStatus from "./Status copy";
 
 const ProfileInfo = (props) => {
-  // console.log("props.profil", props.profile);
   if (!props.profile) {
     return <Spinner />;
   } else {

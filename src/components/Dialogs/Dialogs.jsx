@@ -31,7 +31,6 @@ const Dialogs = (props) => {
 };
 
 let DialogsForm = (props) => {
-  console.log("DialogsFormProps", props);
   return (
     <form onSubmit={props.handleSubmit}>
       <div>

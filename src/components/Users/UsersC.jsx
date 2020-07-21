@@ -44,7 +44,6 @@ const Users = ({
         })}
       </div>
       {users.map((user) => {
-        // console.log(isFollowProgres, user.id);
         return (
           <div key={user.id}>
             <div>

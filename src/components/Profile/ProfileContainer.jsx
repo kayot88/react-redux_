@@ -15,29 +15,28 @@ import {
   getUserStatusReselect,
   getLoadingReselect,
   getProfileReselect,
+  getUserID,
 } from "./../../selectors/index";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    console.log(this.props);
     this.props.getUserProfileById(
       this.props.match.params.userId,
-      this.props.profile.userId
+      this.props.idUser
     );
-    this.props.getStatusTC(
-      this.props.match.params.userId || this.props.profile.userId
-    );
+
+    this.props.getStatusTC(this.props.match.params.userId || this.props.idUser);
   }
   componentDidUpdate(prevProps) {
     if (this.props.currentPage !== prevProps.currentPage) {
       this.props.getUserProfileById(
-        this.props.match.params.userId || this.props.profile.userId
+        this.props.match.params.userId || this.props.idUser
       );
     }
   }
 
   render() {
-    console.log("render");
+    console.count("render");
     return (
       <Profile
         {...this.props}
@@ -50,15 +49,12 @@ class ProfileContainer extends Component {
 }
 
 const mstp = (state) => {
-  console.log("mstp");
+  console.count("mstp");
   return {
-    // profile: getProfileReselect(state),
-    profile: state.profilePage.profile,
-
+    profile: getProfileReselect(state),
     isLoading: getLoadingReselect(state),
-    // status: getUserStatusReselect(state),
-    status: state.profilePage.userStatus,
-    idUser: state.auth.id
+    status: getUserStatusReselect(state),
+    idUser: getUserID(state),
   };
 };
 

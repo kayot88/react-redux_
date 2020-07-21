@@ -5,7 +5,6 @@ import s from "./Header.module.css";
 
 const Header = ({ isLogin, userId, logoutTC }) => {
   const onClickHandler = () => {
-    console.log('logout');
     logoutTC();
   };
 

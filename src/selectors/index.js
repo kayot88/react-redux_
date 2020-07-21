@@ -1,30 +1,30 @@
 import { createSelector } from "reselect";
 
-const getProfile = (state) => {
-  return {
-    profile: state.profilePage.profile,
-  };
+// selectors
+export const getProfile = (state) => {
+  return state.profilePage.profile
 };
-const getLoading = (state) => {
-  return {
-    isLoading: state.usersPage.isLoading,
-  };
+export const getLoading = (state) => {
+  return state.usersPage.isLoading
 };
-const getUserStatus = (state) => {
-  console.log(state.profilePage.userStatus);
-  return {
-    status: state.profilePage.userStatus,
-  };
+export const getUserStatus = (state) => {
+  return state.profilePage.userStatus
 };
+export const getUserId = (state) => {
+  return state.auth.userId
+};
+
+// reselectors
 export const getUserStatusReselect = createSelector(
   getUserStatus,
-  (userStatus) => {
-    return userStatus.status;
-  }
+  (status) => status
 );
-export const getLoadingReselect = createSelector(getLoading, (isLoading) => {
-  return isLoading;
-});
-export const getProfileReselect = createSelector(getProfile, (profile) => {
-  return profile;
-});
+export const getLoadingReselect = createSelector(
+  getLoading,
+  (loading) => loading
+);
+export const getProfileReselect = createSelector(
+  getProfile,
+  (profile) => profile
+);
+export const getUserID = createSelector(getUserId, (id) => id);

@@ -1,19 +1,16 @@
-import React, { Component, useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const UserStatus = (props) => {
-  // debugger
   const [editMode, setEditMode] = useState(false);
-  const [localStatus, setLocalStatus] = useState(props.profile.status);
-  // console.log(props.profile.profile.fullName);
+  const [localStatus, setLocalStatus] = useState(props.status);
 
   useEffect(() => {
-    console.log(props);
-    setLocalStatus(props.profile.status);
-  }, [props.profile.status]);
+    setLocalStatus(props.status);
+  }, [props.status]);
 
   const statusClickHandler = () => {
     setEditMode(true);
-    setLocalStatus(props.profile.status);
+    setLocalStatus(props.status);
   };
 
   const deactivateStatus = () => {
