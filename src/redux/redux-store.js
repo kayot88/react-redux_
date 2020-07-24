@@ -7,6 +7,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import appReducer from "./app-reducer";
+import { createLogger } from "redux-logger";
 
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
@@ -14,6 +15,9 @@ const composeEnhancers = composeWithDevTools({
   trace: true,
   traceLimit: 25,
 });
+
+const logger = createLogger()
+
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,

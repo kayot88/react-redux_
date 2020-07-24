@@ -15,7 +15,7 @@ import {
   getUserStatusReselect,
   getLoadingReselect,
   getProfileReselect,
-  getUserID,
+  getUserIDReselect,
 } from "./../../selectors/index";
 
 class ProfileContainer extends Component {
@@ -36,7 +36,6 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.count("render");
     return (
       <Profile
         {...this.props}
@@ -54,7 +53,7 @@ const mstp = (state) => {
     profile: getProfileReselect(state),
     isLoading: getLoadingReselect(state),
     status: getUserStatusReselect(state),
-    idUser: getUserID(state),
+    idUser: getUserIDReselect(state),
   };
 };
 

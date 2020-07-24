@@ -1,6 +1,7 @@
 import { usersApi, getAuthUserApi } from "./../api/usersApi";
 import { setUserAuth, getUserProfileById } from "./profilePageAc";
 import { INIT_SUCCESS } from "./../constants/index";
+import { sendMessageCreator } from ".";
 
 // action creators
 export const follow = (userId) => {
@@ -51,6 +52,7 @@ export const followInProgres = (following, userId) => {
     userId,
   };
 };
+
 
 export const initAppAC = () => {
   return {
@@ -116,3 +118,9 @@ export const initAPPTC = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const newMessageThunk = (newMessage) => {
+  return (dispatch) => {
+    dispatch(sendMessageCreator(newMessage));
+  }   
+}

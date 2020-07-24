@@ -7,9 +7,9 @@ import { validate, renderField  } from "./../../assets/validation/formValidate";
 // import s from "./../../assets/validation/formValidate.module.css";
 
 const Dialogs = (props) => {
-  const { dialogsPage, onSendMessageClick } = props;
+  const { dialogsPage, newMessageThunk } = props;
   let onSubmit = (formData) => {
-    onSendMessageClick(formData.dialogsFormText);
+    newMessageThunk(formData.dialogsFormText);
   };
 
   let dialogsElements = dialogsPage.dialogs.map((d) => (

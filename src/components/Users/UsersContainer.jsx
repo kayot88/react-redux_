@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 import {
   setUsers,
   setCurrentPage,
@@ -13,7 +15,20 @@ import {
 import Users from "./UsersC";
 import Spinner from "../Spinner";
 import { withAuth } from "./../hoc/withAuth";
-import { compose } from "redux";
+import {
+  usersSelector,
+  totalCountSelector,
+  countByPageSelector,
+  currentPageSelector,
+  isLoadingSelector,
+  isFollowingSelector,
+  usersReselect,
+  totalCountReselect,
+  countByPageReselect,
+  currentPageReselect,
+  isLoadingReselect,
+  isFollowingReselect,
+} from "../../selectors";
 
 class UsersApiContainer extends Component {
   componentDidMount() {
@@ -38,54 +53,34 @@ class UsersApiContainer extends Component {
         onFollowClick={this.props.onFollowClick}
         users={this.props.users}
         isFollowProgres={this.props.isFollowing}
-        isFollowingingAction={this.props.isFollowingingAction}
+        isFollowingingAction={this.props.followInProgres}
       />
     );
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    totalCount: state.usersPage.totalCount,
-    countByPage: state.usersPage.countByPage,
-    currentPage: state.usersPage.currentPage,
-    isLoading: state.usersPage.isLoading,
-    isFollowing: state.usersPage.followInProgres,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFollowClick: (userId) => {
-      dispatch(onFollowClick(userId));
-    },
-    onUnFollowClick: (userId) => {
-      dispatch(onUnFollowClick(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsers(users));
-    },
-    setCurrentPage: (pageId) => {
-      dispatch(setCurrentPage(pageId));
-    },
-    setTotalCount: (totalCount) => {
-      dispatch(setTotalCount(totalCount));
-    },
-    isLoadingAction: (loading) => {
-      dispatch(isLoadingAC(loading));
-    },
-    isFollowingingAction: (following, userId) => {
-      dispatch(followInProgres(following, userId));
-    },
-    getUsers: (currentPage, countByPage) => {
-      dispatch(getUsers(currentPage, countByPage));
-    },
+    users: usersReselect(state),
+    totalCount: totalCountReselect(state),
+    countByPage: countByPageReselect(state),
+    currentPage: currentPageReselect(state),
+    isLoading: isLoadingReselect(state),
+    isFollowing: isFollowingReselect(state),
   };
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, {
+    onFollowClick,
+    onUnFollowClick,
+    setUsers,
+    setCurrentPage,
+    setTotalCount,
+    isLoadingAC,
+    followInProgres,
+    getUsers,
+  }),
+  withRouter,
   withAuth
 )(UsersApiContainer);
-

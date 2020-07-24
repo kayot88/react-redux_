@@ -1,20 +1,64 @@
 import { createSelector } from "reselect";
 
-// selectors
-export const getProfile = (state) => {
-  return state.profilePage.profile
+// usersSelectors
+export const usersSelector = (state) => {
+  return state.usersPage.users;
 };
-export const getLoading = (state) => {
-  return state.usersPage.isLoading
+export const totalCountSelector = (state) => {
+  return state.usersPage.totalCount;
 };
-export const getUserStatus = (state) => {
-  return state.profilePage.userStatus
+export const countByPageSelector = (state) => {
+  return state.usersPage.countByPage;
 };
-export const getUserId = (state) => {
-  return state.auth.userId
+export const currentPageSelector = (state) => {
+  return state.usersPage.currentPage;
+};
+export const isLoadingSelector = (state) => {
+  return state.usersPage.isLoading;
+};
+export const isFollowingSelector = (state) => {
+  return state.usersPage.followInProgres;
 };
 
-// reselectors
+// reselect users selectors
+export const usersReselect = createSelector(usersSelector, (users) => users);
+export const totalCountReselect = createSelector(
+  totalCountSelector,
+  (data) => data
+);
+export const countByPageReselect = createSelector(
+  countByPageSelector,
+  (data) => data
+);
+export const currentPageReselect = createSelector(
+  currentPageSelector,
+  (data) => data
+);
+export const isLoadingReselect = createSelector(
+  isLoadingSelector,
+  (data) => data
+);
+export const isFollowingReselect = createSelector(
+  isFollowingSelector,
+  (data) => data
+);
+
+// profile selectors
+export const getProfile = (state) => {
+  return state.profilePage.profile;
+};
+
+export const getLoading = (state) => {
+  return state.usersPage.isLoading;
+};
+export const getUserStatus = (state) => {
+  return state.profilePage.userStatus;
+};
+export const getUserId = (state) => {
+  return state.auth.userId;
+};
+
+// reselect profile selectors
 export const getUserStatusReselect = createSelector(
   getUserStatus,
   (status) => status
@@ -27,4 +71,12 @@ export const getProfileReselect = createSelector(
   getProfile,
   (profile) => profile
 );
-export const getUserID = createSelector(getUserId, (id) => id);
+export const getUserIDReselect = createSelector(getUserId, (id) => id);
+
+// login selectors
+const isLoginSelector = (state) => state.auth.isLogin;
+const isAuthSelector = (state) => state.initApp.isInitialized;
+
+// reselect login
+export const isLoginReselect = createSelector(isLoginSelector, (data) => data);
+export const isAuthReselect = createSelector(isAuthSelector, (data) => data);

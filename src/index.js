@@ -14,7 +14,7 @@ import store from "./redux/redux-store";
   //     type: FAKE
   //   })
   // }, 1000);
-
+ 
 
 ReactDOM.render(
   <BrowserRouter>

@@ -3,6 +3,7 @@ import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import { withAuth } from "./../hoc/withAuth";
 import { compose } from 'redux';
+import { newMessageThunk } from "../../ac/usersPage";
 
 
 const mstp_redirect = (state) => {
@@ -17,18 +18,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSendMessageClick: (newMessage) => {
-      dispatch(sendMessageCreator(newMessage));
-    },
-  };
-};
-
-
-
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, { newMessageThunk }),
   connect(mstp_redirect),
   withAuth
 )(Dialogs);

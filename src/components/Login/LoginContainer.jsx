@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import Login from "./Login";
 import { setLoginTC } from "../../ac/loginPageAC";
+import {
+  isLoginReselect,
+  isAuthReselect,
+  isLoadingReselect,
+} from "../../selectors";
 // import { withAuth } from "../hoc/withAuth";
+import { withRouter } from 'react-router-dom';
 
 class LoginContainer extends Component {
   componentDidMount() {
@@ -15,12 +21,12 @@ class LoginContainer extends Component {
   }
 }
 
-const smtp = (state) => {
+const mstp = (state) => {
   return {
-    isLogin: state.auth.isLogin,
-    isLoding: state.usersPage.isLoading,
-    isAuth: state.initApp.isInitialized,
+    isLogin: isLoginReselect(state),
+    isLoding: isLoadingReselect(state),
+    isAuth: isAuthReselect(state),
   };
 };
 
-export default compose(connect(smtp, { setLoginTC }))(LoginContainer);
+export default compose(connect(mstp, { setLoginTC }), withRouter)(LoginContainer);
