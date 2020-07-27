@@ -16,12 +16,6 @@ import Users from "./UsersC";
 import Spinner from "../Spinner";
 import { withAuth } from "./../hoc/withAuth";
 import {
-  usersSelector,
-  totalCountSelector,
-  countByPageSelector,
-  currentPageSelector,
-  isLoadingSelector,
-  isFollowingSelector,
   usersReselect,
   totalCountReselect,
   countByPageReselect,

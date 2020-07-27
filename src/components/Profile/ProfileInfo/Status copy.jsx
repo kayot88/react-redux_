@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const UserStatus = (props) => {
+const UserStatus = React.memo((props) => {
+  console.count("status render");
   const [editMode, setEditMode] = useState(false);
   const [localStatus, setLocalStatus] = useState(props.status);
 
@@ -36,6 +37,6 @@ const UserStatus = (props) => {
       )}
     </div>
   );
-};
+});
 
 export default UserStatus;

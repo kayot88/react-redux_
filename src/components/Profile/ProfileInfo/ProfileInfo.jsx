@@ -4,7 +4,8 @@ import owl from "../../../img/owl.jpg";
 import Spinner from "./../../Spinner";
 import UserStatus from "./Status copy";
 
-const ProfileInfo = (props) => {
+const ProfileInfo = React.memo((props) => {
+  console.count("render profile info");
   if (!props.profile) {
     return <Spinner />;
   } else {
@@ -17,6 +18,6 @@ const ProfileInfo = (props) => {
       </div>
     );
   }
-};
+});
 
 export default ProfileInfo;

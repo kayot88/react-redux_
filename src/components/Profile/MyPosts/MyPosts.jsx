@@ -9,6 +9,7 @@ import {
 } from "./../../../assets/validation/formValidate";
 
 const MyPosts = (props) => {
+  console.count("my posts render");
   const { addPost, posts } = props;
   let onSubmit = (formData) => {
     addPost(formData.newPostText);
