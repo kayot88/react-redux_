@@ -1,7 +1,6 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import Spinner from "./../Spinner/index";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
   const { isLoading, profile } = props;

@@ -8,7 +8,6 @@ import {
   isAuthReselect,
   isLoadingReselect,
 } from "../../selectors";
-// import { withAuth } from "../hoc/withAuth";
 import { withRouter } from 'react-router-dom';
 
 class LoginContainer extends Component {

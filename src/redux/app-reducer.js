@@ -2,7 +2,7 @@ import { INIT_SUCCESS, FAKE } from "../constants/index";
 
 let initialState = {
   isInitialized: false,
-  fakeData: 0
+  fakeData: 0,
 };
 
 const appReducer = (state = initialState, action) => {

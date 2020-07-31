@@ -53,7 +53,6 @@ export const followInProgres = (following, userId) => {
   };
 };
 
-
 export const initAppAC = () => {
   return {
     type: INIT_SUCCESS,
@@ -62,34 +61,41 @@ export const initAppAC = () => {
 
 // thunk creators
 export const getUsers = (currentPage, countByPage) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(isLoadingAC(true));
-    usersApi.getUsers(currentPage, countByPage).then((res) => {
-      dispatch(setUsers(res.data.items));
-      dispatch(setTotalCount(res.data.totalCount));
-      dispatch(isLoadingAC(false));
-    });
+    let res = await usersApi.getUsers(currentPage, countByPage);
+    dispatch(setUsers(res.data.items));
+    dispatch(setTotalCount(res.data.totalCount));
+    dispatch(isLoadingAC(false));
   };
+};
+// utis func
+const followUnfollow = async (dispatch, userId, apiMethod, followFlow) => {
+  let res = await apiMethod(userId);
+  if (res.data.resultCode === 0) {
+    dispatch(followFlow(userId));
+    dispatch(followInProgres(false, userId));
+  }
 };
 
 export const onFollowClick = (userId) => {
-  return (dispatch) => {
-    usersApi.followApi(userId).then((res) => {
-      if (res.data.resultCode === 0) {
-        dispatch(follow(userId));
-        dispatch(followInProgres(false, userId));
-      }
-    });
+  return async (dispatch) => {
+    return followUnfollow(
+      dispatch,
+      userId,
+      usersApi.followApi.bind(usersApi),
+      follow
+    );
   };
 };
 export const onUnFollowClick = (userId) => {
-  return (dispatch) => {
-    usersApi.unFollowApi(userId).then((res) => {
-      if (res.data.resultCode === 0) {
-        dispatch(unFollow(userId));
-        dispatch(followInProgres(false, userId));
-      }
-    });
+  return async (dispatch) => {
+    return followUnfollow(
+      dispatch,
+      userId,
+      usersApi.unFollowApi.bind(usersApi),
+      unFollow
+    );
   };
 };
 
@@ -97,13 +103,12 @@ export const onUnFollowClick = (userId) => {
 export const getUserAuth = () => {
   return async (dispatch) => {
     try {
-      await getAuthUserApi.getAuthData().then((res) => {
-        let { id, email, login } = res.data.data;
-        if (res.data.resultCode !== 1) {
-          dispatch(getUserProfileById(id))
-          dispatch(setUserAuth(id, email, login));
-        }
-      });
+      let res = await getAuthUserApi.getAuthData();
+      let { id, email, login } = res.data.data;
+      if (res.data.resultCode !== 1) {
+        dispatch(getUserProfileById(id));
+        dispatch(setUserAuth(id, email, login));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -122,5 +127,5 @@ export const initAPPTC = () => async (dispatch) => {
 export const newMessageThunk = (newMessage) => {
   return (dispatch) => {
     dispatch(sendMessageCreator(newMessage));
-  }   
-}
+  };
+};

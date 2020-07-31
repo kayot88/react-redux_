@@ -51,7 +51,9 @@ export default class UserStatus extends Component {
           <div>
             <input
               autoFocus
-              onChange={(e) => this.setState({localUserStatus: e.currentTarget.value})}
+              onChange={(e) =>
+                this.setState({ localUserStatus: e.currentTarget.value })
+              }
               onBlur={this.deactivateStatus}
               value={this.state.localUserStatus}
             />

@@ -1,6 +1,5 @@
-import { isLoadingAC } from "./usersPage";
 import { getProfileByUserAPI, userStatusAPI } from "../api/profileApi";
-import { FAKE } from "../constants";
+import { isLoadingAC } from "./usersPage";
 
 export const setProfileToStore = (profile) => {
   return {
@@ -30,34 +29,29 @@ export const clearUserProfileinStore = () => {
 };
 
 // thunk creator
-
 export const getUserProfileById = (userId, idFromProfile) => {
   return async (dispatch) => {
     dispatch(isLoadingAC(true));
-    await getProfileByUserAPI
-      .getUserIdFromUrl(userId || idFromProfile)
-      .then((res) => {
-        dispatch(setProfileToStore(res.data));
-        dispatch(isLoadingAC(false));
-      });
+    let res = await getProfileByUserAPI.getUserIdFromUrl(
+      userId || idFromProfile
+    );
+    dispatch(setProfileToStore(res.data));
+    dispatch(isLoadingAC(false));
   };
 };
 
 export const setStatusTC = (status) => {
   return (dispatch) => {
-    // debugger
-    userStatusAPI.setStatus(status).then((res) => {
-      if (res.data.resultCode === 0) {
-        dispatch(setNewStatus(status));
-      }
-    });
+    let res = userStatusAPI.setStatus(status);
+    if (res.data.resultCode === 0) {
+      dispatch(setNewStatus(status));
+    }
   };
 };
 
 export const getStatusTC = (userId) => {
   return (dispatch) => {
-    userStatusAPI.getStatus(userId).then((res) => {
-      dispatch(setNewStatus(res.data));
-    });
+    let res = userStatusAPI.getStatus(userId);
+    dispatch(setNewStatus(res.data));
   };
 };

@@ -48,7 +48,6 @@ class ProfileContainer extends Component {
 }
 
 const mstp = (state) => {
-  // console.count("mstp");
   return {
     profile: getProfileReselect(state),
     isLoading: getLoadingReselect(state),

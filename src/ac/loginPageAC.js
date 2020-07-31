@@ -1,8 +1,8 @@
 import { setLoginApi } from "./../api/loginApi";
-import {  getUserProfileById } from "./profilePageAc";
+import { getUserProfileById } from "./profilePageAc";
 import { getUserAuth } from "./usersPage";
 import { LOGOUT } from "../constants";
-import {  stopSubmit } from "redux-form";
+import { stopSubmit } from "redux-form";
 
 const logoutAC = () => {
   return {
@@ -11,22 +11,19 @@ const logoutAC = () => {
   };
 };
 
-export const setLoginTC = (formData) => (dispatch) =>
-  setLoginApi.postLoginFormData(formData).then((res) => {
-    if (res.data.resultCode === 0) {
-      dispatch(getUserAuth());
-      dispatch(getUserProfileById(res.data.data.userId));
-    } else {
-      dispatch(stopSubmit("loginForm", { _error: res.data.messages }));
-      // dispatch(clearUserProfileinStore());
-    }
-  });
+export const setLoginTC = (formData) => async (dispatch) => {
+  let res = await setLoginApi.postLoginFormData(formData);
+  if (res.data.resultCode === 0) {
+    dispatch(getUserAuth());
+    dispatch(getUserProfileById(res.data.data.userId));
+  } else {
+    dispatch(stopSubmit("loginForm", { _error: res.data.messages }));
+  }
+};
 
-export const logoutTC = () => (dispatch) => {
-  return setLoginApi.logout().then((res) => {
-    if (res.data.resultCode === 0) {
-      // dispatch(clearUserProfileinStore());
-      dispatch(logoutAC());
-    }
-  });
+export const logoutTC = () => async (dispatch) => {
+  let res = await setLoginApi.logout();
+  if (res.data.resultCode === 0) {
+    dispatch(logoutAC());
+  }
 };

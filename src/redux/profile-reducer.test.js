@@ -28,5 +28,3 @@ it("we should add new post in state", () => {
 });
 
 
-
- 

@@ -1,13 +1,12 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
-import userReducer from "./users-reducer";
-import authReducer from "./auth-reducer";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
+import thunk from "redux-thunk";
 import appReducer from "./app-reducer";
-import { createLogger } from "redux-logger";
+import authReducer from "./auth-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+import userReducer from "./users-reducer";
 
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
@@ -15,9 +14,6 @@ const composeEnhancers = composeWithDevTools({
   trace: true,
   traceLimit: 25,
 });
-
-const logger = createLogger()
-
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,

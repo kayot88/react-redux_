@@ -1,15 +1,11 @@
 import React from "react";
-import { reduxForm, Field } from "redux-form";
+import { Redirect } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
 import { renderField } from "../../assets/validation/formValidate";
 import { validate } from "./../../assets/validation/formValidate";
-import { Redirect } from "react-router-dom";
-import Spinner from "./../Spinner/index";
 import style from "./Login.module.css";
 
 const Login = (props) => {
-  
-  const { isLoading } = props;
-
   let onSubmit = (formData) => {
     props.setLoginTC(formData);
   };

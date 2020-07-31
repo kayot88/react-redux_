@@ -5,7 +5,6 @@ import Spinner from "./../../Spinner";
 import UserStatus from "./Status copy";
 
 const ProfileInfo = React.memo((props) => {
-  console.count("render profile info");
   if (!props.profile) {
     return <Spinner />;
   } else {

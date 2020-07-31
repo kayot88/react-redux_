@@ -1,7 +1,6 @@
-// import React from "react";
+import { connect } from "react-redux";
 import { addPostCreator } from "./../../../ac/index";
 import MyPosts from "./MyPosts";
-import { connect } from "react-redux";
 
 let mapStateToProps = (state) => {
   return {

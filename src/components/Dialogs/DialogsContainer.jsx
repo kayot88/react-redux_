@@ -1,9 +1,8 @@
-import { sendMessageCreator } from "../../ac";
-import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
-import { withAuth } from "./../hoc/withAuth";
 import { compose } from 'redux';
 import { newMessageThunk } from "../../ac/usersPage";
+import { withAuth } from "./../hoc/withAuth";
+import Dialogs from "./Dialogs";
 
 
 const mstp_redirect = (state) => {
