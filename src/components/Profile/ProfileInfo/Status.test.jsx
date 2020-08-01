@@ -1,7 +1,7 @@
 
 
-describe('Status compoent testing', () => {
-  test('status should be rendered', () => {
+// describe('Status compoent testing', () => {
+//   test('status should be rendered', () => {
     
-  });
-});
+//   });
+// });
