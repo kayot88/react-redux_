@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import owl from "../../../img/owl.jpg";
-import Spinner from "./../../Spinner";
+import Spinner from "../../../common/Spinner";
 import UserStatus from "./Status copy";
 
 const ProfileInfo = React.memo((props) => {

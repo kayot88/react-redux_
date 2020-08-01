@@ -52,6 +52,7 @@ let LoginForm = (props) => {
       </div>
       <div>
         <button disabled={props.pristine || props.submitting}>Login</button>
+        {/* disabling dutton after click */}
       </div>
       <span className={error ? style.formError : style.default}>
         {error && <strong>{error}</strong>}

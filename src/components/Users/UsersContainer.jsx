@@ -13,8 +13,8 @@ import {
   onUnFollowClick,
 } from "../../ac/usersPage";
 import Users from "./UsersC";
-import Spinner from "../Spinner";
 import { withAuth } from "./../hoc/withAuth";
+import Spinner from "../../common/Spinner";
 import {
   usersReselect,
   totalCountReselect,

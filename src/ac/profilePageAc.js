@@ -31,9 +31,10 @@ export const clearUserProfileinStore = () => {
 // thunk creator
 export const getUserProfileById = (userId, idFromProfile) => {
   return async (dispatch) => {
+    console.log(userId, idFromProfile);
     dispatch(isLoadingAC(true));
     let res = await getProfileByUserAPI.getUserIdFromUrl(
-      userId || idFromProfile
+      userId || idFromProfile 
     );
     dispatch(setProfileToStore(res.data));
     dispatch(isLoadingAC(false));
@@ -41,8 +42,8 @@ export const getUserProfileById = (userId, idFromProfile) => {
 };
 
 export const setStatusTC = (status) => {
-  return (dispatch) => {
-    let res = userStatusAPI.setStatus(status);
+  return async (dispatch) => {
+    let res = await userStatusAPI.setStatus(status);
     if (res.data.resultCode === 0) {
       dispatch(setNewStatus(status));
     }
@@ -50,8 +51,8 @@ export const setStatusTC = (status) => {
 };
 
 export const getStatusTC = (userId) => {
-  return (dispatch) => {
-    let res = userStatusAPI.getStatus(userId);
+  return async (dispatch) => {
+    let res = await userStatusAPI.getStatus(userId);
     dispatch(setNewStatus(res.data));
   };
 };

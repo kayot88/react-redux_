@@ -7,6 +7,7 @@ import {
   IS_LOADING,
   FOLLOW_IN_PROGRES,
 } from "./../constants/index";
+import { changeObjInArray } from "../assets/helpers";
 let initialState = {
   users: [],
   totalCount: 0,
@@ -21,11 +22,8 @@ const userReducer = (state = initialState, action) => {
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map((user) => {
-          if (user.id === action.payload && user.followed === false) {
-            return { ...user, followed: true };
-          }
-          return user;
+        users: changeObjInArray(state.users, "id", action.payload, {
+          followed: true,
         }),
       };
     case FOLLOW_IN_PROGRES:
@@ -39,11 +37,8 @@ const userReducer = (state = initialState, action) => {
     case UNFOLLOW:
       return {
         ...state,
-        users: state.users.map((user) => {
-          if (user.id === action.payload && user.followed === true) {
-            return { ...user, followed: false };
-          }
-          return user;
+        users: changeObjInArray(state.users, "id", action.payload, {
+          followed: false,
         }),
       };
 

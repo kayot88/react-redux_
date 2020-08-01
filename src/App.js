@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Route, withRouter } from "react-router-dom";
+import { connect, Provider } from "react-redux";
+import { Route, withRouter, BrowserRouter } from "react-router-dom";
 import { compose } from "redux";
 import { initAPPTC } from "./ac/usersPage";
 import "./App.css";
@@ -9,8 +9,9 @@ import HeaderContainerWithConnect from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer.jsx";
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import Spinner from "./components/Spinner";
 import UsersContainer from "./components/Users/UsersContainer";
+import Spinner from "./common/Spinner";
+import store from './redux/redux-store';
 
 class App extends Component {
   componentDidMount() {
@@ -44,4 +45,16 @@ const mstp = (state) => {
   };
 };
 
-export default compose(withRouter, connect(mstp, { initAPPTC }))(App);
+let AppContainer = compose(withRouter, connect(mstp, { initAPPTC }))(App);
+
+const MainApp = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  );
+};
+
+export default MainApp;

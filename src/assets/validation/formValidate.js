@@ -26,17 +26,12 @@ export const validate = (values, props) => {
   return errors;
 };
 
-export const renderField = (El) => ({ input, meta, ...props }) => {
+export const renderField = (El) => ({ input, meta, type, label }) => {
   const hasError = meta.touched && meta.error;
   return (
     <div>
       <div className={s.formControl + " " + (hasError ? s.err : "")}>
-        <El
-          {...input}
-          type={props.type}
-          placeholder={props.label}
-          autoComplete="off"
-        />
+        <El {...input} type={type} placeholder={label} autoComplete="off" />
       </div>
       {(hasError && <span className={s.errSpan}>{meta.error}</span>) ||
         (hasError && <span>{meta.warning}</span>)}

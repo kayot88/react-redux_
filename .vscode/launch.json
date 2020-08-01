@@ -5,6 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch .js",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${file}"
+    },
+    {
       "name": "Debug CRA Tests",
       "type": "node",
       "request": "launch",

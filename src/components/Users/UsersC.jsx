@@ -1,17 +1,13 @@
 import React from "react";
-import styles from "./Users.module.css";
-import { NavLink } from "react-router-dom";
+import Paginator from "./../../common/Paginator/Paginator";
+import User from "./../User/User";
 
 const Users = ({
   totalCount,
   countByPage,
-  currentPage,
   setCurrentPage,
-  onUnFollowClick,
-  onFollowClick,
-  users,
-  isFollowingingAction,
-  isFollowProgres,
+  currentPage,
+  ...props
 }) => {
   const countPages = Math.ceil(totalCount / countByPage);
   const countPagesArr = [];
@@ -23,68 +19,19 @@ const Users = ({
   const styleS = {
     transform: `transform: rotate(19deg)`,
   };
-
+  console.log(props);
   return (
     <div>
       <div>
-        {countPagesArr.reverse().map((page) => {
-          return (
-            <span
-              key={page}
-              onClick={() => {
-                setCurrentPage(page);
-              }}
-              style={styleS}
-              className={`${styles.pages}
-                  ${currentPage === page && styles.currentPage} `}
-            >
-              {page}
-            </span>
-          );
-        })}
+        {
+          <Paginator
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            countPagesArr={countPagesArr}
+          />
+        }
       </div>
-      {users.map((user) => {
-        return (
-          <div key={user.id}>
-            <div>
-              <NavLink to={`/profile/${user.id}`}>
-                <img
-                  className={styles.userAva}
-                  src={user.photos.small || "https://loremflickr.com/100/100"}
-                  alt=""
-                />
-              </NavLink>
-              <div>
-                {user.followed === true ? (
-                  <button
-                    disabled={isFollowProgres.some((id) => id === user.id)}
-                    onClick={() => {
-                      isFollowingingAction(true, user.id);
-                      onUnFollowClick(user.id);
-                    }}
-                  >
-                    UnFollow
-                  </button>
-                ) : (
-                  <button
-                    disabled={isFollowProgres.some((id) => id === user.id)}
-                    onClick={() => {
-                      isFollowingingAction(true, user.id);
-                      onFollowClick(user.id);
-                    }}
-                  >
-                    Follow
-                  </button>
-                )}
-              </div>
-            </div>
-            <div>
-              <div>{user.name}</div>
-              <div>{user.status}</div>
-            </div>
-          </div>
-        );
-      })}
+      {<User {...props} />}
     </div>
   );
 };
