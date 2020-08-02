@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+
 const UserStatus = React.memo((props) => {
   const [editMode, setEditMode] = useState(false);
   const [localStatus, setLocalStatus] = useState(props.status);
@@ -21,11 +22,17 @@ const UserStatus = React.memo((props) => {
   return (
     <div>
       {!editMode && (
-        <span onClick={statusClickHandler}>{localStatus || "----"}</span>
+        <div>
+          <span onClick={statusClickHandler} data-testid="span">
+            Enter status here
+            {localStatus || "----"}
+          </span>
+        </div>
       )}
       {editMode && (
-        <div>
+        <div className="test">
           <input
+            data-testid="input"
             autoFocus
             onChange={(e) => setLocalStatus(e.currentTarget.value)}
             onBlur={deactivateStatus}
@@ -39,3 +46,4 @@ const UserStatus = React.memo((props) => {
 });
 
 export default UserStatus;
+
