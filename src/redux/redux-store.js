@@ -7,6 +7,7 @@ import authReducer from "./auth-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 import userReducer from "./users-reducer";
+import fileChangerReducer from "../common/FileChangerFeature/ducks";
 
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
@@ -21,6 +22,7 @@ let rootReducer = combineReducers({
   usersPage: userReducer,
   auth: authReducer,
   initApp: appReducer,
+  userPhoto: fileChangerReducer, 
   form: formReducer,
 });
 

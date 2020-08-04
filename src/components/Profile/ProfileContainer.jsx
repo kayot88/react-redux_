@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { compose } from "redux";
-import Profile from "./Profile";
+import { getUserPhotoReselect } from "../../common/FileChangerFeature/selectors";
 import {
-  getUserProfileById,
+  getStatusTC, getUserProfileById,
   setProfileToStore,
-  setStatusTC,
-  getStatusTC,
+  setStatusTC
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
-import { withAuth } from "./../hoc/withAuth";
+import { fileChangerThunk } from './../../common/FileChangerFeature/ducks';
 import {
-  getUserStatusReselect,
   getLoadingReselect,
   getProfileReselect,
-  getUserIDReselect,
+  getUserIDReselect, getUserStatusReselect
 } from "./../../selectors/index";
+import { withAuth } from "./../hoc/withAuth";
+import Profile from "./Profile";
 
 class ProfileContainer extends Component {
   componentDidMount() {
@@ -42,6 +42,7 @@ class ProfileContainer extends Component {
         profile={this.props.profile}
         status={this.props.status}
         setStatus={this.props.setStatusTC}
+        isOwner={!this.props.match.params.userId}
       />
     );
   }
@@ -53,6 +54,7 @@ const mstp = (state) => {
     isLoading: getLoadingReselect(state),
     status: getUserStatusReselect(state),
     idUser: getUserIDReselect(state),
+    userPhoto: getUserPhotoReselect(state),
   };
 };
 
@@ -63,6 +65,7 @@ export default compose(
     getUserProfileById,
     setStatusTC,
     getStatusTC,
+    fileChangerThunk,
   }),
   withRouter,
   withAuth

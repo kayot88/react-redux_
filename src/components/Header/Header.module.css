@@ -1,10 +1,8 @@
 .header {
   display: flex;
-  /* grid-area: h; */
+  grid-area: h;
   background-color: #282c34;
   /* background-color: red; */
-  /* flex-direction: column; */
-
   align-items: left;
   justify-content: space-between;
   color: white;
@@ -16,7 +14,6 @@
 }
 .blockLogin a {
   color: white;
-  /* align-items: end; */
 }
 
 .logo {

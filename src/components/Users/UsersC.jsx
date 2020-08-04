@@ -9,17 +9,10 @@ const Users = ({
   currentPage,
   ...props
 }) => {
-  const countPages = Math.ceil(totalCount / countByPage);
-  const countPagesArr = [];
-
-  for (let i = 1; i <= countPages; i++) {
-    countPagesArr.push(i);
-  }
 
   const styleS = {
     transform: `transform: rotate(19deg)`,
   };
-  console.log(props);
   return (
     <div>
       <div>
@@ -27,7 +20,8 @@ const Users = ({
           <Paginator
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
-            countPagesArr={countPagesArr}
+            countByPage={countByPage}
+            totalCount={totalCount}
           />
         }
       </div>
