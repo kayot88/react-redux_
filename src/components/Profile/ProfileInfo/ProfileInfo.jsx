@@ -9,11 +9,15 @@ const ProfileInfo = React.memo((props) => {
   if (!props.profile) {
     return <Spinner />;
   } else {
-    console.log("props.userPhoto", props.profile.photos);
+    console.log("props.userPhoto", props.userPhoto);
     return (
       <div>
         <div className={s.descriptionBlock}>
-          <img alt="" className={s.img} src={props.userPhoto} />
+          <img
+            alt=""
+            className={s.img}
+            src={props.userPhoto.photos.image || owl}
+          />
           {props.isOwner && (
             <FileChanger fileChangerThunk={props.fileChangerThunk} />
           )}
