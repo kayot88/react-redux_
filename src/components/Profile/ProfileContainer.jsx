@@ -10,6 +10,8 @@ import {
 } from "./../../ac/profilePageAc";
 import { isLoadingAC } from "./../../ac/usersPage";
 import { fileChangerThunk } from './../../common/FileChangerFeature/ducks';
+import { profileDataThunk } from "./ProfileDataFeature/ducks";
+
 import {
   getLoadingReselect,
   getProfileReselect,
@@ -43,6 +45,7 @@ class ProfileContainer extends Component {
         status={this.props.status}
         setStatus={this.props.setStatusTC}
         isOwner={!this.props.match.params.userId}
+        profileDataThunk={this.props.profileDataThunk}
       />
     );
   }
@@ -66,6 +69,7 @@ export default compose(
     setStatusTC,
     getStatusTC,
     fileChangerThunk,
+    profileDataThunk
   }),
   withRouter,
   withAuth

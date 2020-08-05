@@ -1,7 +1,10 @@
 .img {
-    height: 150px;
-  }
+  height: 150px;
+}
 
 .descriptionBlock {
   padding: 10px;
+}
+.userStatus {
+  border: 1px blue solid;
 }

@@ -1,15 +1,36 @@
-import React from "react";
-import s from "./ProfileInfo.module.css";
-import owl from "../../../img/owl.jpg";
-import Spinner from "../../../common/Spinner";
-import UserStatus from "./Status copy";
+import React, { useState } from "react";
 import FileChanger from "../../../common/FileChangerFeature/FileChanger/FileChanger";
+import Spinner from "../../../common/Spinner";
+import owl from "../../../img/owl.jpg";
+import ProfileData from "../ProfileDataFeature/ProfileData/ProfileData";
+import { ProfileDataForm } from "../ProfileDataFeature/ProfileData/ProfileDataForm";
+import s from "./ProfileInfo.module.css";
+import UserStatus from "./Status copy";
+import { profileDataThunk } from "../ProfileDataFeature/ducks";
+import ProfileContacts from "../ProfileDataFeature/ProfileData/ProfileContacts";
 
 const ProfileInfo = React.memo((props) => {
-  if (!props.profile) {
+  console.log("ProfileInfo", props.profile.contacts);
+  const {
+    aboutMe,
+    lookingForAJob,
+    lookingForAJobDescription,
+    fullName,
+    contacts,
+  } = props.profile;
+
+  const [editMode, setEditMode] = useState(false);
+
+  const onSubmit = (formData) => {
+    console.log(formData);
+    props.profileDataThunk(formData).then(() => {
+      setEditMode(false);
+    });
+  };
+
+  if (!props.profile && !props.profile.photos) {
     return <Spinner />;
   } else {
-    console.log("props.userPhoto", props.userPhoto);
     return (
       <div>
         <div className={s.descriptionBlock}>
@@ -21,7 +42,39 @@ const ProfileInfo = React.memo((props) => {
           {props.isOwner && (
             <FileChanger fileChangerThunk={props.fileChangerThunk} />
           )}
-          <UserStatus {...props} />
+          <div className={s.userStatus}>
+            <UserStatus {...props} />
+          </div>
+          {props.isOwner && (
+            <div>
+              <button onClick={() => setEditMode(true)}>Change info</button>
+            </div>
+          )}
+          {editMode ? (
+            <ProfileDataForm
+              aboutMe={aboutMe}
+              lookingForAJob={lookingForAJob}
+              lookingForAJobDescription={lookingForAJobDescription}
+              fullName={fullName}
+              onSubmit={onSubmit}
+              profile={props.profile}
+            />
+          ) : (
+            <div>
+              <ProfileData
+                aboutMe={aboutMe}
+                lookingForAJob={lookingForAJob}
+                lookingForAJobDescription={lookingForAJobDescription}
+                fullName={fullName}
+              />
+              {props.profile.contacts && (
+                <div>
+                  <b>Contacts:</b>
+                  <ProfileContacts contacts={contacts} />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );

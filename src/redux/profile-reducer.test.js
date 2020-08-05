@@ -1,6 +1,6 @@
 import profileReducer from './profile-reducer';
 import { addPostCreator } from './../ac/index';
-let state = {
+let mock_state = {
   posts: [
     {
       id: 1,
@@ -22,7 +22,7 @@ let state = {
 
 it("we should add new post in state", () => {
   let action = addPostCreator("test");
-  let newState = profileReducer(state, action);
+  let newState = profileReducer(mock_state, action);
   expect(newState.posts.length).toBe(4);
   expect(newState.posts[3].message).toBe("test");
 });

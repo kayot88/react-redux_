@@ -1,6 +1,6 @@
 import { sendPhotoApi } from "./api";
 
-const CHANGE_PHOTO = "fileChange/CHANGE_PHOTO";
+export const CHANGE_PHOTO = "fileChange/CHANGE_PHOTO";
 
 let initialState = {
   photos: { image: null },
@@ -17,9 +17,7 @@ const fileChangerAction = (newPhotoInProfile) => {
 // thunk
 export const fileChangerThunk = (newPhotoInProfile) => async (dispatch) => {
   let res = await sendPhotoApi.sendPhoto(newPhotoInProfile);
-  // console.log(res);
   if (res.data.resultCode == 0) {
-    // console.log(res);
     dispatch(fileChangerAction(res.data.data.photos.large));
   }
 };

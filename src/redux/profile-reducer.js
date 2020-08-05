@@ -1,3 +1,4 @@
+import { CHANGE_PHOTO } from "./../common/FileChangerFeature/ducks";
 import {
   ADD_POST,
   SET_PROFILE_TO_STORE,
@@ -44,6 +45,12 @@ const profileReducer = (state = initialState, action) => {
       };
 
       return { ...state, newPostText: "", posts: [...state.posts, newPost] };
+    }
+    case CHANGE_PHOTO: {
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.payload },
+      };
     }
 
     case SET_STATUS: {
