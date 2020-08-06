@@ -11,7 +11,6 @@ import style from "./Login.module.css";
 
 const Login = (props) => {
   let onSubmit = (formData) => {
-    debugger;
     props.setLoginTC(formData);
   };
   return !props.isLogin ? (
@@ -25,8 +24,7 @@ const Login = (props) => {
 };
 
 let LoginForm = (props) => {
-  const { handleSubmit, error, captcha } = props;
-  console.log(props);
+  const { handleSubmit, error, captcha, captchaRestore } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -65,8 +63,12 @@ let LoginForm = (props) => {
         )}
       </div>
       <div>
-        <button disabled={props.pristine || props.submitting}>Login</button>
-        {/* disabling dutton after click */}
+        <button
+          disabled={props.pristine || props.submitting}
+          onClick={captchaRestore}
+        >
+          Login
+        </button>
       </div>
       <span className={error ? style.formError : style.default}>
         {error && <strong>{error}</strong>}

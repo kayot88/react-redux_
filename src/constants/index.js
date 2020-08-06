@@ -23,3 +23,4 @@ export const LOGOUT = "LOGOUT";
 export const INIT_SUCCESS = "INIT_SUCCESS";
 export const FAKE = "FAKE";
 export const CAPTCHA = "CAPTCHA";
+export const CAPTCHA_DEFAULT = "CAPTCHA_DEFAULT";

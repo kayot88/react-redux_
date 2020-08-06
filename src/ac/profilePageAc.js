@@ -22,22 +22,18 @@ export const setUserAuth = (userId, email, login) => {
   };
 };
 
-
-
 export const clearUserProfileinStore = () => {
   return {
     type: "CLEAR_PROFILE",
   };
 };
 
-
-
 // thunk creator
 export const getUserProfileById = (userId, idFromProfile) => {
   return async (dispatch) => {
     dispatch(isLoadingAC(true));
     let res = await getProfileByUserAPI.getUserIdFromUrl(
-      userId || idFromProfile 
+      userId || idFromProfile
     );
     dispatch(setProfileToStore(res.data));
     dispatch(isLoadingAC(false));
@@ -50,6 +46,7 @@ export const setStatusTC = (status) => {
     if (res.data.resultCode === 0) {
       dispatch(setNewStatus(status));
     }
+    Promise.reject();
   };
 };
 

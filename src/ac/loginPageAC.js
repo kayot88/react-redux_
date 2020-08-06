@@ -1,7 +1,7 @@
 import { setLoginApi } from "./../api/loginApi";
 import { getUserProfileById } from "./profilePageAc";
 import { getUserAuth } from "./usersPage";
-import { LOGOUT, CAPTCHA } from "../constants";
+import { LOGOUT, CAPTCHA, CAPTCHA_DEFAULT } from "../constants";
 import { stopSubmit } from "redux-form";
 
 const logoutAC = () => {
@@ -14,6 +14,11 @@ const captchaAc = (captcha) => {
   return {
     type: CAPTCHA,
     payload: captcha,
+  };
+};
+export const captchaRestore = () => {
+  return {
+    type: CAPTCHA_DEFAULT,
   };
 };
 

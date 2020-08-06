@@ -10,6 +10,7 @@ import {
   captchaReselect,
 } from "../../selectors";
 import { withRouter } from "react-router-dom";
+import { captchaRestore } from './../../ac/loginPageAC';
 
 class LoginContainer extends Component {
   componentDidMount() {}
@@ -34,6 +35,6 @@ const mstp = (state) => {
 };
 
 export default compose(
-  connect(mstp, { setLoginTC }),
+  connect(mstp, { setLoginTC, captchaRestore }),
   withRouter
 )(LoginContainer);

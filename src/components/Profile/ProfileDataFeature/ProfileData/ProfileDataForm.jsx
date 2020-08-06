@@ -1,11 +1,7 @@
-import React, { PureComponent } from "react";
-import { Input, Textarea } from "../../../../assets/validation/formValidate";
+import React from "react";
 import { reduxForm } from "redux-form";
-import {
-  validate,
-  createField,
-} from "./../../../../assets/validation/formValidate";
-import { ErrorBoundary } from "../../../../common/ErrorBounder";
+import { Input, Textarea } from "../../../../assets/validation/formValidate";
+import { createField, validate } from "./../../../../assets/validation/formValidate";
 
 export let ProfileDataForm = ({ handleSubmit, error, profile }) => {
   return (

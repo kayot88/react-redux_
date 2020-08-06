@@ -11,11 +11,19 @@ import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import Spinner from "./common/Spinner";
-import store from './redux/redux-store';
+import store from "./redux/redux-store";
 
 class App extends Component {
+  handlerPromiseError = (promiseRejectionEvent) => {
+    alert(promiseRejectionEvent);
+  };
+
   componentDidMount() {
     this.props.initAPPTC();
+    window.addEventListener("unhandledrejection", this.handlerPromiseError);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.handlerPromiseError);
   }
 
   render() {

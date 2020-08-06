@@ -27,7 +27,6 @@ const ProfileInfo = React.memo((props) => {
   };
 
   const onSubmit = (formData) => {
-    console.log(formData);
     props.profileDataThunk(formData).then(() => {
       setEditMode(false);
     });
