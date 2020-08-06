@@ -39,6 +39,15 @@ export const renderField = (El) => ({ input, meta, type, label }) => {
     </div>
   );
 };
+const FormControl = ({ meta: { touched, error }, children }) => {
+  const hasError = touched && error;
+  return (
+    <div className={s.formControl + " " + (hasError ? s.err : "")}>
+      <div>{children}</div>
+      {hasError && <span>{error}</span>}
+    </div>
+  );
+};
 export function createField(
   placeholder,
   name,
@@ -61,7 +70,6 @@ export function createField(
   );
 }
 export const Textarea = (props) => {
-  //const {input, meta, child, ...restProps} = props;
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
@@ -76,17 +84,5 @@ export const Input = (props) => {
     <FormControl {...props}>
       <input {...input} {...restProps} />
     </FormControl>
-  );
-};
-const FormControl = ({
-  meta: { touched, error },
-  children,
-}) => {
-  const hasError = touched && error;
-  return (
-    <div className={s.formControl + " " + (hasError ? s.err : "")}>
-      <div>{children}</div>
-      {hasError && <span>{error}</span>}
-    </div>
   );
 };

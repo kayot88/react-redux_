@@ -1,18 +1,23 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import { renderField } from "../../assets/validation/formValidate";
+import {
+  renderField,
+  Input,
+  createField,
+} from "../../assets/validation/formValidate";
 import { validate } from "./../../assets/validation/formValidate";
 import style from "./Login.module.css";
 
 const Login = (props) => {
   let onSubmit = (formData) => {
+    debugger;
     props.setLoginTC(formData);
   };
   return !props.isLogin ? (
     <div>
       <div>Login</div>
-      <LoginForm onSubmit={onSubmit} />
+      <LoginForm {...props} onSubmit={onSubmit} />
     </div>
   ) : (
     <Redirect to={"/profile"} />
@@ -20,7 +25,8 @@ const Login = (props) => {
 };
 
 let LoginForm = (props) => {
-  const { handleSubmit, error } = props;
+  const { handleSubmit, error, captcha } = props;
+  console.log(props);
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -49,6 +55,14 @@ let LoginForm = (props) => {
           component={renderField("input")}
           autocomplete="off"
         />
+      </div>
+      <div>
+        {props.captcha && (
+          <div>
+            <b>You have to go throw captcha verification</b>
+            <img src={props.captcha} /> {createField("", "captcha", [], Input)}
+          </div>
+        )}
       </div>
       <div>
         <button disabled={props.pristine || props.submitting}>Login</button>

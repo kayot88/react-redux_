@@ -8,7 +8,8 @@ const ProfileData = ({ ...props }) => {
     lookingForAJob,
     lookingForAJobDescription,
     fullName,
-    contacts
+    contacts,
+    DblClickHandler,
   } = props;
 
   console.log("props", props);
@@ -18,7 +19,10 @@ const ProfileData = ({ ...props }) => {
   return newArr.map((item) => {
     return (
       <div key={item} className="item">
-        <b className="strong">{item}</b> : {props[item]}
+        <b className="strong" onDoubleClick={DblClickHandler}>
+          {item}
+        </b>{" "}
+        : {props[item]}
       </div>
     );
   });

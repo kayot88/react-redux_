@@ -9,6 +9,9 @@ export const setLoginApi = {
              captcha,
            });
          },
+         getCatcha() {
+           return instance.get(`/security/get-captcha-url`);
+         },
          logout() {
            return instance.delete(`auth/login`);
          },

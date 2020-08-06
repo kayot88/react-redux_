@@ -16,6 +16,9 @@ export const currentPageSelector = (state) => {
 export const isLoadingSelector = (state) => {
   return state.usersPage.isLoading;
 };
+export const captchaSelector = (state) => {
+  return state.auth.captcha;
+};
 export const isFollowingSelector = (state) => {
   return state.usersPage.followInProgres;
 };
@@ -38,6 +41,7 @@ export const isLoadingReselect = createSelector(
   isLoadingSelector,
   (data) => data
 );
+export const captchaReselect = createSelector(captchaSelector, (data) => data);
 export const isFollowingReselect = createSelector(
   isFollowingSelector,
   (data) => data

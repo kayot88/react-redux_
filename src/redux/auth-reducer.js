@@ -1,10 +1,11 @@
-import { SET_USER_AUTH, LOGOUT } from "../constants/index";
+import { SET_USER_AUTH, LOGOUT, CAPTCHA } from "../constants/index";
 
 let initialState = {
   userId: null,
   email: null,
   login: null,
   isLogin: false,
+  captcha: null
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,10 +16,15 @@ const userReducer = (state = initialState, action) => {
         ...action.payload,
         isLogin: true,
       };
-    case LOGOUT:
+      case LOGOUT:
       return {
         ...state,
         ...action.payload,
+      };
+      case CAPTCHA:
+      return {
+        ...state,
+        captcha: action.payload,
       };
 
     default:

@@ -10,7 +10,6 @@ import { profileDataThunk } from "../ProfileDataFeature/ducks";
 import ProfileContacts from "../ProfileDataFeature/ProfileData/ProfileContacts";
 
 const ProfileInfo = React.memo((props) => {
-  console.log("ProfileInfo", props.profile.contacts);
   const {
     aboutMe,
     lookingForAJob,
@@ -20,6 +19,12 @@ const ProfileInfo = React.memo((props) => {
   } = props.profile;
 
   const [editMode, setEditMode] = useState(false);
+
+  // dblClick handler
+  const DblClickHandler = () => {
+    console.log("DblClickHandler");
+    setEditMode(true);
+  };
 
   const onSubmit = (formData) => {
     console.log(formData);
@@ -66,6 +71,7 @@ const ProfileInfo = React.memo((props) => {
                 lookingForAJob={lookingForAJob}
                 lookingForAJobDescription={lookingForAJobDescription}
                 fullName={fullName}
+                DblClickHandler={DblClickHandler}
               />
               {props.profile.contacts && (
                 <div>
