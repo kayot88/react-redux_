@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {createField} from 'redux-form';
+import { createField } from "redux-form";
 class Test extends Component {
   state = {
     testValue: "",
@@ -17,6 +17,7 @@ class Test extends Component {
       // testValue: testValue,
     });
   };
+
   deactivateMode = () => {
     this.setState({
       editMode: false,
@@ -33,9 +34,6 @@ class Test extends Component {
 
   render() {
     return (
-      <form>
-{createField()}
-      </form>
       <div>
         {!this.state.editMode && (
           <div>
@@ -56,7 +54,7 @@ class Test extends Component {
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 

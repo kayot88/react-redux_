@@ -21,7 +21,7 @@ const ProfileData = ({ ...props }) => {
       <div key={item} className="item">
         <b className="strong" onDoubleClick={DblClickHandler}>
           {item}
-        </b>{" "}
+        </b>
         : {props[item]}
       </div>
     );

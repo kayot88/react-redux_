@@ -6,7 +6,7 @@ import {
   validate,
   // warn,
   renderField,
-} from "./../../../assets/validation/formValidate";
+} from "../../../assets/validation/formValidate";
 
 const MyPosts = (props) => {
   const { addPost, posts } = props;

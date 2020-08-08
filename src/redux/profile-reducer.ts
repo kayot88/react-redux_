@@ -1,10 +1,11 @@
-import { CHANGE_PHOTO } from "./../common/FileChangerFeature/ducks";
+import { CHANGE_PHOTO } from "../common/FileChangerFeature/ducks";
 import {
   ADD_POST,
   SET_PROFILE_TO_STORE,
   CLEAR_PROFILE,
   SET_STATUS,
-} from "./../constants/index";
+} from "../constants/index";
+import { Profile, PostType } from "../types/types";
 
 let initialState = {
   posts: [
@@ -23,13 +24,31 @@ let initialState = {
       message: "Yo",
       likesCount: 2,
     },
-  ],
-  newPostText: "",
-  profile: {},
-  userStatus: "",
+  ] as Array<PostType>,
+  newPostText: null as string | null,
+  profile: null as {} | null,
+  userStatus: null as string | null,
 };
 
-const profileReducer = (state = initialState, action) => {
+export type initialStateProfileType = typeof initialState;
+
+// action type
+type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
+
+type ActionType =
+  | Action<"SET_PROFILE_TO_STORE", Profile>
+  | Action<"CLEAR_PROFILE">
+  | Action<"ADD_POST", PostType>
+  | Action<"CHANGE_PHOTO", { value: number }>
+  | Action<"SET_STATUS", { value: number }>
+
+
+
+
+const profileReducer = (
+  state = initialState,
+  action: any
+): initialStateProfileType => {
   switch (action.type) {
     case SET_PROFILE_TO_STORE: {
       return { ...state, profile: action.payload };

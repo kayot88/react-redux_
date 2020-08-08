@@ -15,9 +15,9 @@ import store from "./redux/redux-store";
 
 class App extends Component {
   handlerPromiseError = (promiseRejectionEvent) => {
+    debugger
     alert(promiseRejectionEvent);
   };
-
   componentDidMount() {
     this.props.initAPPTC();
     window.addEventListener("unhandledrejection", this.handlerPromiseError);
