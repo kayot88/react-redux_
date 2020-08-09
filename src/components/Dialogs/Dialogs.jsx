@@ -1,10 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Field, reduxForm } from "redux-form";
-import { validate, renderField  } from "./../../assets/validation/formValidate";
+import { validate, renderField  } from "../../assets/validation/formValidate";
+import { initialStateType } from "../../redux/dialogs-reducer";
 // import s from "./../../assets/validation/formValidate.module.css";
+
+// type DialogsType = {
+//   dialogsPage: initialStateType , 
+//   newMessageThunk: any
+// }
 
 const Dialogs = (props) => {
   const { dialogsPage, newMessageThunk } = props;

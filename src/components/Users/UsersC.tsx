@@ -6,14 +6,14 @@ import { UserType } from "../../types/types";
 type UsersPropType = {
   totalCount: number;
   countByPage: number;
-  setCurrentPage: () => void;
+  setCurrentPage: (pageId: number) => void;
   currentPage: number;
   portionSize: number;
-  onUnFollowClick: () => void;
-  onFollowClick: () => void;
+  onUnFollowClick: (userId:number) => void;
+  onFollowClick: (userId:number) => void;
   users: Array<UserType>;
   isFollowProgres: Array<number>;
-  isFollowingingAction: (following: boolean, userId: number) => void;
+  // isFollowingingAction: (following: boolean, userId: number) => void;
 };
 
 const Users: FC<UsersPropType> = ({
@@ -43,7 +43,7 @@ const Users: FC<UsersPropType> = ({
           onUnFollowClick={props.onUnFollowClick}
           onFollowClick={props.onFollowClick}
           users={props.users}
-          isFollowingingAction={props.isFollowingingAction}
+          // isFollowingingAction={props.isFollowingingAction}
           isFollowProgres={isFollowProgres}
         />
       }

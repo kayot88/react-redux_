@@ -5,7 +5,7 @@ import {
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
 } from "../constants/index";
 import {
-  updateMessageTextCreator_ProcessType,
+  // updateMessageTextCreator_ProcessType,
   MessageActionTypes,
 } from "../types/types";
 
@@ -28,7 +28,7 @@ export const updateMessageTextCreator_Success = (): MessageActionTypes => {
 
 export const updateMessageTextCreator_Process = (
   text: string
-): updateMessageTextCreator_ProcessType => {
+): MessageActionTypes => {
   return {
     type: UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
     payload: text,

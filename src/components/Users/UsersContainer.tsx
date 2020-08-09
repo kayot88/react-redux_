@@ -22,16 +22,18 @@ import {
 import { UserType } from "../../types/types";
 import { withAuth } from "../hoc/withAuth";
 import Users from "./UsersC";
+import { setUsers } from "./../../ac/usersPage";
+import { setTotalCount, isLoadingAC } from "../../ac/usersPage";
 
-type UsersContMdtpType = {
-  setCurrentPage: () => void;
-  onUnFollowClick: () => void;
-  onFollowClick: () => void;
-  isFollowing: (following: boolean, userId: number) => void;
-  getUsers: (currentPage: number, countByPage: number) => void;
-};
+// type UsersContMdtpType = {
+//   setCurrentPage: () => void;
+//   onUnFollowClick: () => void;
+//   onFollowClick: () => void;
+//   isFollowing: (following: boolean, userId: number) => void;
+//   getUsers: (currentPage: number, countByPage: number) => void;
+// };
 
-type UsersContMstpType = {
+type UsersContMstpType = {  
   isLoading: boolean;
   totalCount: number;
   countByPage: number;
@@ -44,7 +46,8 @@ type UsersContOwnType = {
   title: string;
 };
 
-type PropsType = UsersContMdtpType & UsersContMstpType & UsersContOwnType;
+// type PropsType = UsersContMdtpType & UsersContMstpType & UsersContOwnType;
+type PropsType = PropsFromReduxType & UsersContOwnType;
 
 class UsersApiContainer extends Component<PropsType> {
   componentDidMount() {
@@ -71,7 +74,7 @@ class UsersApiContainer extends Component<PropsType> {
           onFollowClick={this.props.onFollowClick}
           users={this.props.users}
           isFollowProgres={this.props.followInProgres}
-          isFollowingingAction={this.props.isFollowing}
+          // isFollowingingAction={this.props.isFollowing}
           portionSize={this.props.portionSize}
         />
       </div>
@@ -91,36 +94,33 @@ const mapStateToProps = (state: AppStateType): UsersContMstpType => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any): UsersContMdtpType => {
-  return {
-    onFollowClick: () => dispatch(onFollowClick),
-    setCurrentPage: () => dispatch(setCurrentPage),
-    onUnFollowClick: () => dispatch(onUnFollowClick),
-    isFollowing: () => dispatch(followInProgres),
-    getUsers: () => {
-      dispatch(getUsers);
-    },
-  };
-};
-// const connector = connect(mapStateToProps, mapDispatchToProps)
-// type PropsFromReduxType = ConnectedProps<typeof connector>
+// const mapDispatchToProps = (dispatch: any): UsersContMdtpType => {
+//   return {
+//     onFollowClick: () => dispatch(onFollowClick),
+//     setCurrentPage: () => dispatch(setCurrentPage),
+//     onUnFollowClick: () => dispatch(onUnFollowClick),
+//     isFollowing: () => dispatch(followInProgres),
+//     getUsers: () => {
+//       dispatch(getUsers);
+//     },
+//   };
+// };
+
+type PropsFromReduxType = ConnectedProps<typeof connector>;
+
+const connector = connect(mapStateToProps, {
+  onFollowClick,
+  onUnFollowClick,
+  setUsers,
+  setCurrentPage,
+  setTotalCount,
+  isLoadingAC,
+  followInProgres,
+  getUsers,
+});
 
 export default compose(
-  connect<UsersContMstpType, UsersContMdtpType, UsersContOwnType, AppStateType>(
-    mapStateToProps,
-    mapDispatchToProps
-    // typescript not working with shorthand
-    // {
-    //   onFollowClick,
-    //   onUnFollowClick,
-    //   setUsers,
-    //   setCurrentPage,
-    //   setTotalCount,
-    //   isLoadingAC,
-    //   followInProgres,
-    //   getUsers,
-    // }
-  ),
+  connector,
   withRouter,
   withAuth
 )(UsersApiContainer);

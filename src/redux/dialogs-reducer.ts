@@ -1,17 +1,5 @@
-import {
-  SEND_MESSAGE,
-  UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-} from "../constants/index";
-import { MessageActionTypes } from "../types/types";
+import { MessageActionTypes, MessageType, DialogType } from "../types/types";
 
-type MessageType = {
-  id: number | null;
-  message: string | null;
-};
-type DialogType = {
-  id: number | null;
-  name: string | null;
-};
 
 export type initialStateType = typeof initialState;
 
@@ -54,11 +42,11 @@ const dialogsReducer = (
   action: MessageActionTypes
 ): initialStateType => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_TEXT_PROCESSING: {
+    case "UPDATE_NEW_MESSAGE_TEXT_PROCESSING": {
       return { ...state, newMessageText: action.payload };
     }
 
-    case SEND_MESSAGE: {
+    case "SEND_MESSAGE": {
       return {
         ...state,
         messages: [...state.messages, { id: 4, message: action.payload }],

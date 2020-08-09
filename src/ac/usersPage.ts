@@ -120,7 +120,7 @@ export const getUsers = (currentPage: number, countByPage: number) => {
       dispatch(setTotalCount(res.data.totalCount));
       dispatch(isLoadingAC(false));
     } catch (error) {
-      debugger;
+      console.log('error.message: ', error.message);
     }
   };
 };

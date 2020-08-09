@@ -4,12 +4,10 @@ import { UserType, followInProgresPayload } from "../../types/types";
 import styles from "./User.module.css";
 
 type UserPropsType = {
-  onUnFollowClick: () => void;
+  onUnFollowClick: (userId: number) => void;
   onFollowClick: (userId: number) => void;
   users: Array<UserType>;
-  isFollowingingAction: (following: boolean, userId: number) => void;
   isFollowProgres: Array<number>;
-
 };
 
 
@@ -18,9 +16,11 @@ const User: FC<UserPropsType> = ({
   onUnFollowClick,
   onFollowClick,
   users,
-  isFollowingingAction,
+  // isFollowingingAction,
   isFollowProgres,
 }) => {
+  console.log("isFollowProgres", isFollowProgres);
+  // debugger
   return (
     <div>
       {users.map((user) => {
@@ -37,19 +37,20 @@ const User: FC<UserPropsType> = ({
               <div>
                 {user.followed === true ? (
                   <button
-                    disabled={isFollowProgres.some((id) => id === user.id)}
+                    // disabled={isFollowProgres.some((id) => id === user.id)}
                     onClick={() => {
-                      isFollowingingAction(true, user.id);
-                      onUnFollowClick();
+                      // isFollowingingAction(true, user.id);
+                      onUnFollowClick(user.id);
                     }}
                   >
                     UnFollow
                   </button>
                 ) : (
                   <button
-                    disabled={isFollowProgres.some((id) => id === user.id)}
+                    // disabled={isFollowProgres.some((id) => id === user.id)}
                     onClick={() => {
-                      isFollowingingAction(true, user.id);
+                      console.log("user.id", user.id);
+                      // isFollowingingAction(true, user.id);
                       onFollowClick(user.id);
                     }}
                   >
