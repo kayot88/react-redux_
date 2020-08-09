@@ -1,5 +1,6 @@
 import profileReducer from './profile-reducer';
 import { addPostCreator } from './../ac/index';
+
 let mock_state = {
   posts: [
     {

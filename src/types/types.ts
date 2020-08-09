@@ -4,6 +4,7 @@ import {
   CAPTCHA,
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
   SEND_MESSAGE,
+  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
 } from "../constants";
 
 export type ContactsType = {
@@ -15,10 +16,6 @@ export type ContactsType = {
   website: string;
   youtube: string;
   mainLink: string;
-};
-export type sendMessageCreatorType = {
-  type: typeof SEND_MESSAGE;
-  payload: string;
 };
 
 export type Profile = {
@@ -40,6 +37,10 @@ export type UserType = {
   photos: PhotosType;
   status: string | null;
   followed: boolean;
+};
+export type followInProgresPayload = {
+  following: boolean;
+  userId: number;
 };
 
 export type setUserAuthType = {
@@ -78,3 +79,16 @@ export type updateMessageTextCreator_ProcessType = {
   type: typeof UPDATE_NEW_MESSAGE_TEXT_PROCESSING;
   payload: string;
 };
+
+type sendMessageCreatorType = {
+  type: typeof SEND_MESSAGE;
+  payload: string;
+};
+type updateMessageTextCreator_SuccessType = {
+  type: typeof UPDATE_NEW_MESSAGE_TEXT_SUCCESS;
+};
+
+
+export type MessageActionTypes =
+  | sendMessageCreatorType
+  | updateMessageTextCreator_SuccessType;

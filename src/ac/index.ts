@@ -6,7 +6,7 @@ import {
 } from "../constants/index";
 import {
   updateMessageTextCreator_ProcessType,
-  sendMessageCreatorType,
+  MessageActionTypes,
 } from "../types/types";
 
 type addPostCreatorType = {
@@ -19,12 +19,10 @@ export const addPostCreator = (newText: string): addPostCreatorType => {
     payload: newText,
   };
 };
-type updateMessageTextCreator_SuccessType = {
-  type: typeof UPDATE_NEW_MESSAGE_TEXT_SUCCESS;
-};
-export const updateMessageTextCreator_Success = (): updateMessageTextCreator_SuccessType => {
+
+export const updateMessageTextCreator_Success = (): MessageActionTypes => {
   return {
-    type: "UPDATE_NEW_MESSAGE_TEXT_SUCCESS",
+    type: UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
   };
 };
 
@@ -37,10 +35,7 @@ export const updateMessageTextCreator_Process = (
   };
 };
 
-
-export const sendMessageCreator = (
-  newMessage: string
-): sendMessageCreatorType => {
+export const sendMessageCreator = (newMessage: string): MessageActionTypes => {
   return {
     type: "SEND_MESSAGE",
     payload: newMessage,

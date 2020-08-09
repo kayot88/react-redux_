@@ -1,10 +1,4 @@
-import {
-  SET_USER_AUTH,
-  LOGOUT,
-  CAPTCHA,
-  CAPTCHA_DEFAULT,
-} from "../constants/index";
-import { setUserAuthType, logoutACType, captchaAcType } from "../types/types";
+import { captchaAcType, logoutACType, setUserAuthType } from "../types/types";
 
 let initialState = {
   userId: null as number | null,

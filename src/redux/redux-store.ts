@@ -9,6 +9,20 @@ import profileReducer from "./profile-reducer";
 import userReducer from "./users-reducer";
 import fileChangerReducer from "../common/FileChangerFeature/ducks";
 
+let rootReducer = combineReducers({
+  profilePage: profileReducer,
+  dialogsPage: dialogsReducer,
+  usersPage: userReducer,
+  auth: authReducer,
+  initApp: appReducer,
+  userPhoto: fileChangerReducer,
+  form: formReducer,
+});
+
+type RootReducer = typeof rootReducer;
+export type AppStateType = ReturnType<RootReducer>;  
+
+// @ts-ignore
 const composeEnhancers = composeWithDevTools({
   name: `Redux`,
   realtime: true,
@@ -16,18 +30,10 @@ const composeEnhancers = composeWithDevTools({
   traceLimit: 25,
 });
 
-let rootReducer = combineReducers({
-  profilePage: profileReducer,
-  dialogsPage: dialogsReducer,
-  usersPage: userReducer,
-  auth: authReducer,
-  initApp: appReducer,
-  userPhoto: fileChangerReducer, 
-  form: formReducer,
-});
-
+// @ts-ignore
 let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
+// @ts-ignore
 window.store = store;
 
 export default store;

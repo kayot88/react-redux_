@@ -5,7 +5,7 @@ export const changeObjInArray = (
   newObj
 ) => {
   return items.map((item) => {
-    console.log(item[itemPropName]);
+    // console.log(item[itemPropName]);
     if (item[itemPropName] === itemId) {
       return { ...item, ...newObj };
     }

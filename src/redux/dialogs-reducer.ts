@@ -2,15 +2,8 @@ import {
   SEND_MESSAGE,
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
 } from "../constants/index";
-import {
-  updateMessageTextCreator_ProcessType,
-  sendMessageCreatorType,
-} from "../types/types";
+import { MessageActionTypes } from "../types/types";
 
-type actionType = {
-  type: string;
-  payload: any;
-};
 type MessageType = {
   id: number | null;
   message: string | null;
@@ -51,23 +44,14 @@ let initialState = {
       name: "Sergei",
     },
   ] as Array<DialogType>,
-  newMessageText: null as string | null ,
-}; 
+  newMessageText: null as string | null,
+};
 
 // action type
-type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
-
-type ActionType =
-  | Action<"UPDATE_NEW_MESSAGE_TEXT_PROCESSING", updateMessageTextCreator_ProcessType>
-  | Action<"SEND_MESSAGE", sendMessageCreatorType>;
-
-
-
-
 
 const dialogsReducer = (
   state: initialStateType = initialState,
-  action: ActionType
+  action: MessageActionTypes
 ): initialStateType => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT_PROCESSING: {

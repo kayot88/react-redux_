@@ -11,7 +11,7 @@ import {
   FOLLOW_IN_PROGRES,
 } from "../constants/index";
 import { sendMessageCreator } from ".";
-import { PhotosType, UserType } from "../types/types";
+import { PhotosType, UserType, followInProgresPayload } from "../types/types";
 
 // action creators
 type followType = {
@@ -60,7 +60,6 @@ export const unFollow = (userId: number): unFollowType => {
   };
 };
 
-
 type setUsersType = {
   type: typeof SET_USERS;
   payload: Array<UserType>;
@@ -88,10 +87,6 @@ type followInProgresType = {
   payload: followInProgresPayload;
 };
 
-type followInProgresPayload = {
-  following: boolean;
-  userId: number;
-};
 // CHECK IT
 export const followInProgres = (
   following: boolean,
@@ -118,11 +113,15 @@ export const initAppAC = (): initAppACType => {
 // thunk creators
 export const getUsers = (currentPage: number, countByPage: number) => {
   return async (dispatch: any) => {
-    dispatch(isLoadingAC(true));
-    let res = await usersApi.getUsers(currentPage, countByPage);
-    dispatch(setUsers(res.data.items));
-    dispatch(setTotalCount(res.data.totalCount));
-    dispatch(isLoadingAC(false));
+    try {
+      dispatch(isLoadingAC(true));
+      let res = await usersApi.getUsers(currentPage, countByPage);
+      dispatch(setUsers(res.data.items));
+      dispatch(setTotalCount(res.data.totalCount));
+      dispatch(isLoadingAC(false));
+    } catch (error) {
+      debugger;
+    }
   };
 };
 // utis func

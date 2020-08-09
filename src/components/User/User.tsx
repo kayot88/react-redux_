@@ -1,8 +1,20 @@
-import React from "react";
-import styles from "./User.module.css";
+import React, { FC } from "react";
 import { NavLink } from "react-router-dom";
+import { UserType, followInProgresPayload } from "../../types/types";
+import styles from "./User.module.css";
 
-const User = ({
+type UserPropsType = {
+  onUnFollowClick: () => void;
+  onFollowClick: (userId: number) => void;
+  users: Array<UserType>;
+  isFollowingingAction: (following: boolean, userId: number) => void;
+  isFollowProgres: Array<number>;
+
+};
+
+
+
+const User: FC<UserPropsType> = ({
   onUnFollowClick,
   onFollowClick,
   users,
@@ -28,7 +40,7 @@ const User = ({
                     disabled={isFollowProgres.some((id) => id === user.id)}
                     onClick={() => {
                       isFollowingingAction(true, user.id);
-                      onUnFollowClick(user.id);
+                      onUnFollowClick();
                     }}
                   >
                     UnFollow
@@ -42,7 +54,7 @@ const User = ({
                     }}
                   >
                     Follow
-                  </button>
+                  </button> 
                 )}
               </div>
             </div>
