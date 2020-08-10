@@ -40,10 +40,7 @@ type ActionType =
   | Action<"CLEAR_PROFILE">
   | Action<"ADD_POST", PostType>
   | Action<"CHANGE_PHOTO", { value: number }>
-  | Action<"SET_STATUS", { value: number }>
-
-
-
+  | Action<"SET_STATUS", { value: number }>;
 
 const profileReducer = (
   state = initialState,

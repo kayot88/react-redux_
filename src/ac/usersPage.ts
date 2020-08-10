@@ -11,7 +11,15 @@ import {
   FOLLOW_IN_PROGRES,
 } from "../constants/index";
 import { sendMessageCreator } from ".";
-import { PhotosType, UserType, followInProgresPayload } from "../types/types";
+import {
+  PhotosType,
+  UserType,
+  followInProgresPayload,
+  setUserAuthType,
+} from "../types/types";
+import { Dispatch, Action, AnyAction } from "redux";
+import { AppStateType } from "../redux/redux-store";
+import { ThunkAction } from "redux-thunk";
 
 // action creators
 type followType = {
@@ -109,10 +117,33 @@ export const initAppAC = (): initAppACType => {
     type: "INIT_SUCCESS",
   };
 };
-
+type ActionTypes =
+  | followType
+  | setCurrentPageType
+  | setTotalCountType
+  | unFollowType
+  | setUsersType
+  | isLoadingACType
+  | followInProgresType
+  | initAppACType;
 // thunk creators
-export const getUsers = (currentPage: number, countByPage: number) => {
-  return async (dispatch: any) => {
+
+type DispatchTypes = Dispatch<ActionTypes>;
+type GetStateType = () => AppStateType;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+
+// 1. (dispatch: Dispatch<ActionTypes>, getState: () => AppStateType ) => {
+// 2.const = ():ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => (dispatch, getState): => {
+export const getUsers = (
+  currentPage: number,
+  countByPage: number
+): ThunkType => {
+  return async (
+    // dispatch: DispatchTypes,
+    // getState: GetStateType
+    dispatch,
+    getState
+  ) => {
     try {
       dispatch(isLoadingAC(true));
       let res = await usersApi.getUsers(currentPage, countByPage);
@@ -120,16 +151,16 @@ export const getUsers = (currentPage: number, countByPage: number) => {
       dispatch(setTotalCount(res.data.totalCount));
       dispatch(isLoadingAC(false));
     } catch (error) {
-      console.log('error.message: ', error.message);
+      console.log("error.message: ", error.message);
     }
   };
 };
 // utis func
 const followUnfollow = async (
-  dispatch: any,
+  dispatch: DispatchTypes,
   userId: number,
   apiMethod: any,
-  followFlow: any
+  followFlow: (userId: number) => followType | unFollowType
 ) => {
   let res = await apiMethod(userId);
   if (res.data.resultCode === 0) {
@@ -138,8 +169,8 @@ const followUnfollow = async (
   }
 };
 
-export const onFollowClick = (userId: number) => {
-  return async (dispatch: any) => {
+export const onFollowClick = (userId: number): ThunkType => {
+  return async (dispatch) => {
     return followUnfollow(
       dispatch,
       userId,
@@ -148,8 +179,8 @@ export const onFollowClick = (userId: number) => {
     );
   };
 };
-export const onUnFollowClick = (userId: number) => {
-  return async (dispatch: any) => {
+export const onUnFollowClick = (userId: number): ThunkType => {
+  return async (dispatch) => {
     return followUnfollow(
       dispatch,
       userId,
@@ -160,7 +191,7 @@ export const onUnFollowClick = (userId: number) => {
 };
 
 // auth thunk creators
-export const getUserAuth = () => {
+export const getUserAuth = (): ThunkType => {
   return async (dispatch: any) => {
     try {
       let res = await getAuthUserApi.getAuthData();
