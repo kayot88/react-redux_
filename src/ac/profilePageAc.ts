@@ -6,14 +6,15 @@ import {
   SET_USER_AUTH,
   CLEAR_PROFILE,
 } from "../constants";
-import { Profile, setUserAuthType } from "../types/types";
+import { Profile, setUserAuthType, isLoadingACType } from "../types/types";
+import { Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "../redux/redux-store";
 
 type setProfileToStoreType = {
   type: typeof SET_PROFILE_TO_STORE;
   payload: Profile;
 };
-
-
 export const setProfileToStore = (profile: Profile): setProfileToStoreType => {
   return {
     type: "SET_PROFILE_TO_STORE",
@@ -33,7 +34,6 @@ export const setNewStatus = (
     payload: status,
   };
 };
-
 
 export const setUserAuth = (
   userId: number,
@@ -55,9 +55,22 @@ export const clearUserProfileinStore = (): clearUserProfileinStoreType => {
   };
 };
 
+type ActionsProsfilePageTypes =
+  | setProfileToStoreType
+  | setNewStatusType
+  | setUserAuthType
+  | clearUserProfileinStoreType
+  | isLoadingACType;
 // thunk creator
-export const getUserProfileById = (userId: number) => {
-  return async (dispatch: any) => {
+export const getUserProfileById = (
+  userId: number
+): ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsProsfilePageTypes
+> => {
+  return async (dispatch) => {
     dispatch(isLoadingAC(true));
     let res = await getProfileByUserAPI.getUserIdFromUrl(userId);
     dispatch(setProfileToStore(res.data));
@@ -65,8 +78,15 @@ export const getUserProfileById = (userId: number) => {
   };
 };
 
-export const setStatusTC = (status: string) => {
-  return async (dispatch: any) => {
+export const setStatusTC = (
+  status: string
+): ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsProsfilePageTypes
+> => {
+  return async (dispatch) => {
     let res = await userStatusAPI.setStatus(status);
     if (res.data.resultCode === 0) {
       dispatch(setNewStatus(status));
@@ -75,8 +95,15 @@ export const setStatusTC = (status: string) => {
   };
 };
 
-export const getStatusTC = (userId: number) => {
-  return async (dispatch: any) => {
+export const getStatusTC = (
+  userId: number
+): ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsProsfilePageTypes
+> => {
+  return async (dispatch) => {
     let res = await userStatusAPI.getStatus(userId);
     dispatch(setNewStatus(res.data));
   };

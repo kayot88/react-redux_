@@ -5,6 +5,7 @@ import {
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
   SEND_MESSAGE,
   UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
+  IS_LOADING,
 } from "../constants";
 
 export type ContactsType = {
@@ -100,4 +101,9 @@ export type MessageType = {
 export type DialogType = {
   id: number | null;
   name: string | null;
+};
+
+export type isLoadingACType = {
+  type: typeof IS_LOADING;
+  payload: boolean;
 };
