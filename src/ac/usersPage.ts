@@ -1,4 +1,4 @@
-import { usersApi, getAuthUserApi } from "../api/usersApi";
+import { usersApi, getAuthUserApi, ResultCodes } from "../api/usersApi";
 import { setUserAuth, getUserProfileById } from "./profilePageAc";
 import {
   INIT_SUCCESS,
@@ -195,9 +195,9 @@ export const getUserAuth = (): ThunkType => {
   return async (dispatch: any) => {
     try {
       let res = await getAuthUserApi.getAuthData();
-      let { id, email, login } = res.data.data;
-      if (res.data.resultCode !== 1) {
-        dispatch(getUserProfileById(id));
+      let { id, email, login, idFromProfile } = res.data.data;
+      if (res.data.resultCode !== ResultCodes.error) {
+        dispatch(getUserProfileById(id, idFromProfile));
         dispatch(setUserAuth(id, email, login));
       }
     } catch (error) {

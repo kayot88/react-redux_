@@ -4,6 +4,7 @@ import { getUserAuth } from "./usersPage";
 import { LOGOUT, CAPTCHA, CAPTCHA_DEFAULT } from "../constants";
 import { stopSubmit } from "redux-form";
 import { logoutACType, captchaAcType, captchaType } from "../types/types";
+import { ResultCodes } from "../api/usersApi";
 
 const logoutAC = (
   userId: null,
@@ -34,12 +35,17 @@ export const captchaRestore = (): captchaRestoreType => {
 };
 
 // thunk
-export const setLoginTC = (formData: any) => async (dispatch: any) => {
+export const setLoginTC = (formData: any) => async (
+  dispatch: any,
+  getState: any
+) => {
+  let idFromProfile = getState().auth.userId;
   let res = await setLoginApi.postLoginFormData(formData);
-  if (res.data.resultCode === 0) {
+    
+  if (res.data.resultCode === ResultCodes.success) {
     dispatch(getUserAuth());
-    dispatch(getUserProfileById(res.data.data.userId));
-  } else if (res.data.resultCode === 10) {
+    dispatch(getUserProfileById(res.data.data.userId, idFromProfile));
+  } else if (res.data.resultCode === ResultCodes.captchaIsRequired) {
     try {
       let res = await setLoginApi.getCatcha();
       dispatch(captchaAc(res.data.url));

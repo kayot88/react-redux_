@@ -12,7 +12,6 @@ type profileDataActionType = {
   type: typeof UPDATE_PROFILE;
   payload: any;
 };
-
 const profileDataAction = (formData: any): profileDataActionType => {
   return {
     type: UPDATE_PROFILE,
@@ -27,10 +26,10 @@ export const profileDataThunk = (formData: any) => async (
 ) => {
   let res = await saveProfileDataApi.saveProfileData(formData);
   // console.log(res);
-  let userId = getState().auth.userId;
-  console.log(userId);
+  let idFromProfile = getState().auth.userId;
+  // console.log(userId);
   if (res.data.resultCode === 0) {
-    dispatch(getUserProfileById(userId));
+    dispatch(getUserProfileById(res.data.data.userId, idFromProfile));
   } else {
     dispatch(stopSubmit("ProfileDataForm", { _error: res.data.messages[0] }));
     return Promise.reject(res.data.messages[0]);

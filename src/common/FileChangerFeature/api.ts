@@ -1,7 +1,7 @@
 import { instance } from "../../api/usersApi";
 
 export const sendPhotoApi = {
-  sendPhoto(photoObj) {
+  sendPhoto(photoObj: string) {
     const formData = new FormData();
     formData.append("image", photoObj);
     return instance.put("profile/photo", formData, {

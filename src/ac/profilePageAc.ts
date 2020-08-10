@@ -63,7 +63,8 @@ type ActionsProsfilePageTypes =
   | isLoadingACType;
 // thunk creator
 export const getUserProfileById = (
-  userId: number
+  userId: number,
+  idFromProfile: number
 ): ThunkAction<
   Promise<void>,
   AppStateType,
@@ -72,7 +73,7 @@ export const getUserProfileById = (
 > => {
   return async (dispatch) => {
     dispatch(isLoadingAC(true));
-    let res = await getProfileByUserAPI.getUserIdFromUrl(userId);
+    let res = await getProfileByUserAPI.getUserIdFromUrl(userId, idFromProfile);
     dispatch(setProfileToStore(res.data));
     dispatch(isLoadingAC(false));
   };
