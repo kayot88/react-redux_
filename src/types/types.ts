@@ -62,6 +62,7 @@ type followPayloadType = {
 
 // captcha type
 export type captchaType = {
+  type: typeof CAPTCHA;
   captcha: { url: string };
 };
 export type captchaAcType = {
@@ -107,3 +108,6 @@ export type isLoadingACType = {
   type: typeof IS_LOADING;
   payload: boolean;
 };
+
+
+export type ActionsLoginPageType = logoutACType | captchaAcType | captchaType;

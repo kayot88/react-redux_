@@ -195,7 +195,8 @@ export const getUserAuth = (): ThunkType => {
   return async (dispatch: any) => {
     try {
       let res = await getAuthUserApi.getAuthData();
-      let { id, email, login, idFromProfile } = res.data.data;
+      let { id, email, login } = res.data.data;
+      const idFromProfile: number = 8512; ;//hardcode
       if (res.data.resultCode !== ResultCodes.error) {
         dispatch(getUserProfileById(id, idFromProfile));
         dispatch(setUserAuth(id, email, login));

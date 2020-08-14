@@ -1,19 +1,25 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import {
   renderField,
   Input,
   createField,
 } from "../../assets/validation/formValidate";
-import { validate } from "./../../assets/validation/formValidate";
+import { validate } from "../../assets/validation/formValidate";
 import style from "./Login.module.css";
 
-const Login = (props) => {
-  let onSubmit = (formData) => {
-    props.setLoginTC(formData);
+type loginPropsType = {
+  isLogin: boolean;
+  setLoginTC: (formData: FormDataType) => void;
+};
+
+const Login = ({ isLogin, setLoginTC }: loginPropsType, { ...props }: any) => {
+  debugger;
+  let onSubmit = (formData: FormDataType) => {
+    setLoginTC(formData);
   };
-  return !props.isLogin ? (
+  return !isLogin ? (
     <div>
       <div>Login</div>
       <LoginForm {...props} onSubmit={onSubmit} />
@@ -23,7 +29,24 @@ const Login = (props) => {
   );
 };
 
-let LoginForm = (props) => {
+type FormDataType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
+};
+
+type CaptchaType = {
+  captcha: string;
+};
+type CaptchaRestoreType = {
+  captchaRestore: undefined;
+};
+type LoginFormOwnProps = CaptchaRestoreType & CaptchaType;
+
+let LoginsForm: React.FC<
+  InjectedFormProps<FormDataType, LoginFormOwnProps> & LoginFormOwnProps
+> = (props) => {
   const { handleSubmit, error, captcha, captchaRestore } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -76,10 +99,9 @@ let LoginForm = (props) => {
     </form>
   );
 };
-
-LoginForm = reduxForm({
+let LoginForm = reduxForm<FormDataType, LoginFormOwnProps>({
   form: "loginForm",
   validate,
-})(LoginForm);
+})(LoginsForm);
 
 export default Login;

@@ -6,7 +6,7 @@ import { initAPPTC } from "./ac/usersPage";
 import "./App.css";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainerWithConnect from "./components/Header/HeaderContainer";
-import LoginContainer from "./components/Login/LoginContainer.jsx";
+import LoginContainer from "./components/Login/LoginContainer";
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";

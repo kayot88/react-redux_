@@ -16,6 +16,14 @@ type getAuthDataResponseType = {
   resultCode: ResultCodes;
   messages: Array<string>;
 };
+type getCaptchaResponseType = {
+  url: any;
+};
+type logoutResponseType = {
+  data: LoginResponseDataType;
+  resultCode: ResultCodes;
+  messages: Array<string>;
+};
 
 export const setLoginApi = {
   postLoginFormData({
@@ -32,9 +40,9 @@ export const setLoginApi = {
     });
   },
   getCatcha() {
-    return instance.get(`/security/get-captcha-url`);
+    return instance.get<getCaptchaResponseType>(`/security/get-captcha-url`);
   },
   logout() {
-    return instance.delete(`auth/login`);
+    return instance.delete<logoutResponseType>(`auth/login`);
   },
 };
