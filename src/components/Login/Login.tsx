@@ -1,22 +1,17 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import {
-  renderField,
-  Input,
-  createField,
-} from "../../assets/validation/formValidate";
-import { validate } from "../../assets/validation/formValidate";
+import { InjectedFormProps, reduxForm } from "redux-form";
+import { availableNames, createField, Input, validate } from "../../assets/validation/formValidate";
 import style from "./Login.module.css";
 
 type loginPropsType = {
   isLogin: boolean;
-  setLoginTC: (formData: FormDataType) => void;
+  setLoginTC: (formData: availableNames) => void;
 };
 
 const Login = ({ isLogin, setLoginTC }: loginPropsType, { ...props }: any) => {
-  debugger;
-  let onSubmit = (formData: FormDataType) => {
+  // let onSubmit = (formData: FormDataType) => {
+  let onSubmit = (formData: availableNames) => {
     setLoginTC(formData);
   };
   return !isLogin ? (
@@ -29,7 +24,7 @@ const Login = ({ isLogin, setLoginTC }: loginPropsType, { ...props }: any) => {
   );
 };
 
-type FormDataType = {
+export type FormDataType = {
   email: string;
   password: string;
   rememberMe: boolean;
@@ -51,37 +46,41 @@ let LoginsForm: React.FC<
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <Field
+        {createField<availableNames>("Email", "email", error, Input)}
+        {/* <Field
           name={"email"}
           type="email"
           label={"Email"}
           component={renderField("input")}
           autocomplete="off"
-        />
+        /> */}
       </div>
       <div>
-        <Field
+        {createField<availableNames>("Password", "password", error, Input)}
+        {/* <Field
           name={"password"}
           label={"Password"}
           type="password"
           autocomplete="off"
           component={renderField("input")}
-        />
+        /> */}
       </div>
       <div>
-        <Field
+        {createField<availableNames>("remember me", "rememberMe", error, Input)}
+        {/* <Field
           name={"rememberMe"}
           type={"checkbox"}
           label={"remember me"}
           component={renderField("input")}
           autocomplete="off"
-        />
+        /> */}
       </div>
       <div>
         {props.captcha && (
           <div>
             <b>You have to go throw captcha verification</b>
-            <img src={props.captcha} /> {createField("", "captcha", [], Input)}
+            <img src={props.captcha} />{" "}
+            {createField<availableNames>("", "captcha", error, Input)}
           </div>
         )}
       </div>

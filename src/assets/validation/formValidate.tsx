@@ -1,9 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
+import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
 import s from "./formValidate.module.css";
-import { Field } from "redux-form";
+import { FormDataType } from "../../components/Login/Login";
 
-export const validate = (values, props) => {
-  const errors = {};
+export const validate = (values: any, props: any) => {
+  const errors = {} as any; //👍
   if (!values.dialogsFormText) {
     errors.dialogsFormText = "Required";
   } else if (values.dialogsFormText.length < 5) {
@@ -27,7 +28,18 @@ export const validate = (values, props) => {
   return errors;
 };
 
-export const renderField = (El) => ({ input, meta, type, label }) => {
+type renderFieldType = {
+  input: ReactElement;
+  meta: any;
+  type: string;
+  label: string;
+};
+export const renderField = (El: any) => ({
+  input,
+  meta,
+  type,
+  label,
+}: renderFieldType) => {
   const hasError = meta.touched && meta.error;
   return (
     <div>
@@ -39,7 +51,18 @@ export const renderField = (El) => ({ input, meta, type, label }) => {
     </div>
   );
 };
-const FormControl = ({ meta: { touched, error }, children }) => {
+
+type FormControlPropsType = {
+  meta: WrappedFieldMetaProps;
+  children: React.ReactNode;
+};
+
+// type FormControlType = (params: FormControlPropsType) => React.ReactNode;
+
+const FormControl: React.FC<FormControlPropsType> = ({
+  meta: { touched, error },
+  children,
+}) => {
   const hasError = touched && error;
   return (
     <div className={s.formControl + " " + (hasError ? s.err : "")}>
@@ -48,11 +71,23 @@ const FormControl = ({ meta: { touched, error }, children }) => {
     </div>
   );
 };
-export function createField(
-  placeholder,
-  name,
-  validators,
-  component,
+
+type createFieldType = {
+  placeholder: string;
+  name: string;
+  validators: {} | undefined;
+  component: React.FC<WrappedFieldProps>;
+  props: {};
+  text: "";
+};
+
+export type availableNames = Extract<keyof FormDataType, string>;
+
+export function createField<nameTypes extends string>(
+  placeholder: string,
+  name: nameTypes,
+  validators: {} | undefined,
+  component: React.FC<WrappedFieldProps>,
   props = {},
   text = ""
 ) {
@@ -69,7 +104,8 @@ export function createField(
     </div>
   );
 }
-export const Textarea = (props) => {
+
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>
@@ -78,7 +114,7 @@ export const Textarea = (props) => {
   );
 };
 
-export const Input = (props) => {
+export const Input: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>

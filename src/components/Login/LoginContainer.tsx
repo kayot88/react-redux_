@@ -42,7 +42,6 @@ const mstp = (state: AppStateType): mstpType => {
   };
 };
 //
-type PropTypes = PropsFromReduxType;
 type PropsFromReduxType = ConnectedProps<typeof connector>;
 // type setLoginTCType = {
 //   setLoginTC: () => void;

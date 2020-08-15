@@ -221,3 +221,6 @@ export const newMessageThunk = (newMessage: string) => {
     dispatch(sendMessageCreator(newMessage));
   };
 };
+
+
+
