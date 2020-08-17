@@ -5,7 +5,7 @@ import {
   CLEAR_PROFILE,
   SET_STATUS,
 } from "../constants/index";
-import { Profile, PostType } from "../types/types";
+import { ProfileType, PostType } from "../types/types";
 
 let initialState = {
   posts: [
@@ -36,7 +36,7 @@ export type initialStateProfileType = typeof initialState;
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 type ActionType =
-  | Action<"SET_PROFILE_TO_STORE", Profile>
+  | Action<"SET_PROFILE_TO_STORE", ProfileType>
   | Action<"CLEAR_PROFILE">
   | Action<"ADD_POST", PostType>
   | Action<"CHANGE_PHOTO", { value: number }>

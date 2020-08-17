@@ -4,22 +4,26 @@ import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { getUserPhotoReselect } from "../../common/FileChangerFeature/selectors";
 import {
-  getStatusTC, getUserProfileById,
-  setProfileToStore,
-  setStatusTC
+  getStatusTC,
+  getUserProfileById,
+  setStatusTC,
+  ProfileActions,
 } from "./../../ac/profilePageAc";
-import { isLoadingAC } from "./../../ac/usersPage";
-import { fileChangerThunk } from './../../common/FileChangerFeature/ducks';
+import { UserPageActions } from "./../../ac/usersPage";
+import { fileChangerThunk } from "./../../common/FileChangerFeature/ducks";
 import { profileDataThunk } from "./ProfileDataFeature/ducks";
 
 import {
   getLoadingReselect,
   getProfileReselect,
-  getUserIDReselect, getUserStatusReselect
+  getUserIDReselect,
+  getUserStatusReselect,
 } from "./../../selectors/index";
 import { withAuth } from "./../hoc/withAuth";
 import Profile from "./Profile";
 
+const { isLoadingAC } = UserPageActions;
+const { setProfileToStore } = ProfileActions;
 class ProfileContainer extends Component {
   componentDidMount() {
     this.props.getUserProfileById(
@@ -61,7 +65,6 @@ const mstp = (state) => {
   };
 };
 
-
 export default compose(
   connect(mstp, {
     setProfileToStore,
@@ -70,7 +73,7 @@ export default compose(
     setStatusTC,
     getStatusTC,
     fileChangerThunk,
-    profileDataThunk
+    profileDataThunk,
   }),
   withRouter,
   withAuth

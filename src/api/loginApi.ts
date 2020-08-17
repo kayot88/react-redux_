@@ -1,10 +1,10 @@
-import { instance, ResultCodes } from "./usersApi";
+import { instance, ResultCodes } from "./api";
 
 type postLoginFormDataPtropsType = {
   email: string;
   password: string;
   rememberMe: boolean;
-  captcha: any;
+  captcha: string;
 };
 
 type LoginResponseDataType = {
@@ -19,6 +19,7 @@ type getAuthDataResponseType = {
 type getCaptchaResponseType = {
   url: any;
 };
+type getAuthResponseType = getAuthDataResponseType & getCaptchaResponseType
 type logoutResponseType = {
   data: LoginResponseDataType;
   resultCode: ResultCodes;
@@ -32,7 +33,7 @@ export const setLoginApi = {
     rememberMe,
     captcha,
   }: postLoginFormDataPtropsType) {
-    return instance.post<getAuthDataResponseType>(`auth/login`, {
+    return instance.post<getAuthResponseType>(`auth/login`, {
       email,
       password,
       rememberMe,

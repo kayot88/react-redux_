@@ -1,13 +1,9 @@
-import {
-  FOLLOW,
-  UNFOLLOW,
-  SET_USERS,
-  SET_CURRENT_PAGE,
-  SET_TOTAL_COUNT,
-  IS_LOADING,
-  FOLLOW_IN_PROGRES,
-} from "../constants/index";
+import { ActionTypes } from "../ac/usersPage";
 import { changeObjInArray } from "../assets/helpers";
+import {
+  IS_LOADING, SET_CURRENT_PAGE,
+  SET_TOTAL_COUNT, SET_USERS, UNFOLLOW
+} from "../constants/index";
 import { UserType } from "../types/types";
 type initialStateType = {
   users: Array<UserType>;
@@ -42,6 +38,7 @@ type ActionType =
 const userReducer = (
   state = initialState,
   action: ActionType
+  // action: ActionTypes
 ): initialStateUsersType => {
   switch (action.type) {
     case "FOLLOW":

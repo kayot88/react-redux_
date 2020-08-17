@@ -1,96 +1,61 @@
 import { getProfileByUserAPI, userStatusAPI } from "../api/profileApi";
-import { isLoadingAC } from "./usersPage";
-import {
-  SET_PROFILE_TO_STORE,
-  SET_STATUS,
-  SET_USER_AUTH,
-  CLEAR_PROFILE,
-} from "../constants";
-import { Profile, setUserAuthType, isLoadingACType } from "../types/types";
-import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "../redux/redux-store";
+import { BaseThunkType, InferActionTypes } from "../redux/redux-store";
+import { ProfileType } from "../types/types";
 
-type setProfileToStoreType = {
-  type: typeof SET_PROFILE_TO_STORE;
-  payload: Profile;
-};
-export const setProfileToStore = (profile: Profile): setProfileToStoreType => {
-  return {
-    type: "SET_PROFILE_TO_STORE",
-    payload: profile,
-  };
-};
+export type ProfileActionsTypes = InferActionTypes<typeof ProfileActions>;
 
-type setNewStatusType = {
-  type: typeof SET_STATUS;
-  payload: string;
-};
-export const setNewStatus = (
-  status: string = "no status"
-): setNewStatusType => {
-  return {
-    type: "SET_STATUS",
-    payload: status,
-  };
-};
-
-export const setUserAuth = (
-  userId: number,
-  email: string,
-  login: string
-): setUserAuthType => {
-  return {
-    type: "SET_USER_AUTH",
-    payload: { userId, email, login },
-  };
+export const ProfileActions = {
+  setProfileToStore: (profile: ProfileType) => {
+    return {
+      type: "SET_PROFILE_TO_STORE",
+      payload: profile,
+    } as const;
+  },
+  setNewStatus: (status: string = "no status") => {
+    return {
+      type: "SET_STATUS",
+      payload: status,
+    } as const;
+  },
+  setUserAuth: (userId: number, email: string, login: string) => {
+    return {
+      type: "SET_USER_AUTH",
+      payload: { userId, email, login },
+    } as const;
+  },
+  clearUserProfileinStore: () => {
+    return {
+      type: "CLEAR_PROFILE",
+    } as const;
+  },
+  isLoadingAC: (loading: boolean) => {
+    return {
+      type: "IS_LOADING",
+      payload: loading,
+    } as const;
+  },
 };
 
-type clearUserProfileinStoreType = {
-  type: typeof CLEAR_PROFILE;
-};
-export const clearUserProfileinStore = (): clearUserProfileinStoreType => {
-  return {
-    type: "CLEAR_PROFILE",
-  };
-};
-
-type ActionsProsfilePageTypes =
-  | setProfileToStoreType
-  | setNewStatusType
-  | setUserAuthType
-  | clearUserProfileinStoreType
-  | isLoadingACType;
 // thunk creator
 export const getUserProfileById = (
   userId: number,
   idFromProfile: number
-): ThunkAction<
-  Promise<void>,
-  AppStateType,
-  unknown,
-  ActionsProsfilePageTypes
-> => {
+): BaseThunkType<ProfileActionsTypes> => {
   return async (dispatch) => {
-    dispatch(isLoadingAC(true));
+    dispatch(ProfileActions.isLoadingAC(true));
     let res = await getProfileByUserAPI.getUserIdFromUrl(userId, idFromProfile);
-    dispatch(setProfileToStore(res.data));
-    dispatch(isLoadingAC(false));
+    dispatch(ProfileActions.setProfileToStore(res.data));
+    dispatch(ProfileActions.isLoadingAC(false));
   };
 };
 
 export const setStatusTC = (
   status: string
-): ThunkAction<
-  Promise<void>,
-  AppStateType,
-  unknown,
-  ActionsProsfilePageTypes
-> => {
+): BaseThunkType<ProfileActionsTypes> => {
   return async (dispatch) => {
-    let res = await userStatusAPI.setStatus(status);
-    if (res.data.resultCode === 0) {
-      dispatch(setNewStatus(status));
+    let data = await userStatusAPI.setStatus(status);
+    if (data.resultCode === 0) {
+      dispatch(ProfileActions.setNewStatus(status));
     }
     Promise.reject();
   };
@@ -98,14 +63,9 @@ export const setStatusTC = (
 
 export const getStatusTC = (
   userId: number
-): ThunkAction<
-  Promise<void>,
-  AppStateType,
-  unknown,
-  ActionsProsfilePageTypes
-> => {
+): BaseThunkType<ProfileActionsTypes> => {
   return async (dispatch) => {
-    let res = await userStatusAPI.getStatus(userId);
-    dispatch(setNewStatus(res.data));
+    let data = await userStatusAPI.getStatus(userId);
+    dispatch(ProfileActions.setNewStatus(data));
   };
 };

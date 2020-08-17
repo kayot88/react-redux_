@@ -3,40 +3,30 @@ import { getUserProfileById } from "./profilePageAc";
 import { getUserAuth } from "./usersPage";
 import { LOGOUT, CAPTCHA, CAPTCHA_DEFAULT } from "../constants";
 import { stopSubmit } from "redux-form";
-import { logoutACType, captchaAcType, captchaType, ActionsLoginPageType } from "../types/types";
-import { ResultCodes } from "../api/usersApi";
+import { captchaType, ActionsLoginPageType } from "../types/types";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "../redux/redux-store";
+import { ResultCodes } from "../api/api";
 
-const logoutAC = (
-  userId: null,
-  email: null,
-  login: null,
-  isLogin: false
-): logoutACType => {
-  return {
-    type: "LOGOUT",
-    payload: { userId, email, login, isLogin },
-  };
+export const loginPageActions = {
+  logoutAC: (userId: null, email: null, login: null, isLogin: false) => {
+    return {
+      type: "LOGOUT",
+      payload: { userId, email, login, isLogin },
+    } as const;
+  },
+  captchaAc: (captcha: captchaType) => {
+    return {
+      type: "CAPTCHA",
+      payload: captcha,
+    } as const;
+  },
+  captchaRestore: () => {
+    return {
+      type: "CAPTCHA_DEFAULT",
+    } as const;
+  },
 };
-
-const captchaAc = (captcha: captchaType): captchaAcType => {
-  return {
-    type: "CAPTCHA",
-    payload: captcha,
-  };
-};
-
-type captchaRestoreType = {
-  type: typeof CAPTCHA_DEFAULT;
-};
-export const captchaRestore = (): captchaRestoreType => {
-  return {
-    type: "CAPTCHA_DEFAULT",
-  };
-};
-
-
 
 // thunk
 
@@ -49,24 +39,23 @@ export const setLoginTC = (
   ActionsLoginPageType
 > => async (dispatch, getState) => {
   let idFromProfile = getState().auth.userId;
-  let res = await setLoginApi.postLoginFormData(formData);
+  let data = await setLoginApi
+    .postLoginFormData(formData)
+    .then((res) => res.data);
 
-  if (res.data.resultCode === ResultCodes.success) {
+  if (data.resultCode === ResultCodes.success) {
     dispatch(getUserAuth());
-    dispatch(getUserProfileById(res.data.data.userId, (idFromProfile = 8512)));
-  } else if (res.data.resultCode === ResultCodes.captchaIsRequired) {
+    dispatch(getUserProfileById(data.data.userId, (idFromProfile = 8512)));
+  } else if (data.resultCode === ResultCodes.captchaIsRequired) {
     try {
       let res = await setLoginApi.getCatcha();
-      dispatch(captchaAc(res.data.url));
+      dispatch(loginPageActions.captchaAc(data.url));
     } catch (error) {}
     debugger;
   }
 };
 
-
-type LogoutResponse  = {
-  
-}  
+type LogoutResponse = {};
 export const logoutTC = (
   userId: null,
   email: null,
@@ -80,6 +69,6 @@ export const logoutTC = (
 > => async (dispatch) => {
   let res = await setLoginApi.logout();
   if (res.data.resultCode === ResultCodes.success) {
-    dispatch(logoutAC(userId, email, login, isLogin));
+    dispatch(loginPageActions.logoutAC(userId, email, login, isLogin));
   }
 };

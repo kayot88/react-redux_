@@ -6,8 +6,7 @@ import {
   getUsers,
   onFollowClick,
   onUnFollowClick,
-  setCurrentPage,
-  followInProgres,
+  UserPageActions,
 } from "../../ac/usersPage";
 import Spinner from "../../common/Spinner";
 import { AppStateType } from "../../redux/redux-store";
@@ -22,8 +21,8 @@ import {
 import { UserType } from "../../types/types";
 import { withAuth } from "../hoc/withAuth";
 import Users from "./UsersC";
-import { setUsers } from "./../../ac/usersPage";
-import { setTotalCount, isLoadingAC } from "../../ac/usersPage";
+// import { setUsers } from "./../../ac/usersPage";
+// import { setTotalCount, isLoadingAC } from "../../ac/usersPage";
 
 // type UsersContMdtpType = {
 //   setCurrentPage: () => void;
@@ -33,7 +32,7 @@ import { setTotalCount, isLoadingAC } from "../../ac/usersPage";
 //   getUsers: (currentPage: number, countByPage: number) => void;
 // };
 
-type UsersContMstpType = {  
+type UsersContMstpType = {
   isLoading: boolean;
   totalCount: number;
   countByPage: number;
@@ -106,8 +105,15 @@ const mapStateToProps = (state: AppStateType): UsersContMstpType => {
 //   };
 // };
 
-type PropsFromReduxType = ConnectedProps<typeof connector>;
+const {
+  setUsers,
+  setCurrentPage,
+  setTotalCount,
+  isLoadingAC,
+  followInProgres,
+} = UserPageActions;
 
+type PropsFromReduxType = ConnectedProps<typeof connector>;
 const connector = connect(mapStateToProps, {
   onFollowClick,
   onUnFollowClick,
@@ -119,8 +125,4 @@ const connector = connect(mapStateToProps, {
   getUsers,
 });
 
-export default compose(
-  connector,
-  withRouter,
-  withAuth
-)(UsersApiContainer);
+export default compose(connector, withRouter, withAuth)(UsersApiContainer);

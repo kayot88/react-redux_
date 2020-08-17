@@ -10,7 +10,7 @@ import {
   captchaReselect,
 } from "../../selectors";
 import { withRouter } from "react-router-dom";
-import { captchaRestore } from "../../ac/loginPageAC";
+import { loginPageActions } from "../../ac/loginPageAC";
 import { AppStateType } from "../../redux/redux-store";
 
 class LoginContainer extends Component<PropsFromReduxType> {
@@ -46,6 +46,7 @@ type PropsFromReduxType = ConnectedProps<typeof connector>;
 // type setLoginTCType = {
 //   setLoginTC: () => void;
 // };
+const {captchaRestore} = loginPageActions 
 const connector = connect(mstp, {
   setLoginTC,
   captchaRestore,

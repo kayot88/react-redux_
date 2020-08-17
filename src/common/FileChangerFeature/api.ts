@@ -1,4 +1,4 @@
-import { instance } from "../../api/usersApi";
+import { instance } from "../../api/api";
 
 export const sendPhotoApi = {
   sendPhoto(photoObj: string) {

@@ -19,7 +19,7 @@ export type ContactsType = {
   mainLink: string;
 };
 
-export type Profile = {
+export type ProfileType = {
   aboutMe: string;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
@@ -63,7 +63,7 @@ type followPayloadType = {
 // captcha type
 export type captchaType = {
   type: typeof CAPTCHA;
-  captcha: { url: string };
+  captcha: { url: any };
 };
 export type captchaAcType = {
   type: typeof CAPTCHA;
@@ -105,9 +105,9 @@ export type DialogType = {
 };
 
 export type isLoadingACType = {
-  type: typeof IS_LOADING;
+  // type: typeof IS_LOADING;
+  type: any;
   payload: boolean;
 };
-
 
 export type ActionsLoginPageType = logoutACType | captchaAcType | captchaType;

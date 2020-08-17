@@ -1,6 +1,9 @@
 import { saveProfileDataApi } from "./api";
 import { getUserProfileById } from "../../../ac/profilePageAc";
 import { stopSubmit } from "redux-form";
+import { ProfileType } from "../../../types/types";
+import { AppStateType } from "../../../redux/redux-store";
+import { DispatchProp } from "react-redux";
 
 export const UPDATE_PROFILE = "profileData/UPDATE_PROFILE";
 // state type
@@ -20,19 +23,20 @@ const profileDataAction = (formData: any): profileDataActionType => {
 };
 
 // thunk
-export const profileDataThunk = (formData: any) => async (
+export const profileDataThunk = (formData: ProfileType) => async (
   dispatch: any,
   getState: any
 ) => {
-  let res = await saveProfileDataApi.saveProfileData(formData);
+  let data = await saveProfileDataApi.saveProfileData(formData);
+  console.log(data);
   // console.log(res);
   let idFromProfile = getState().auth.userId;
   // console.log(userId);
-  if (res.data.resultCode === 0) {
-    dispatch(getUserProfileById(res.data.data.userId, idFromProfile));
+  if (data.resultCode === 0) {
+    dispatch(getUserProfileById(8512, idFromProfile));
   } else {
-    dispatch(stopSubmit("ProfileDataForm", { _error: res.data.messages[0] }));
-    return Promise.reject(res.data.messages[0]);
+    dispatch(stopSubmit("ProfileDataForm", { _error: data.messages[0] }));
+    return Promise.reject(data.messages[0]);
   }
 };
 

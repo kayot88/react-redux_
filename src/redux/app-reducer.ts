@@ -1,3 +1,4 @@
+import { ActionTypes } from "../ac/usersPage";
 
 let initialStateType = {
   isInitialized: null as boolean | null,
@@ -5,23 +6,29 @@ let initialStateType = {
 };
 export type InitialStateType = typeof initialStateType;
 
-type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
-
-type ActionType =
-  | Action<"INIT_SUCCESS", { value: boolean }>
-  | Action<"FAKE", { value: number }>;
+// type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
+ 
+// type ActionType =
+//   | Action<"SN/APP/INIT_SUCCESS", { value: boolean }>
+//   | Action<"FAKE", { value: number }>;
 
   let initialState: InitialStateType = {
   isInitialized: false,
   fakeData: 0,
 };
 
-const appReducer = (state = initialState, action: ActionType): InitialStateType => {
+const appReducer = (
+  state = initialState,
+  action: ActionTypes
+): InitialStateType => {
   switch (action.type) {
-    case "INIT_SUCCESS":
+    
+    case "SN/APP/INIT_SUCCESS":
+      
       return {
         ...state,
         isInitialized: true,
+
       };
     case "FAKE":
       return {
