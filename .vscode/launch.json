@@ -7,11 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch .js",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${file}"
+      "name": "Launch File",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/src/ac/t.ts"
     },
     {
       "name": "Debug CRA Tests",

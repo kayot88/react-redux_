@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import s from "./Message.module.css";
 
 type MessageCompType = {
-  message: string | null;
+  message: string | null ;
 };
 
 const Message: FC<MessageCompType> = (props) => {

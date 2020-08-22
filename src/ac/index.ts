@@ -1,43 +1,43 @@
+import { Dispatch } from "redux";
+
 import {
+
   ADD_POST,
-  SEND_MESSAGE,
-  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
+
   UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
+  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
 } from "../constants/index";
-import {
-  // updateMessageTextCreator_ProcessType,
-  MessageActionTypes,
-} from "../types/types";
+import { BaseThunkType, InferActionTypes } from "../redux/redux-store";
+import { ActionTypes } from "./usersPage";
 
-type addPostCreatorType = {
-  type: typeof ADD_POST;
-  payload: string;
-};
-export const addPostCreator = (newText: string): addPostCreatorType => {
-  return {
-    type: ADD_POST,
-    payload: newText,
-  };
-};
+export type actionsMessagesTypes = InferActionTypes<typeof actionsMessages>;
 
-export const updateMessageTextCreator_Success = (): MessageActionTypes => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
-  };
-};
+export type DispatchMessagesTypes = Dispatch<ActionTypes>;
 
-export const updateMessageTextCreator_Process = (
-  text: string
-): MessageActionTypes => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-    payload: text,
-  };
-};
+export type ThunkMessagesType = BaseThunkType<ActionTypes>;
 
-export const sendMessageCreator = (newMessage: string): MessageActionTypes => {
-  return {
-    type: "SEND_MESSAGE",
-    payload: newMessage,
-  };
+export const actionsMessages = {
+  addPostCreator: (newText: string) => {
+    return {
+      type: "ADD_POST",
+      payload: newText,
+    } as const;
+  },
+  updateMessageTextCreator_Success: () => {
+    return {
+      type: "UPDATE_NEW_MESSAGE_TEXT_SUCCESS",
+    } as const;
+  },
+  updateMessageTextCreator_Process: (text: string) => {
+    return {
+      type: "UPDATE_NEW_MESSAGE_TEXT_PROCESSING",
+      payload: text,
+    } as const;
+  },
+  sendMessageCreator: (newMessage: string) => {
+    return {
+      type: "SEND_MESSAGE",
+      payload: newMessage,
+    } as const;
+  },
 };

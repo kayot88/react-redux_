@@ -63,6 +63,7 @@ let store = {
   },
   subscribe(observer) {
     this._callSubscriber = observer;
+
   },
 
   dispatch(action) {
@@ -71,5 +72,6 @@ let store = {
     this._callSubscriber();
   },
 };
+
 
 export default store;

@@ -1,7 +1,12 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { InjectedFormProps, reduxForm } from "redux-form";
-import { availableNames, createField, Input, validate } from "../../assets/validation/formValidate";
+import {
+  availableNames,
+  createField,
+  Input,
+  validate,
+} from "../../assets/validation/formValidate";
 import style from "./Login.module.css";
 
 type loginPropsType = {
@@ -10,8 +15,8 @@ type loginPropsType = {
 };
 
 const Login = ({ isLogin, setLoginTC }: loginPropsType, { ...props }: any) => {
-  // let onSubmit = (formData: FormDataType) => {
   let onSubmit = (formData: availableNames) => {
+    debugger;
     setLoginTC(formData);
   };
   return !isLogin ? (
@@ -45,35 +50,12 @@ let LoginsForm: React.FC<
   const { handleSubmit, error, captcha, captchaRestore } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        {createField<availableNames>("Email", "email", error, Input)}
-        {/* <Field
-          name={"email"}
-          type="email"
-          label={"Email"}
-          component={renderField("input")}
-          autocomplete="off"
-        /> */}
-      </div>
+      <div>{createField<availableNames>("Email", "email", error, Input)}</div>
       <div>
         {createField<availableNames>("Password", "password", error, Input)}
-        {/* <Field
-          name={"password"}
-          label={"Password"}
-          type="password"
-          autocomplete="off"
-          component={renderField("input")}
-        /> */}
       </div>
       <div>
         {createField<availableNames>("remember me", "rememberMe", error, Input)}
-        {/* <Field
-          name={"rememberMe"}
-          type={"checkbox"}
-          label={"remember me"}
-          component={renderField("input")}
-          autocomplete="off"
-        /> */}
       </div>
       <div>
         {props.captcha && (
@@ -99,7 +81,7 @@ let LoginsForm: React.FC<
   );
 };
 let LoginForm = reduxForm<FormDataType, LoginFormOwnProps>({
-  form: "loginForm",
+  form: "LoginForm",
   validate,
 })(LoginsForm);
 

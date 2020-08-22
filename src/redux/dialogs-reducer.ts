@@ -1,5 +1,5 @@
-import { MessageActionTypes, MessageType, DialogType } from "../types/types";
-
+import { actionsMessagesTypes } from "../ac/index";
+import { DialogType, MessageType } from "../types/types";
 
 export type initialStateType = typeof initialState;
 
@@ -39,7 +39,7 @@ let initialState = {
 
 const dialogsReducer = (
   state: initialStateType = initialState,
-  action: MessageActionTypes
+  action: actionsMessagesTypes
 ): initialStateType => {
   switch (action.type) {
     case "UPDATE_NEW_MESSAGE_TEXT_PROCESSING": {
@@ -49,7 +49,13 @@ const dialogsReducer = (
     case "SEND_MESSAGE": {
       return {
         ...state,
-        messages: [...state.messages, { id: 4, message: action.payload }],
+        messages: [
+          ...state.messages,
+          {
+            id: Math.random(),
+            message: Object.values(action.payload).toString(),
+          },
+        ],
       };
     }
     default:

@@ -77,26 +77,8 @@ export type PostType = {
   likesCount: number | null;
 };
 
-type updateMessageTextCreator_ProcessType = {
-  type: typeof UPDATE_NEW_MESSAGE_TEXT_PROCESSING;
-  payload: string;
-};
-
-type sendMessageCreatorType = {
-  type: typeof SEND_MESSAGE;
-  payload: string;
-};
-type updateMessageTextCreator_SuccessType = {
-  type: typeof UPDATE_NEW_MESSAGE_TEXT_SUCCESS;
-};
-
-export type MessageActionTypes =
-  | sendMessageCreatorType
-  | updateMessageTextCreator_SuccessType
-  | updateMessageTextCreator_ProcessType;
-
 export type MessageType = {
-  id: number | null;
+  id: number | undefined | string;
   message: string | null;
 };
 export type DialogType = {
@@ -105,7 +87,6 @@ export type DialogType = {
 };
 
 export type isLoadingACType = {
-  // type: typeof IS_LOADING;
   type: any;
   payload: boolean;
 };

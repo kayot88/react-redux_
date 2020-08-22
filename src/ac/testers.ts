@@ -133,3 +133,5 @@ let newObj: objType<typeof obj> = {
   age: 18,
   last: { lastname: "25" },
 };
+
+

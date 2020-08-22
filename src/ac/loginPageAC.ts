@@ -1,12 +1,10 @@
+import { ThunkAction } from "redux-thunk";
+import { ResultCodes } from "../api/api";
 import { setLoginApi } from "../api/loginApi";
+import { AppStateType } from "../redux/redux-store";
+import { ActionsLoginPageType, captchaType } from "../types/types";
 import { getUserProfileById } from "./profilePageAc";
 import { getUserAuth } from "./usersPage";
-import { LOGOUT, CAPTCHA, CAPTCHA_DEFAULT } from "../constants";
-import { stopSubmit } from "redux-form";
-import { captchaType, ActionsLoginPageType } from "../types/types";
-import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "../redux/redux-store";
-import { ResultCodes } from "../api/api";
 
 export const loginPageActions = {
   logoutAC: (userId: null, email: null, login: null, isLogin: false) => {

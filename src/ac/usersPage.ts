@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { sendMessageCreator } from ".";
+import { actionsMessages } from ".";
 import { ResultCodes } from "../api/api";
 import { getAuthUserApi } from "../api/authApi";
 import { usersApi } from "../api/usersApi";
@@ -159,6 +159,7 @@ export const initAPPTC = () => async (dispatch: any) => {
 
 export const newMessageThunk = (newMessage: string) => {
   return (dispatch: any) => {
-    dispatch(sendMessageCreator(newMessage));
+    dispatch(actionsMessages.sendMessageCreator(newMessage));
   };
 };
+

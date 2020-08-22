@@ -1,0 +1,35 @@
+interface Todo {
+  title: string;
+  description: string;
+}
+
+type TodoWithTitle = Pick<Todo, "title">;
+
+type TodoWithOutTitle = Omit<Todo, "title">;
+
+const todos: Record<string, Todo> = {
+  Todo1: {
+    title: "new todo",
+    description: "sddfsdfsdf",
+  },
+  Todo2: {
+    title: "new todo2",
+    description: "sddfsdfsdf2",
+  },
+};
+
+function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
+  return { ...todo, ...fieldsToUpdate };
+}
+
+const todo1 = {
+  title: "organize desk",
+  description: "clear clutter",
+};
+
+const todo2 = updateTodo(todo1, {
+  description: "throw out trash",
+});
+
+console.log(todo2);
+// todo2.description === "thro out trash";
