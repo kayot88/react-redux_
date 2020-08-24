@@ -125,4 +125,8 @@ const connector = connect(mapStateToProps, {
   getUsers,
 });
 
-export default compose(connector, withRouter, withAuth)(UsersApiContainer);
+export default compose<React.ComponentType<{ title: string }>>(
+  connector,
+  withRouter,
+  withAuth
+)(UsersApiContainer);

@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch File",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/ac/t.ts"
+      "program": "${file}"
     },
     {
       "name": "Debug CRA Tests",

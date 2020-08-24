@@ -20,4 +20,4 @@ const mapStateToProps = (state: AppStateType) => {
 const connector = connect(mapStateToProps, { newMessageThunk });
 export type DialogsPropsFromREduxType = ConnectedProps<typeof connector>;
 
-export default compose(connector, connect(mstp_redirect), withAuth)(Dialogs);
+export default compose<React.ComponentType>(connector, connect(mstp_redirect), withAuth)(Dialogs);

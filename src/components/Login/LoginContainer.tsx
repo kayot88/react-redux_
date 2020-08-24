@@ -52,5 +52,8 @@ const connector = connect(mstp, {
   captchaRestore,
 });
 
-export default compose(connector, withRouter)(LoginContainer);
+export default compose<React.ComponentType>(
+  connector,
+  withRouter
+)(LoginContainer);
 //

@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import { connect, Provider } from "react-redux";
-import { Route, withRouter, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { initAPPTC } from "./ac/usersPage";
 import "./App.css";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import Spinner from "./common/Spinner";
 import HeaderContainerWithConnect from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import Navbar from "./components/Navbar/Navbar";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import Spinner from "./common/Spinner";
-import store from "./redux/redux-store";
+import store, { AppStateType } from "./redux/redux-store";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import withSuspense from "./components/hoc/withSuspense";
 
-class App extends Component {
-  handlerPromiseError = (promiseRejectionEvent) => {
-    debugger
+const SuspendedDialogsContainer = withSuspense(DialogsContainer);
+const SuspendedProfileContainer = withSuspense(ProfileContainer);
+
+class App extends Component<MapPropsType & DispatchPropsType> {
+  handlerPromiseError = (promiseRejectionEvent: PromiseRejectionEvent) => {
     alert(promiseRejectionEvent);
   };
   componentDidMount() {
@@ -32,9 +35,15 @@ class App extends Component {
         <HeaderContainerWithConnect />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
-          <Route path="/users" render={() => <UsersContainer title={"Title"} />} />
+          <Route
+            path="/profile/:userId?"
+            render={() => <SuspendedProfileContainer />}
+          />
+          <Route path="/dialogs" render={() => <SuspendedDialogsContainer />} />
+          <Route
+            path="/users"
+            render={() => <UsersContainer title={"Title"} />}
+          />
           <Route path="/login" render={() => <LoginContainer />} />
         </div>
       </div>
@@ -44,7 +53,7 @@ class App extends Component {
   }
 }
 
-const mstp = (state) => {
+const mstp = (state: AppStateType) => {
   return {
     isInit: state.initApp.isInitialized,
     id: state.auth.userId,
@@ -53,9 +62,12 @@ const mstp = (state) => {
   };
 };
 
-let AppContainer = compose(withRouter, connect(mstp, { initAPPTC }))(App);
+let AppContainer = compose<React.ComponentType>(
+  withRouter,
+  connect(mstp, { initAPPTC })
+)(App);
 
-const MainApp = (props) => {
+const MainApp = (props: any) => {
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -66,3 +78,9 @@ const MainApp = (props) => {
 };
 
 export default MainApp;
+
+type MapPropsType = ReturnType<typeof mstp>;
+
+type DispatchPropsType = {
+  initAPPTC: () => void;
+};

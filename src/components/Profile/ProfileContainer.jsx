@@ -21,6 +21,7 @@ import {
 } from "./../../selectors/index";
 import { withAuth } from "./../hoc/withAuth";
 import Profile from "./Profile";
+import withSuspense from "../hoc/withSuspense";
 
 const { isLoadingAC } = UserPageActions;
 const { setProfileToStore } = ProfileActions;
@@ -76,5 +77,6 @@ export default compose(
     profileDataThunk,
   }),
   withRouter,
-  withAuth
+  withAuth,
+  // withSuspense,
 )(ProfileContainer);
