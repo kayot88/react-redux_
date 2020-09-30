@@ -2,47 +2,56 @@ import React, { useState } from "react";
 import FileChanger from "../../../common/FileChangerFeature/FileChanger/FileChanger";
 import Spinner from "../../../common/Spinner";
 import owl from "../../../img/owl.jpg";
+import { ProfileType, PhotosType } from "../../../types/types";
+import ProfileContacts from "../ProfileDataFeature/ProfileData/ProfileContacts";
 import ProfileData from "../ProfileDataFeature/ProfileData/ProfileData";
-import { ProfileDataForm } from "../ProfileDataFeature/ProfileData/ProfileDataForm";
+import ProfileDataForm from "../ProfileDataFeature/ProfileData/ProfileDataForm";
 import s from "./ProfileInfo.module.css";
 import UserStatus from "./Status copy";
-import { profileDataThunk } from "../ProfileDataFeature/ducks";
-import ProfileContacts from "../ProfileDataFeature/ProfileData/ProfileContacts";
 
-const ProfileInfo = React.memo((props) => {
+type ProfileInfoPropsType = {
+  profile: ProfileType;
+  profileDataThunk: (profile: ProfileType) => Promise<any>;
+  isOwner: boolean;
+  fileChangerThunk: (file: string) => void;
+  userPhoto: PhotosType;
+  isLoading: boolean;
+  // children?: React.ReactElement;
+  children?: any;
+};
+
+const ProfileInfo: React.FC<ProfileInfoPropsType> = (
+  props: ProfileInfoPropsType
+) => {
   const {
     aboutMe,
     lookingForAJob,
     lookingForAJobDescription,
     fullName,
     contacts,
+    photos,
   } = props.profile;
 
   const [editMode, setEditMode] = useState(false);
 
-  // dblClick handler
   const DblClickHandler = () => {
     console.log("DblClickHandler");
     setEditMode(true);
   };
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData: any) => {
     props.profileDataThunk(formData).then(() => {
       setEditMode(false);
     });
   };
 
-  if (!props.profile && !props.profile.photos) {
+  if (!props.profile && !photos) {
     return <Spinner />;
   } else {
     return (
       <div>
         <div className={s.descriptionBlock}>
-          <img
-            alt=""
-            className={s.img}
-            src={props.userPhoto.photos.image || owl}
-          />
+          <img alt="" className={s.img} src={props.userPhoto.small || owl} />
           {props.isOwner && (
             <FileChanger fileChangerThunk={props.fileChangerThunk} />
           )}
@@ -75,7 +84,7 @@ const ProfileInfo = React.memo((props) => {
               {props.profile.contacts && (
                 <div>
                   <b>Contacts:</b>
-                  <ProfileContacts contacts={contacts} />
+                  <ProfileContacts contacts={contacts} {...props} />
                 </div>
               )}
             </div>
@@ -84,6 +93,7 @@ const ProfileInfo = React.memo((props) => {
       </div>
     );
   }
-});
+};
+const ProfileInfoMomorized = React.memo(ProfileInfo);
 
-export default ProfileInfo;
+export default ProfileInfoMomorized;

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-import { connect, Provider } from "react-redux";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { connect, Provider, ConnectedProps } from "react-redux";
+import {
+  BrowserRouter,
+  Route,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-dom";
 import { compose } from "redux";
 import { initAPPTC } from "./ac/usersPage";
 import "./App.css";
@@ -12,12 +17,12 @@ import UsersContainer from "./components/Users/UsersContainer";
 import store, { AppStateType } from "./redux/redux-store";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import withSuspense from "./components/hoc/withSuspense";
+import { withSuspense } from "./components/hoc/withSuspense";
 
 const SuspendedDialogsContainer = withSuspense(DialogsContainer);
 const SuspendedProfileContainer = withSuspense(ProfileContainer);
 
-class App extends Component<MapPropsType & DispatchPropsType> {
+class App extends Component<MainAppPropsType & RouteProps> {
   handlerPromiseError = (promiseRejectionEvent: PromiseRejectionEvent) => {
     alert(promiseRejectionEvent);
   };
@@ -53,6 +58,12 @@ class App extends Component<MapPropsType & DispatchPropsType> {
   }
 }
 
+type MatchParams =  {
+  userId: any;
+}
+
+export interface RouteProps extends RouteComponentProps<MatchParams> {}
+
 const mstp = (state: AppStateType) => {
   return {
     isInit: state.initApp.isInitialized,
@@ -61,13 +72,15 @@ const mstp = (state: AppStateType) => {
     login: state.auth.login,
   };
 };
+const connector = connect(mstp, { initAPPTC }) 
+type MainAppPropsType = ConnectedProps<typeof connector>
 
 let AppContainer = compose<React.ComponentType>(
+  connector,
   withRouter,
-  connect(mstp, { initAPPTC })
 )(App);
 
-const MainApp = (props: any) => {
+const MainApp: React.FC = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -79,7 +92,7 @@ const MainApp = (props: any) => {
 
 export default MainApp;
 
-type MapPropsType = ReturnType<typeof mstp>;
+// type MapPropsType = ReturnType<typeof mstp>;
 
 type DispatchPropsType = {
   initAPPTC: () => void;

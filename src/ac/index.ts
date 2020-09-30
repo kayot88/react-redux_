@@ -1,14 +1,7 @@
 import { Dispatch } from "redux";
-
-import {
-
-  ADD_POST,
-
-  UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
-} from "../constants/index";
 import { BaseThunkType, InferActionTypes } from "../redux/redux-store";
 import { ActionTypes } from "./usersPage";
+
 
 export type actionsMessagesTypes = InferActionTypes<typeof actionsMessages>;
 

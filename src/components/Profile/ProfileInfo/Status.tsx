@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { RouteProps } from "react-router-dom";
 
-export default class UserStatus extends Component {
+
+
+export default class UserStatus extends Component<any & RouteProps> {
   state = {
     editMode: false,
     localUserStatus: "",
@@ -12,7 +15,7 @@ export default class UserStatus extends Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     if (this.props.status !== prevProps.status) {
       this.setState({
         localUserStatus: this.props.status,
@@ -20,7 +23,7 @@ export default class UserStatus extends Component {
     }
   }
 
-  handlerStatusChange = (e) => {
+  handlerStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       localUserStatus: e.currentTarget.value,
     });

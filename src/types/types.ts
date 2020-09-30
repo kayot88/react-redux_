@@ -1,12 +1,4 @@
-import {
-  SET_USER_AUTH,
-  LOGOUT,
-  CAPTCHA,
-  UPDATE_NEW_MESSAGE_TEXT_PROCESSING,
-  SEND_MESSAGE,
-  UPDATE_NEW_MESSAGE_TEXT_SUCCESS,
-  IS_LOADING,
-} from "../constants";
+import { CAPTCHA, LOGOUT, SET_USER_AUTH } from "../constants";
 
 export type ContactsType = {
   github: string;
@@ -17,6 +9,7 @@ export type ContactsType = {
   website: string;
   youtube: string;
   mainLink: string;
+  // contacts: ContactsType;
 };
 
 export type ProfileType = {

@@ -1,8 +1,14 @@
-import React, { useState } from "react";
-import styles from "./ProfileData.module.css";
-import ProfileContacts from "./ProfileContacts";
+import React, { FC } from "react";
+// type ProfileDataType = {
+//   aboutMe;
+//   lookingForAJob;
+//   lookingForAJobDescription;
+//   fullName;
+//   contacts;
+//   DblClickHandler;
+// };
 
-const ProfileData = ({ ...props }) => {
+const ProfileData: any = ({ ...props }: any) => {
   const {
     aboutMe,
     lookingForAJob,
@@ -12,7 +18,7 @@ const ProfileData = ({ ...props }) => {
     DblClickHandler,
   } = props;
 
-  console.log("props", props);
+  // console.log("props", props);
 
   let newObj = { aboutMe, lookingForAJob, lookingForAJobDescription, fullName };
   let newArr = Object.keys(newObj);

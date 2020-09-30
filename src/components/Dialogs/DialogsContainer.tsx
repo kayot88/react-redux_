@@ -12,12 +12,15 @@ const mstp_redirect = (state: AppStateType) => {
 };
 
 const mapStateToProps = (state: AppStateType) => {
-  return {
+return {
     dialogsPage: state.dialogsPage,
   };
 };
 
+
+// connector typing
 const connector = connect(mapStateToProps, { newMessageThunk });
 export type DialogsPropsFromREduxType = ConnectedProps<typeof connector>;
 
+// compose typing
 export default compose<React.ComponentType>(connector, connect(mstp_redirect), withAuth)(Dialogs);

@@ -1,9 +1,9 @@
 import React from "react";
 import { InjectedFormProps, reduxForm } from "redux-form";
 import {
-  createField,
   Textarea,
   validate,
+  createField,
 } from "../../assets/validation/formValidate";
 import { initialStateType } from "../../redux/dialogs-reducer";
 import DialogItem from "./DialogItem/DialogItem";
@@ -49,6 +49,8 @@ type DialogsFormType = {
 
 type availableNames = Extract<keyof DialogsFormType, string>;
 type PropsType = {};
+
+
 let DialogsForm: React.FC<
   InjectedFormProps<DialogsFormType, PropsType> & PropsType
 > = (props) => {

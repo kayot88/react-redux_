@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { getUserPhotoReselect } from "../../common/FileChangerFeature/selectors";
@@ -8,9 +8,9 @@ import {
   getUserProfileById,
   setStatusTC,
   ProfileActions,
-} from "./../../ac/profilePageAc";
-import { UserPageActions } from "./../../ac/usersPage";
-import { fileChangerThunk } from "./../../common/FileChangerFeature/ducks";
+} from "../../ac/profilePageAc";
+import { UserPageActions } from "../../ac/usersPage";
+import { fileChangerThunk } from "../../common/FileChangerFeature/ducks";
 import { profileDataThunk } from "./ProfileDataFeature/ducks";
 
 import {
@@ -18,14 +18,33 @@ import {
   getProfileReselect,
   getUserIDReselect,
   getUserStatusReselect,
-} from "./../../selectors/index";
-import { withAuth } from "./../hoc/withAuth";
+} from "../../selectors/index";
+import { withAuth } from "../hoc/withAuth";
 import Profile from "./Profile";
-import withSuspense from "../hoc/withSuspense";
+import { withSuspense } from "../hoc/withSuspense";
+import { AppStateType } from "../../redux/redux-store";
+import { RouteProps } from "../../App";
+import { ProfileType } from "../../types/types";
 
 const { isLoadingAC } = UserPageActions;
 const { setProfileToStore } = ProfileActions;
-class ProfileContainer extends Component {
+
+type OwnProps = {
+  idUser?: number | undefined;
+  currentPage: number;
+  profile:ProfileType
+  store: any
+  // setStatus: () => void;
+};
+
+type AllTypes = FromConnectTypes & OwnProps & RouteProps;
+
+type PrevPropsTypes = {
+  currentPage: number | null;
+  getUserProfileById: (userId: number) => void;
+};
+
+class ProfileContainer extends Component<AllTypes> {
   componentDidMount() {
     this.props.getUserProfileById(
       this.props.match.params.userId,
@@ -34,10 +53,12 @@ class ProfileContainer extends Component {
 
     this.props.getStatusTC(this.props.match.params.userId || this.props.idUser);
   }
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps: any) {
     if (this.props.currentPage !== prevProps.currentPage) {
       this.props.getUserProfileById(
-        this.props.match.params.userId || this.props.idUser
+        this.props.match.params.userId,
+        this.props.idUser
       );
     }
   }
@@ -56,7 +77,7 @@ class ProfileContainer extends Component {
   }
 }
 
-const mstp = (state) => {
+const mstp = (state: AppStateType) => {
   return {
     profile: getProfileReselect(state),
     isLoading: getLoadingReselect(state),
@@ -66,17 +87,20 @@ const mstp = (state) => {
   };
 };
 
-export default compose(
-  connect(mstp, {
-    setProfileToStore,
-    isLoadingAC,
-    getUserProfileById,
-    setStatusTC,
-    getStatusTC,
-    fileChangerThunk,
-    profileDataThunk,
-  }),
+export type FromConnectTypes = ConnectedProps<typeof connector>;
+const connector = connect(mstp, {
+  setProfileToStore,
+  isLoadingAC,
+  getUserProfileById,
+  setStatusTC,
+  getStatusTC,
+  fileChangerThunk,
+  profileDataThunk,
+});
+
+export default compose<React.ComponentType>(
+  connector,
   withRouter,
   withAuth,
-  // withSuspense,
+  withSuspense
 )(ProfileContainer);

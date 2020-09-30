@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Status component should snapshot component 1`] = `
+<div>
+  <div>
+    <span
+      data-testid="span"
+      onClick={[Function]}
+    >
+      Enter status here
+      ----
+    </span>
+  </div>
+</div>
+`;

@@ -21,16 +21,6 @@ import {
 import { UserType } from "../../types/types";
 import { withAuth } from "../hoc/withAuth";
 import Users from "./UsersC";
-// import { setUsers } from "./../../ac/usersPage";
-// import { setTotalCount, isLoadingAC } from "../../ac/usersPage";
-
-// type UsersContMdtpType = {
-//   setCurrentPage: () => void;
-//   onUnFollowClick: () => void;
-//   onFollowClick: () => void;
-//   isFollowing: (following: boolean, userId: number) => void;
-//   getUsers: (currentPage: number, countByPage: number) => void;
-// };
 
 type UsersContMstpType = {
   isLoading: boolean;
@@ -45,7 +35,6 @@ type UsersContOwnType = {
   title: string;
 };
 
-// type PropsType = UsersContMdtpType & UsersContMstpType & UsersContOwnType;
 type PropsType = PropsFromReduxType & UsersContOwnType;
 
 class UsersApiContainer extends Component<PropsType> {
@@ -93,17 +82,6 @@ const mapStateToProps = (state: AppStateType): UsersContMstpType => {
   };
 };
 
-// const mapDispatchToProps = (dispatch: any): UsersContMdtpType => {
-//   return {
-//     onFollowClick: () => dispatch(onFollowClick),
-//     setCurrentPage: () => dispatch(setCurrentPage),
-//     onUnFollowClick: () => dispatch(onUnFollowClick),
-//     isFollowing: () => dispatch(followInProgres),
-//     getUsers: () => {
-//       dispatch(getUsers);
-//     },
-//   };
-// };
 
 const {
   setUsers,
