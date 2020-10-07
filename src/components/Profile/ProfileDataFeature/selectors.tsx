@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
+import { AppStateType } from "../../../redux/redux-store";
 
-const userPhotoSelector = (state) => {
+const userPhotoSelector = (state: AppStateType) => {
   return state.userPhoto;
 };
 

@@ -20,9 +20,8 @@ type ProfileInfoPropsType = {
   children?: any;
 };
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = (
-  props: ProfileInfoPropsType
-) => {
+const ProfileInfo: React.FC<any> = (props) => {
+  console.log(props.profile);
   const {
     aboutMe,
     lookingForAJob,

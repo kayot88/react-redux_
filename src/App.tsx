@@ -58,9 +58,9 @@ class App extends Component<MainAppPropsType & RouteProps> {
   }
 }
 
-type MatchParams =  {
+type MatchParams = {
   userId: any;
-}
+};
 
 export interface RouteProps extends RouteComponentProps<MatchParams> {}
 
@@ -72,13 +72,10 @@ const mstp = (state: AppStateType) => {
     login: state.auth.login,
   };
 };
-const connector = connect(mstp, { initAPPTC }) 
-type MainAppPropsType = ConnectedProps<typeof connector>
+const connector = connect(mstp, { initAPPTC });
+type MainAppPropsType = ConnectedProps<typeof connector>;
 
-let AppContainer = compose<React.ComponentType>(
-  connector,
-  withRouter,
-)(App);
+let AppContainer = compose<React.ComponentType>(connector, withRouter)(App);
 
 const MainApp: React.FC = () => {
   return (

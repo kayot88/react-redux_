@@ -12,7 +12,7 @@ const ProfileContacts: any = ({             /* 💩 ❓ */
   return newArr.map((item) => {
     return (
       <React.Fragment>
-        <div key={mathRandom()} className="item">
+        <div key={mathRandom()+1} className="item">
           <b className="strong">{item}</b> : {contacts[item] || "----"}
         </div>
       </React.Fragment>

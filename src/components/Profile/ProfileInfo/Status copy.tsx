@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
 const UserStatus = React.memo((props: any) => {
   const [editMode, setEditMode] = useState(false);
   const [localStatus, setLocalStatus] = useState(props.status);
@@ -46,4 +45,3 @@ const UserStatus = React.memo((props: any) => {
 });
 
 export default UserStatus;
-

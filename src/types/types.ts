@@ -13,7 +13,7 @@ export type ContactsType = {
 };
 
 export type ProfileType = {
-  aboutMe: string;
+  aboutMe: string | null;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
