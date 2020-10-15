@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.7",
+    "@testing-library/react": "^11.1.0",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^26.0.9",
     "@types/math-random": "^1.0.0",
